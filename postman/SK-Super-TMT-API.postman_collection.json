@@ -1,0 +1,197 @@
+{
+  "info": {
+    "name": "SK Super TMT API",
+    "description": "Backend API for form submissions, admin panel, OTP, and auth.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:3000" },
+    { "key": "token", "value": "" }
+  ],
+  "item": [
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Login",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "if (pm.response.code === 201 || pm.response.code === 200) {",
+                  "    const json = pm.response.json();",
+                  "    if (json.access_token) {",
+                  "        pm.collectionVariables.set('token', json.access_token);",
+                  "    }",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"admin@sksupertmt.com\",\n  \"password\": \"Admin@123\"\n}"
+            },
+            "url": "{{baseUrl}}/auth/login"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Health",
+      "item": [
+        {
+          "name": "Health Check",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/health"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Form Submissions",
+      "item": [
+        {
+          "name": "Create Form Submission",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "data",
+                  "value": "{\"formType\":\"registration\",\"pi_firstName\":\"Test\",\"pi_lastName\":\"User\",\"pi_phone\":\"9876543210\",\"pi_profession\":\"Mason\"}",
+                  "description": "JSON string of form fields",
+                  "type": "text"
+                },
+                {
+                  "key": "photoProof",
+                  "type": "file",
+                  "src": [],
+                  "description": "Optional photo proof file"
+                },
+                {
+                  "key": "idProof",
+                  "type": "file",
+                  "src": [],
+                  "description": "Optional ID proof file"
+                },
+                {
+                  "key": "idProofBack",
+                  "type": "file",
+                  "src": [],
+                  "description": "Optional ID proof back file"
+                }
+              ]
+            },
+            "url": "{{baseUrl}}/form-submissions"
+          }
+        }
+      ]
+    },
+    {
+      "name": "OTP",
+      "item": [
+        {
+          "name": "Send OTP",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"receiver\": \"919876543210\"\n}"
+            },
+            "url": "{{baseUrl}}/otp/send"
+          }
+        },
+        {
+          "name": "Validate OTP",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"receiver\": \"919876543210\",\n  \"code\": \"123456\"\n}"
+            },
+            "url": "{{baseUrl}}/otp/validate"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Admin",
+      "item": [
+        {
+          "name": "List Submissions",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/admin/submissions?page=1&limit=20",
+              "host": ["{{baseUrl}}"],
+              "path": ["admin", "submissions"],
+              "query": [
+                { "key": "search", "value": "", "disabled": true },
+                { "key": "professionTypes", "value": "Mason,Engineer", "disabled": true },
+                { "key": "isContacted", "value": "true", "disabled": true },
+                { "key": "isApproved", "value": "false", "disabled": true },
+                { "key": "isDeleted", "value": "false", "disabled": true },
+                { "key": "isActive", "value": "true", "disabled": true },
+                { "key": "isPending", "value": "true", "disabled": true },
+                { "key": "isRejected", "value": "false", "disabled": true },
+                { "key": "page", "value": "1" },
+                { "key": "limit", "value": "20" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Submission by ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "url": "{{baseUrl}}/admin/submissions/:id",
+            "variable": [
+              { "key": "id", "value": "" }
+            ]
+          }
+        },
+        {
+          "name": "Update Submission",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"isContacted\": true,\n  \"isApproved\": false,\n  \"isPending\": true,\n  \"enteredBy\": \"admin@example.com\"\n}"
+            },
+            "url": "{{baseUrl}}/admin/submissions/:id",
+            "variable": [
+              { "key": "id", "value": "" }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

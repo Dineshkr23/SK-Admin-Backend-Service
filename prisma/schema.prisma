@@ -1,0 +1,83 @@
+// Prisma 7 - driver adapter required at runtime
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model AdminUser {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  password  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model FormSubmission {
+  id                    String    @id @default(uuid())
+  legacyId              Int?      @unique
+  formType              String    // enum: FORM_A, FORM_B, etc. or registration, etc.
+  skPassportNo          String?   @unique
+  validationOtpGenerated String?
+  registeringDate      DateTime?
+  // PI fields
+  pi_firstName          String?
+  pi_lastName           String?
+  pi_profession         String?
+  pi_dob                String?
+  pi_phone              String?
+  pi_whatsAppNumber     String?
+  pi_emailId            String?
+  pi_addressLane1       String?
+  pi_addressLane2       String?
+  pi_taluk              String?
+  pi_district           String?
+  pi_city               String?
+  pi_state              String?
+  pi_pincode            String?
+  pi_landmark           String?
+  pi_anniversaryDate    String?
+  // Ref
+  ref_nameOfTheperson   String?
+  ref_place             String?
+  // SOD
+  sod_nameOfTheDealer   String?
+  sod_place             String?
+  // Image URLs (S3)
+  photoProofPath        String?
+  idProofPath           String?
+  idProofBackPath       String?
+  // Status
+  isContacted           Boolean?  @default(false)
+  isApproved            Boolean?  @default(false)
+  isDeleted             Boolean?  @default(false)
+  isActive              Boolean?  @default(true)
+  isPending             Boolean?  @default(true)
+  isRejected            Boolean?  @default(false)
+  // Shop
+  shop_location         String?
+  shop_Address1         String?
+  shop_Address2         String?
+  shop_District         String?
+  shop_Taluk            String?
+  shop_City             String?
+  shop_Pincode          String?
+  shop_Landmark         String?
+  enteredBy             String?
+  enteredDate           DateTime?
+  createdAt             DateTime  @default(now())
+  updatedAt             DateTime  @updatedAt
+  // Legacy base64 (migration only)
+  photoProofData        String?   @db.Text
+  idProofData           String?   @db.Text
+  idProofBackData       String?   @db.Text
+
+  @@index([pi_profession])
+  @@index([formType])
+  @@index([isContacted, isApproved, isDeleted, isActive, isPending, isRejected])
+  @@index([registeringDate])
+  @@index([skPassportNo])
+}
