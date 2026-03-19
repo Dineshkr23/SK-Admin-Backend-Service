@@ -22,6 +22,7 @@ export class FormSubmissionsController {
         { name: 'photoProof', maxCount: 1 },
         { name: 'idProof', maxCount: 1 },
         { name: 'idProofBack', maxCount: 1 },
+        { name: 'panProof', maxCount: 1 },
       ],
       { limits: { fileSize: 10 * 1024 * 1024 } },
     ),
@@ -33,6 +34,7 @@ export class FormSubmissionsController {
       photoProof?: Express.Multer.File[];
       idProof?: Express.Multer.File[];
       idProofBack?: Express.Multer.File[];
+      panProof?: Express.Multer.File[];
     },
   ) {
     const dto: CreateFormSubmissionDto =
@@ -41,6 +43,7 @@ export class FormSubmissionsController {
       photoProof: files?.photoProof,
       idProof: files?.idProof,
       idProofBack: files?.idProofBack,
+      panProof: files?.panProof,
     });
     return { id: result.id, skPassportNo: result.skPassportNo };
   }

@@ -1,5 +1,15 @@
 import { IsOptional, IsString, IsBoolean, IsInt, Min, Max } from 'class-validator';
-import { Type } from 'class-transformer';
+import { Transform, Type } from 'class-transformer';
+
+function toBoolean(value: unknown): boolean | undefined {
+  if (typeof value === 'boolean') return value;
+  if (typeof value === 'string') {
+    const normalized = value.trim().toLowerCase();
+    if (normalized === 'true') return true;
+    if (normalized === 'false') return false;
+  }
+  return undefined;
+}
 
 export class ListSubmissionsQueryDto {
   @IsOptional()
@@ -8,31 +18,58 @@ export class ListSubmissionsQueryDto {
 
   @IsOptional()
   @IsString()
+  // canonical backend `formType` values, comma-separated
+  formTypes?: string;
+
+  @IsOptional()
+  @IsString()
   professionTypes?: string; // comma-separated
 
   @IsOptional()
-  @Type(() => Boolean)
+  @Transform(({ value }) => toBoolean(value))
+  @IsBoolean()
   isContacted?: boolean;
 
   @IsOptional()
-  @Type(() => Boolean)
+  @Transform(({ value }) => toBoolean(value))
+  @IsBoolean()
   isApproved?: boolean;
 
   @IsOptional()
-  @Type(() => Boolean)
+  @Transform(({ value }) => toBoolean(value))
+  @IsBoolean()
   isDeleted?: boolean;
 
   @IsOptional()
-  @Type(() => Boolean)
+  @Transform(({ value }) => toBoolean(value))
+  @IsBoolean()
   isActive?: boolean;
 
   @IsOptional()
-  @Type(() => Boolean)
+  @Transform(({ value }) => toBoolean(value))
+  @IsBoolean()
   isPending?: boolean;
 
   @IsOptional()
-  @Type(() => Boolean)
+  @Transform(({ value }) => toBoolean(value))
+  @IsBoolean()
   isRejected?: boolean;
+
+  @IsOptional()
+  @IsString()
+  dateFrom?: string; // YYYY-MM-DD
+
+  @IsOptional()
+  @IsString()
+  dateTo?: string; // YYYY-MM-DD
+
+  @IsOptional()
+  @IsString()
+  salesOfficer?: string; // comma-separated canonical names
+
+  @IsOptional()
+  @IsString()
+  reportingManager?: string; // comma-separated canonical names
 
   @IsOptional()
   @Type(() => Number)

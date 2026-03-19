@@ -18,10 +18,21 @@ model AdminUser {
 
 model FormSubmission {
   id                    String    @id @default(uuid())
-  legacyId              Int?      @unique
+  legacyId              Int?
   formType              String    // enum: FORM_A, FORM_B, etc. or registration, etc.
-  skPassportNo          String?   @unique
+  skPassportNo          String?
+  /**
+   * Internal sequential issuer (source of truth) for newly-issued SK passports.
+   * Legacy rows keep this NULL so duplicate skPassportNo values can coexist.
+   */
+  skPassportSeq         BigInt?   @unique
   validationOtpGenerated String?
+  // Raw form fields captured from UI forms
+  title                 String?
+  age                   String?
+  sameAsAbove           Boolean?
+  remarks               String?
+  validationCode        String?
   registeringDate      DateTime?
   // PI fields
   pi_firstName          String?
@@ -41,8 +52,9 @@ model FormSubmission {
   pi_landmark           String?
   pi_anniversaryDate    String?
   // Ref
-  ref_nameOfTheperson   String?
-  ref_place             String?
+  ref_nameOfTheperson    String?
+  ref_place              String?
+  reporting_manager_name String?
   // SOD
   sod_nameOfTheDealer   String?
   sod_place             String?
@@ -74,10 +86,131 @@ model FormSubmission {
   photoProofData        String?   @db.Text
   idProofData           String?   @db.Text
   idProofBackData       String?   @db.Text
+  panProofPath          String?
+  panProofData          String?   @db.Text
+
+  // Dealer-only fields (SkDealer form)
+  dealershipName        String?
+  contactPerson         String?
+  gstNumber             String?
+  panNumber             String?
+  ownerSameAsAbove      Boolean?
+  ownerTitle            String?
+  ownerFirstName        String?
+  ownerLastName         String?
+  ownerOfficeAddressLine1  String?
+  ownerOfficeAddressLine2  String?
+  ownerCity             String?
+  ownerState            String?
+  ownerPostalCode       String?
+  ownerPlace            String?
+  ownerPhoneNumber      String?
+  ownerEmailId          String?
+  secondContactTitle    String?
+  secondContactFirstName  String?
+  secondContactLastName String?
+  secondContactPhone    String?
+  secondContactEmail    String?
+  spouseName            String?
+  spouseDob             String?
+  weddingDay            String?
+  childName1            String?
+  childDob1             String?
+  childName2            String?
+  childDob2             String?
+  childName3            String?
+  childDob3             String?
+  godownSameAsCompany   Boolean?
+  godownAddressLine1    String?
+  godownAddressLine2    String?
+  godownCity            String?
+  godownState           String?
+  godownPostalCode      String?
+  godownContactPerson   String?
+  godownContactMobile   String?
+  referenceName1        String?
+  referencePhone1       String?
+  referenceDetails1     String?
+  referenceName2        String?
+  referencePhone2       String?
+  referenceDetails2     String?
+
+  // Relations (legacy import / blobs)
+  legacyRegistrations   LegacyRegistration[]
+  legacyBlob            LegacyBlob?
 
   @@index([pi_profession])
   @@index([formType])
   @@index([isContacted, isApproved, isDeleted, isActive, isPending, isRejected])
   @@index([registeringDate])
   @@index([skPassportNo])
+  @@index([legacyId])
+  @@index([ref_nameOfTheperson])
+  @@index([reporting_manager_name])
+}
+
+/**
+ * Stores legacy import source rows (idempotent, resumable).
+ * Allows preserving duplicates from the legacy DB (passport numbers, legacy ids, etc.)
+ * while still linking each legacy row to its canonical FormSubmission.
+ */
+model LegacyRegistration {
+  id              String         @id @default(uuid())
+  legacySource    String
+  legacyRowIndex  Int
+  legacyId        Int?
+  legacyPassportNo String?
+  rawTableRecord  Json?
+  rawDetailRecord Json?
+  submissionId    String?
+  submission      FormSubmission? @relation(fields: [submissionId], references: [id], onDelete: SetNull)
+  createdAt       DateTime       @default(now())
+
+  @@unique([legacySource, legacyRowIndex])
+  @@index([legacyId])
+  @@index([legacyPassportNo])
+  @@index([submissionId])
+}
+
+/**
+ * Legacy base64 blobs moved off the hot path.
+ * The API should not return these by default.
+ */
+model LegacyBlob {
+  id             String         @id @default(uuid())
+  submissionId   String         @unique
+  submission     FormSubmission @relation(fields: [submissionId], references: [id], onDelete: Cascade)
+  photoProofData String?        @db.Text
+  idProofData    String?        @db.Text
+  idProofBackData String?       @db.Text
+  createdAt      DateTime       @default(now())
+  updatedAt      DateTime       @updatedAt
+
+  @@index([submissionId])
+}
+
+/**
+ * Transactional counter to allocate strictly sequential SK passports.
+ * Using a table (not a Postgres sequence) keeps allocation rollback-safe.
+ */
+model PassportCounter {
+  key        String  @id
+  lastIssued BigInt  @default(0)
+  updatedAt  DateTime @updatedAt
+}
+
+model SalesOfficer {
+  id             String   @id @default(uuid())
+  name           String   @unique
+  nameNormalized String   @unique
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+}
+
+model ReportingManager {
+  id             String   @id @default(uuid())
+  name           String   @unique
+  nameNormalized String   @unique
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
 }

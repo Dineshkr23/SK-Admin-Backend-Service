@@ -133,7 +133,13 @@ exports.Prisma.FormSubmissionScalarFieldEnum = {
   legacyId: 'legacyId',
   formType: 'formType',
   skPassportNo: 'skPassportNo',
+  skPassportSeq: 'skPassportSeq',
   validationOtpGenerated: 'validationOtpGenerated',
+  title: 'title',
+  age: 'age',
+  sameAsAbove: 'sameAsAbove',
+  remarks: 'remarks',
+  validationCode: 'validationCode',
   registeringDate: 'registeringDate',
   pi_firstName: 'pi_firstName',
   pi_lastName: 'pi_lastName',
@@ -153,6 +159,7 @@ exports.Prisma.FormSubmissionScalarFieldEnum = {
   pi_anniversaryDate: 'pi_anniversaryDate',
   ref_nameOfTheperson: 'ref_nameOfTheperson',
   ref_place: 'ref_place',
+  reporting_manager_name: 'reporting_manager_name',
   sod_nameOfTheDealer: 'sod_nameOfTheDealer',
   sod_place: 'sod_place',
   photoProofPath: 'photoProofPath',
@@ -178,12 +185,107 @@ exports.Prisma.FormSubmissionScalarFieldEnum = {
   updatedAt: 'updatedAt',
   photoProofData: 'photoProofData',
   idProofData: 'idProofData',
-  idProofBackData: 'idProofBackData'
+  idProofBackData: 'idProofBackData',
+  panProofPath: 'panProofPath',
+  panProofData: 'panProofData',
+  dealershipName: 'dealershipName',
+  contactPerson: 'contactPerson',
+  gstNumber: 'gstNumber',
+  panNumber: 'panNumber',
+  ownerSameAsAbove: 'ownerSameAsAbove',
+  ownerTitle: 'ownerTitle',
+  ownerFirstName: 'ownerFirstName',
+  ownerLastName: 'ownerLastName',
+  ownerOfficeAddressLine1: 'ownerOfficeAddressLine1',
+  ownerOfficeAddressLine2: 'ownerOfficeAddressLine2',
+  ownerCity: 'ownerCity',
+  ownerState: 'ownerState',
+  ownerPostalCode: 'ownerPostalCode',
+  ownerPlace: 'ownerPlace',
+  ownerPhoneNumber: 'ownerPhoneNumber',
+  ownerEmailId: 'ownerEmailId',
+  secondContactTitle: 'secondContactTitle',
+  secondContactFirstName: 'secondContactFirstName',
+  secondContactLastName: 'secondContactLastName',
+  secondContactPhone: 'secondContactPhone',
+  secondContactEmail: 'secondContactEmail',
+  spouseName: 'spouseName',
+  spouseDob: 'spouseDob',
+  weddingDay: 'weddingDay',
+  childName1: 'childName1',
+  childDob1: 'childDob1',
+  childName2: 'childName2',
+  childDob2: 'childDob2',
+  childName3: 'childName3',
+  childDob3: 'childDob3',
+  godownSameAsCompany: 'godownSameAsCompany',
+  godownAddressLine1: 'godownAddressLine1',
+  godownAddressLine2: 'godownAddressLine2',
+  godownCity: 'godownCity',
+  godownState: 'godownState',
+  godownPostalCode: 'godownPostalCode',
+  godownContactPerson: 'godownContactPerson',
+  godownContactMobile: 'godownContactMobile',
+  referenceName1: 'referenceName1',
+  referencePhone1: 'referencePhone1',
+  referenceDetails1: 'referenceDetails1',
+  referenceName2: 'referenceName2',
+  referencePhone2: 'referencePhone2',
+  referenceDetails2: 'referenceDetails2'
+};
+
+exports.Prisma.LegacyRegistrationScalarFieldEnum = {
+  id: 'id',
+  legacySource: 'legacySource',
+  legacyRowIndex: 'legacyRowIndex',
+  legacyId: 'legacyId',
+  legacyPassportNo: 'legacyPassportNo',
+  rawTableRecord: 'rawTableRecord',
+  rawDetailRecord: 'rawDetailRecord',
+  submissionId: 'submissionId',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.LegacyBlobScalarFieldEnum = {
+  id: 'id',
+  submissionId: 'submissionId',
+  photoProofData: 'photoProofData',
+  idProofData: 'idProofData',
+  idProofBackData: 'idProofBackData',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.PassportCounterScalarFieldEnum = {
+  key: 'key',
+  lastIssued: 'lastIssued',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.SalesOfficerScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  nameNormalized: 'nameNormalized',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.ReportingManagerScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  nameNormalized: 'nameNormalized',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 };
 
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
+};
+
+exports.Prisma.NullableJsonNullValueInput = {
+  DbNull: Prisma.DbNull,
+  JsonNull: Prisma.JsonNull
 };
 
 exports.Prisma.QueryMode = {
@@ -196,10 +298,21 @@ exports.Prisma.NullsOrder = {
   last: 'last'
 };
 
+exports.Prisma.JsonNullValueFilter = {
+  DbNull: Prisma.DbNull,
+  JsonNull: Prisma.JsonNull,
+  AnyNull: Prisma.AnyNull
+};
+
 
 exports.Prisma.ModelName = {
   AdminUser: 'AdminUser',
-  FormSubmission: 'FormSubmission'
+  FormSubmission: 'FormSubmission',
+  LegacyRegistration: 'LegacyRegistration',
+  LegacyBlob: 'LegacyBlob',
+  PassportCounter: 'PassportCounter',
+  SalesOfficer: 'SalesOfficer',
+  ReportingManager: 'ReportingManager'
 };
 
 /**

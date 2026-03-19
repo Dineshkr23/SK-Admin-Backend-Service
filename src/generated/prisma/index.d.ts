@@ -23,6 +23,38 @@ export type AdminUser = $Result.DefaultSelection<Prisma.$AdminUserPayload>
  * 
  */
 export type FormSubmission = $Result.DefaultSelection<Prisma.$FormSubmissionPayload>
+/**
+ * Model LegacyRegistration
+ * *
+ *  * Stores legacy import source rows (idempotent, resumable).
+ *  * Allows preserving duplicates from the legacy DB (passport numbers, legacy ids, etc.)
+ *  * while still linking each legacy row to its canonical FormSubmission.
+ */
+export type LegacyRegistration = $Result.DefaultSelection<Prisma.$LegacyRegistrationPayload>
+/**
+ * Model LegacyBlob
+ * *
+ *  * Legacy base64 blobs moved off the hot path.
+ *  * The API should not return these by default.
+ */
+export type LegacyBlob = $Result.DefaultSelection<Prisma.$LegacyBlobPayload>
+/**
+ * Model PassportCounter
+ * *
+ *  * Transactional counter to allocate strictly sequential SK passports.
+ *  * Using a table (not a Postgres sequence) keeps allocation rollback-safe.
+ */
+export type PassportCounter = $Result.DefaultSelection<Prisma.$PassportCounterPayload>
+/**
+ * Model SalesOfficer
+ * 
+ */
+export type SalesOfficer = $Result.DefaultSelection<Prisma.$SalesOfficerPayload>
+/**
+ * Model ReportingManager
+ * 
+ */
+export type ReportingManager = $Result.DefaultSelection<Prisma.$ReportingManagerPayload>
 
 /**
  * ##  Prisma Client ʲˢ
@@ -164,6 +196,56 @@ export class PrismaClient<
     * ```
     */
   get formSubmission(): Prisma.FormSubmissionDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.legacyRegistration`: Exposes CRUD operations for the **LegacyRegistration** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more LegacyRegistrations
+    * const legacyRegistrations = await prisma.legacyRegistration.findMany()
+    * ```
+    */
+  get legacyRegistration(): Prisma.LegacyRegistrationDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.legacyBlob`: Exposes CRUD operations for the **LegacyBlob** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more LegacyBlobs
+    * const legacyBlobs = await prisma.legacyBlob.findMany()
+    * ```
+    */
+  get legacyBlob(): Prisma.LegacyBlobDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.passportCounter`: Exposes CRUD operations for the **PassportCounter** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more PassportCounters
+    * const passportCounters = await prisma.passportCounter.findMany()
+    * ```
+    */
+  get passportCounter(): Prisma.PassportCounterDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.salesOfficer`: Exposes CRUD operations for the **SalesOfficer** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more SalesOfficers
+    * const salesOfficers = await prisma.salesOfficer.findMany()
+    * ```
+    */
+  get salesOfficer(): Prisma.SalesOfficerDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.reportingManager`: Exposes CRUD operations for the **ReportingManager** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more ReportingManagers
+    * const reportingManagers = await prisma.reportingManager.findMany()
+    * ```
+    */
+  get reportingManager(): Prisma.ReportingManagerDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -599,7 +681,12 @@ export namespace Prisma {
 
   export const ModelName: {
     AdminUser: 'AdminUser',
-    FormSubmission: 'FormSubmission'
+    FormSubmission: 'FormSubmission',
+    LegacyRegistration: 'LegacyRegistration',
+    LegacyBlob: 'LegacyBlob',
+    PassportCounter: 'PassportCounter',
+    SalesOfficer: 'SalesOfficer',
+    ReportingManager: 'ReportingManager'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -615,7 +702,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "adminUser" | "formSubmission"
+      modelProps: "adminUser" | "formSubmission" | "legacyRegistration" | "legacyBlob" | "passportCounter" | "salesOfficer" | "reportingManager"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -767,6 +854,376 @@ export namespace Prisma {
           }
         }
       }
+      LegacyRegistration: {
+        payload: Prisma.$LegacyRegistrationPayload<ExtArgs>
+        fields: Prisma.LegacyRegistrationFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.LegacyRegistrationFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LegacyRegistrationPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.LegacyRegistrationFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LegacyRegistrationPayload>
+          }
+          findFirst: {
+            args: Prisma.LegacyRegistrationFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LegacyRegistrationPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.LegacyRegistrationFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LegacyRegistrationPayload>
+          }
+          findMany: {
+            args: Prisma.LegacyRegistrationFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LegacyRegistrationPayload>[]
+          }
+          create: {
+            args: Prisma.LegacyRegistrationCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LegacyRegistrationPayload>
+          }
+          createMany: {
+            args: Prisma.LegacyRegistrationCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.LegacyRegistrationCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LegacyRegistrationPayload>[]
+          }
+          delete: {
+            args: Prisma.LegacyRegistrationDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LegacyRegistrationPayload>
+          }
+          update: {
+            args: Prisma.LegacyRegistrationUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LegacyRegistrationPayload>
+          }
+          deleteMany: {
+            args: Prisma.LegacyRegistrationDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.LegacyRegistrationUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.LegacyRegistrationUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LegacyRegistrationPayload>[]
+          }
+          upsert: {
+            args: Prisma.LegacyRegistrationUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LegacyRegistrationPayload>
+          }
+          aggregate: {
+            args: Prisma.LegacyRegistrationAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateLegacyRegistration>
+          }
+          groupBy: {
+            args: Prisma.LegacyRegistrationGroupByArgs<ExtArgs>
+            result: $Utils.Optional<LegacyRegistrationGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.LegacyRegistrationCountArgs<ExtArgs>
+            result: $Utils.Optional<LegacyRegistrationCountAggregateOutputType> | number
+          }
+        }
+      }
+      LegacyBlob: {
+        payload: Prisma.$LegacyBlobPayload<ExtArgs>
+        fields: Prisma.LegacyBlobFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.LegacyBlobFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LegacyBlobPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.LegacyBlobFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LegacyBlobPayload>
+          }
+          findFirst: {
+            args: Prisma.LegacyBlobFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LegacyBlobPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.LegacyBlobFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LegacyBlobPayload>
+          }
+          findMany: {
+            args: Prisma.LegacyBlobFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LegacyBlobPayload>[]
+          }
+          create: {
+            args: Prisma.LegacyBlobCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LegacyBlobPayload>
+          }
+          createMany: {
+            args: Prisma.LegacyBlobCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.LegacyBlobCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LegacyBlobPayload>[]
+          }
+          delete: {
+            args: Prisma.LegacyBlobDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LegacyBlobPayload>
+          }
+          update: {
+            args: Prisma.LegacyBlobUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LegacyBlobPayload>
+          }
+          deleteMany: {
+            args: Prisma.LegacyBlobDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.LegacyBlobUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.LegacyBlobUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LegacyBlobPayload>[]
+          }
+          upsert: {
+            args: Prisma.LegacyBlobUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LegacyBlobPayload>
+          }
+          aggregate: {
+            args: Prisma.LegacyBlobAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateLegacyBlob>
+          }
+          groupBy: {
+            args: Prisma.LegacyBlobGroupByArgs<ExtArgs>
+            result: $Utils.Optional<LegacyBlobGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.LegacyBlobCountArgs<ExtArgs>
+            result: $Utils.Optional<LegacyBlobCountAggregateOutputType> | number
+          }
+        }
+      }
+      PassportCounter: {
+        payload: Prisma.$PassportCounterPayload<ExtArgs>
+        fields: Prisma.PassportCounterFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.PassportCounterFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PassportCounterPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.PassportCounterFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PassportCounterPayload>
+          }
+          findFirst: {
+            args: Prisma.PassportCounterFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PassportCounterPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.PassportCounterFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PassportCounterPayload>
+          }
+          findMany: {
+            args: Prisma.PassportCounterFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PassportCounterPayload>[]
+          }
+          create: {
+            args: Prisma.PassportCounterCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PassportCounterPayload>
+          }
+          createMany: {
+            args: Prisma.PassportCounterCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.PassportCounterCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PassportCounterPayload>[]
+          }
+          delete: {
+            args: Prisma.PassportCounterDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PassportCounterPayload>
+          }
+          update: {
+            args: Prisma.PassportCounterUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PassportCounterPayload>
+          }
+          deleteMany: {
+            args: Prisma.PassportCounterDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.PassportCounterUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.PassportCounterUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PassportCounterPayload>[]
+          }
+          upsert: {
+            args: Prisma.PassportCounterUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PassportCounterPayload>
+          }
+          aggregate: {
+            args: Prisma.PassportCounterAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregatePassportCounter>
+          }
+          groupBy: {
+            args: Prisma.PassportCounterGroupByArgs<ExtArgs>
+            result: $Utils.Optional<PassportCounterGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.PassportCounterCountArgs<ExtArgs>
+            result: $Utils.Optional<PassportCounterCountAggregateOutputType> | number
+          }
+        }
+      }
+      SalesOfficer: {
+        payload: Prisma.$SalesOfficerPayload<ExtArgs>
+        fields: Prisma.SalesOfficerFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.SalesOfficerFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SalesOfficerPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.SalesOfficerFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SalesOfficerPayload>
+          }
+          findFirst: {
+            args: Prisma.SalesOfficerFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SalesOfficerPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.SalesOfficerFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SalesOfficerPayload>
+          }
+          findMany: {
+            args: Prisma.SalesOfficerFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SalesOfficerPayload>[]
+          }
+          create: {
+            args: Prisma.SalesOfficerCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SalesOfficerPayload>
+          }
+          createMany: {
+            args: Prisma.SalesOfficerCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.SalesOfficerCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SalesOfficerPayload>[]
+          }
+          delete: {
+            args: Prisma.SalesOfficerDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SalesOfficerPayload>
+          }
+          update: {
+            args: Prisma.SalesOfficerUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SalesOfficerPayload>
+          }
+          deleteMany: {
+            args: Prisma.SalesOfficerDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.SalesOfficerUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.SalesOfficerUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SalesOfficerPayload>[]
+          }
+          upsert: {
+            args: Prisma.SalesOfficerUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SalesOfficerPayload>
+          }
+          aggregate: {
+            args: Prisma.SalesOfficerAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateSalesOfficer>
+          }
+          groupBy: {
+            args: Prisma.SalesOfficerGroupByArgs<ExtArgs>
+            result: $Utils.Optional<SalesOfficerGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.SalesOfficerCountArgs<ExtArgs>
+            result: $Utils.Optional<SalesOfficerCountAggregateOutputType> | number
+          }
+        }
+      }
+      ReportingManager: {
+        payload: Prisma.$ReportingManagerPayload<ExtArgs>
+        fields: Prisma.ReportingManagerFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.ReportingManagerFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ReportingManagerPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.ReportingManagerFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ReportingManagerPayload>
+          }
+          findFirst: {
+            args: Prisma.ReportingManagerFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ReportingManagerPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.ReportingManagerFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ReportingManagerPayload>
+          }
+          findMany: {
+            args: Prisma.ReportingManagerFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ReportingManagerPayload>[]
+          }
+          create: {
+            args: Prisma.ReportingManagerCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ReportingManagerPayload>
+          }
+          createMany: {
+            args: Prisma.ReportingManagerCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.ReportingManagerCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ReportingManagerPayload>[]
+          }
+          delete: {
+            args: Prisma.ReportingManagerDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ReportingManagerPayload>
+          }
+          update: {
+            args: Prisma.ReportingManagerUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ReportingManagerPayload>
+          }
+          deleteMany: {
+            args: Prisma.ReportingManagerDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.ReportingManagerUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.ReportingManagerUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ReportingManagerPayload>[]
+          }
+          upsert: {
+            args: Prisma.ReportingManagerUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ReportingManagerPayload>
+          }
+          aggregate: {
+            args: Prisma.ReportingManagerAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateReportingManager>
+          }
+          groupBy: {
+            args: Prisma.ReportingManagerGroupByArgs<ExtArgs>
+            result: $Utils.Optional<ReportingManagerGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.ReportingManagerCountArgs<ExtArgs>
+            result: $Utils.Optional<ReportingManagerCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -877,6 +1334,11 @@ export namespace Prisma {
   export type GlobalOmitConfig = {
     adminUser?: AdminUserOmit
     formSubmission?: FormSubmissionOmit
+    legacyRegistration?: LegacyRegistrationOmit
+    legacyBlob?: LegacyBlobOmit
+    passportCounter?: PassportCounterOmit
+    salesOfficer?: SalesOfficerOmit
+    reportingManager?: ReportingManagerOmit
   }
 
   /* Types for Logging */
@@ -951,6 +1413,36 @@ export namespace Prisma {
    * Count Types
    */
 
+
+  /**
+   * Count Type FormSubmissionCountOutputType
+   */
+
+  export type FormSubmissionCountOutputType = {
+    legacyRegistrations: number
+  }
+
+  export type FormSubmissionCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    legacyRegistrations?: boolean | FormSubmissionCountOutputTypeCountLegacyRegistrationsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * FormSubmissionCountOutputType without action
+   */
+  export type FormSubmissionCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FormSubmissionCountOutputType
+     */
+    select?: FormSubmissionCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * FormSubmissionCountOutputType without action
+   */
+  export type FormSubmissionCountOutputTypeCountLegacyRegistrationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: LegacyRegistrationWhereInput
+  }
 
 
   /**
@@ -1971,10 +2463,12 @@ export namespace Prisma {
 
   export type FormSubmissionAvgAggregateOutputType = {
     legacyId: number | null
+    skPassportSeq: number | null
   }
 
   export type FormSubmissionSumAggregateOutputType = {
     legacyId: number | null
+    skPassportSeq: bigint | null
   }
 
   export type FormSubmissionMinAggregateOutputType = {
@@ -1982,7 +2476,13 @@ export namespace Prisma {
     legacyId: number | null
     formType: string | null
     skPassportNo: string | null
+    skPassportSeq: bigint | null
     validationOtpGenerated: string | null
+    title: string | null
+    age: string | null
+    sameAsAbove: boolean | null
+    remarks: string | null
+    validationCode: string | null
     registeringDate: Date | null
     pi_firstName: string | null
     pi_lastName: string | null
@@ -2002,6 +2502,7 @@ export namespace Prisma {
     pi_anniversaryDate: string | null
     ref_nameOfTheperson: string | null
     ref_place: string | null
+    reporting_manager_name: string | null
     sod_nameOfTheDealer: string | null
     sod_place: string | null
     photoProofPath: string | null
@@ -2028,6 +2529,52 @@ export namespace Prisma {
     photoProofData: string | null
     idProofData: string | null
     idProofBackData: string | null
+    panProofPath: string | null
+    panProofData: string | null
+    dealershipName: string | null
+    contactPerson: string | null
+    gstNumber: string | null
+    panNumber: string | null
+    ownerSameAsAbove: boolean | null
+    ownerTitle: string | null
+    ownerFirstName: string | null
+    ownerLastName: string | null
+    ownerOfficeAddressLine1: string | null
+    ownerOfficeAddressLine2: string | null
+    ownerCity: string | null
+    ownerState: string | null
+    ownerPostalCode: string | null
+    ownerPlace: string | null
+    ownerPhoneNumber: string | null
+    ownerEmailId: string | null
+    secondContactTitle: string | null
+    secondContactFirstName: string | null
+    secondContactLastName: string | null
+    secondContactPhone: string | null
+    secondContactEmail: string | null
+    spouseName: string | null
+    spouseDob: string | null
+    weddingDay: string | null
+    childName1: string | null
+    childDob1: string | null
+    childName2: string | null
+    childDob2: string | null
+    childName3: string | null
+    childDob3: string | null
+    godownSameAsCompany: boolean | null
+    godownAddressLine1: string | null
+    godownAddressLine2: string | null
+    godownCity: string | null
+    godownState: string | null
+    godownPostalCode: string | null
+    godownContactPerson: string | null
+    godownContactMobile: string | null
+    referenceName1: string | null
+    referencePhone1: string | null
+    referenceDetails1: string | null
+    referenceName2: string | null
+    referencePhone2: string | null
+    referenceDetails2: string | null
   }
 
   export type FormSubmissionMaxAggregateOutputType = {
@@ -2035,7 +2582,13 @@ export namespace Prisma {
     legacyId: number | null
     formType: string | null
     skPassportNo: string | null
+    skPassportSeq: bigint | null
     validationOtpGenerated: string | null
+    title: string | null
+    age: string | null
+    sameAsAbove: boolean | null
+    remarks: string | null
+    validationCode: string | null
     registeringDate: Date | null
     pi_firstName: string | null
     pi_lastName: string | null
@@ -2055,6 +2608,7 @@ export namespace Prisma {
     pi_anniversaryDate: string | null
     ref_nameOfTheperson: string | null
     ref_place: string | null
+    reporting_manager_name: string | null
     sod_nameOfTheDealer: string | null
     sod_place: string | null
     photoProofPath: string | null
@@ -2081,6 +2635,52 @@ export namespace Prisma {
     photoProofData: string | null
     idProofData: string | null
     idProofBackData: string | null
+    panProofPath: string | null
+    panProofData: string | null
+    dealershipName: string | null
+    contactPerson: string | null
+    gstNumber: string | null
+    panNumber: string | null
+    ownerSameAsAbove: boolean | null
+    ownerTitle: string | null
+    ownerFirstName: string | null
+    ownerLastName: string | null
+    ownerOfficeAddressLine1: string | null
+    ownerOfficeAddressLine2: string | null
+    ownerCity: string | null
+    ownerState: string | null
+    ownerPostalCode: string | null
+    ownerPlace: string | null
+    ownerPhoneNumber: string | null
+    ownerEmailId: string | null
+    secondContactTitle: string | null
+    secondContactFirstName: string | null
+    secondContactLastName: string | null
+    secondContactPhone: string | null
+    secondContactEmail: string | null
+    spouseName: string | null
+    spouseDob: string | null
+    weddingDay: string | null
+    childName1: string | null
+    childDob1: string | null
+    childName2: string | null
+    childDob2: string | null
+    childName3: string | null
+    childDob3: string | null
+    godownSameAsCompany: boolean | null
+    godownAddressLine1: string | null
+    godownAddressLine2: string | null
+    godownCity: string | null
+    godownState: string | null
+    godownPostalCode: string | null
+    godownContactPerson: string | null
+    godownContactMobile: string | null
+    referenceName1: string | null
+    referencePhone1: string | null
+    referenceDetails1: string | null
+    referenceName2: string | null
+    referencePhone2: string | null
+    referenceDetails2: string | null
   }
 
   export type FormSubmissionCountAggregateOutputType = {
@@ -2088,7 +2688,13 @@ export namespace Prisma {
     legacyId: number
     formType: number
     skPassportNo: number
+    skPassportSeq: number
     validationOtpGenerated: number
+    title: number
+    age: number
+    sameAsAbove: number
+    remarks: number
+    validationCode: number
     registeringDate: number
     pi_firstName: number
     pi_lastName: number
@@ -2108,6 +2714,7 @@ export namespace Prisma {
     pi_anniversaryDate: number
     ref_nameOfTheperson: number
     ref_place: number
+    reporting_manager_name: number
     sod_nameOfTheDealer: number
     sod_place: number
     photoProofPath: number
@@ -2134,16 +2741,64 @@ export namespace Prisma {
     photoProofData: number
     idProofData: number
     idProofBackData: number
+    panProofPath: number
+    panProofData: number
+    dealershipName: number
+    contactPerson: number
+    gstNumber: number
+    panNumber: number
+    ownerSameAsAbove: number
+    ownerTitle: number
+    ownerFirstName: number
+    ownerLastName: number
+    ownerOfficeAddressLine1: number
+    ownerOfficeAddressLine2: number
+    ownerCity: number
+    ownerState: number
+    ownerPostalCode: number
+    ownerPlace: number
+    ownerPhoneNumber: number
+    ownerEmailId: number
+    secondContactTitle: number
+    secondContactFirstName: number
+    secondContactLastName: number
+    secondContactPhone: number
+    secondContactEmail: number
+    spouseName: number
+    spouseDob: number
+    weddingDay: number
+    childName1: number
+    childDob1: number
+    childName2: number
+    childDob2: number
+    childName3: number
+    childDob3: number
+    godownSameAsCompany: number
+    godownAddressLine1: number
+    godownAddressLine2: number
+    godownCity: number
+    godownState: number
+    godownPostalCode: number
+    godownContactPerson: number
+    godownContactMobile: number
+    referenceName1: number
+    referencePhone1: number
+    referenceDetails1: number
+    referenceName2: number
+    referencePhone2: number
+    referenceDetails2: number
     _all: number
   }
 
 
   export type FormSubmissionAvgAggregateInputType = {
     legacyId?: true
+    skPassportSeq?: true
   }
 
   export type FormSubmissionSumAggregateInputType = {
     legacyId?: true
+    skPassportSeq?: true
   }
 
   export type FormSubmissionMinAggregateInputType = {
@@ -2151,7 +2806,13 @@ export namespace Prisma {
     legacyId?: true
     formType?: true
     skPassportNo?: true
+    skPassportSeq?: true
     validationOtpGenerated?: true
+    title?: true
+    age?: true
+    sameAsAbove?: true
+    remarks?: true
+    validationCode?: true
     registeringDate?: true
     pi_firstName?: true
     pi_lastName?: true
@@ -2171,6 +2832,7 @@ export namespace Prisma {
     pi_anniversaryDate?: true
     ref_nameOfTheperson?: true
     ref_place?: true
+    reporting_manager_name?: true
     sod_nameOfTheDealer?: true
     sod_place?: true
     photoProofPath?: true
@@ -2197,6 +2859,52 @@ export namespace Prisma {
     photoProofData?: true
     idProofData?: true
     idProofBackData?: true
+    panProofPath?: true
+    panProofData?: true
+    dealershipName?: true
+    contactPerson?: true
+    gstNumber?: true
+    panNumber?: true
+    ownerSameAsAbove?: true
+    ownerTitle?: true
+    ownerFirstName?: true
+    ownerLastName?: true
+    ownerOfficeAddressLine1?: true
+    ownerOfficeAddressLine2?: true
+    ownerCity?: true
+    ownerState?: true
+    ownerPostalCode?: true
+    ownerPlace?: true
+    ownerPhoneNumber?: true
+    ownerEmailId?: true
+    secondContactTitle?: true
+    secondContactFirstName?: true
+    secondContactLastName?: true
+    secondContactPhone?: true
+    secondContactEmail?: true
+    spouseName?: true
+    spouseDob?: true
+    weddingDay?: true
+    childName1?: true
+    childDob1?: true
+    childName2?: true
+    childDob2?: true
+    childName3?: true
+    childDob3?: true
+    godownSameAsCompany?: true
+    godownAddressLine1?: true
+    godownAddressLine2?: true
+    godownCity?: true
+    godownState?: true
+    godownPostalCode?: true
+    godownContactPerson?: true
+    godownContactMobile?: true
+    referenceName1?: true
+    referencePhone1?: true
+    referenceDetails1?: true
+    referenceName2?: true
+    referencePhone2?: true
+    referenceDetails2?: true
   }
 
   export type FormSubmissionMaxAggregateInputType = {
@@ -2204,7 +2912,13 @@ export namespace Prisma {
     legacyId?: true
     formType?: true
     skPassportNo?: true
+    skPassportSeq?: true
     validationOtpGenerated?: true
+    title?: true
+    age?: true
+    sameAsAbove?: true
+    remarks?: true
+    validationCode?: true
     registeringDate?: true
     pi_firstName?: true
     pi_lastName?: true
@@ -2224,6 +2938,7 @@ export namespace Prisma {
     pi_anniversaryDate?: true
     ref_nameOfTheperson?: true
     ref_place?: true
+    reporting_manager_name?: true
     sod_nameOfTheDealer?: true
     sod_place?: true
     photoProofPath?: true
@@ -2250,6 +2965,52 @@ export namespace Prisma {
     photoProofData?: true
     idProofData?: true
     idProofBackData?: true
+    panProofPath?: true
+    panProofData?: true
+    dealershipName?: true
+    contactPerson?: true
+    gstNumber?: true
+    panNumber?: true
+    ownerSameAsAbove?: true
+    ownerTitle?: true
+    ownerFirstName?: true
+    ownerLastName?: true
+    ownerOfficeAddressLine1?: true
+    ownerOfficeAddressLine2?: true
+    ownerCity?: true
+    ownerState?: true
+    ownerPostalCode?: true
+    ownerPlace?: true
+    ownerPhoneNumber?: true
+    ownerEmailId?: true
+    secondContactTitle?: true
+    secondContactFirstName?: true
+    secondContactLastName?: true
+    secondContactPhone?: true
+    secondContactEmail?: true
+    spouseName?: true
+    spouseDob?: true
+    weddingDay?: true
+    childName1?: true
+    childDob1?: true
+    childName2?: true
+    childDob2?: true
+    childName3?: true
+    childDob3?: true
+    godownSameAsCompany?: true
+    godownAddressLine1?: true
+    godownAddressLine2?: true
+    godownCity?: true
+    godownState?: true
+    godownPostalCode?: true
+    godownContactPerson?: true
+    godownContactMobile?: true
+    referenceName1?: true
+    referencePhone1?: true
+    referenceDetails1?: true
+    referenceName2?: true
+    referencePhone2?: true
+    referenceDetails2?: true
   }
 
   export type FormSubmissionCountAggregateInputType = {
@@ -2257,7 +3018,13 @@ export namespace Prisma {
     legacyId?: true
     formType?: true
     skPassportNo?: true
+    skPassportSeq?: true
     validationOtpGenerated?: true
+    title?: true
+    age?: true
+    sameAsAbove?: true
+    remarks?: true
+    validationCode?: true
     registeringDate?: true
     pi_firstName?: true
     pi_lastName?: true
@@ -2277,6 +3044,7 @@ export namespace Prisma {
     pi_anniversaryDate?: true
     ref_nameOfTheperson?: true
     ref_place?: true
+    reporting_manager_name?: true
     sod_nameOfTheDealer?: true
     sod_place?: true
     photoProofPath?: true
@@ -2303,6 +3071,52 @@ export namespace Prisma {
     photoProofData?: true
     idProofData?: true
     idProofBackData?: true
+    panProofPath?: true
+    panProofData?: true
+    dealershipName?: true
+    contactPerson?: true
+    gstNumber?: true
+    panNumber?: true
+    ownerSameAsAbove?: true
+    ownerTitle?: true
+    ownerFirstName?: true
+    ownerLastName?: true
+    ownerOfficeAddressLine1?: true
+    ownerOfficeAddressLine2?: true
+    ownerCity?: true
+    ownerState?: true
+    ownerPostalCode?: true
+    ownerPlace?: true
+    ownerPhoneNumber?: true
+    ownerEmailId?: true
+    secondContactTitle?: true
+    secondContactFirstName?: true
+    secondContactLastName?: true
+    secondContactPhone?: true
+    secondContactEmail?: true
+    spouseName?: true
+    spouseDob?: true
+    weddingDay?: true
+    childName1?: true
+    childDob1?: true
+    childName2?: true
+    childDob2?: true
+    childName3?: true
+    childDob3?: true
+    godownSameAsCompany?: true
+    godownAddressLine1?: true
+    godownAddressLine2?: true
+    godownCity?: true
+    godownState?: true
+    godownPostalCode?: true
+    godownContactPerson?: true
+    godownContactMobile?: true
+    referenceName1?: true
+    referencePhone1?: true
+    referenceDetails1?: true
+    referenceName2?: true
+    referencePhone2?: true
+    referenceDetails2?: true
     _all?: true
   }
 
@@ -2397,7 +3211,13 @@ export namespace Prisma {
     legacyId: number | null
     formType: string
     skPassportNo: string | null
+    skPassportSeq: bigint | null
     validationOtpGenerated: string | null
+    title: string | null
+    age: string | null
+    sameAsAbove: boolean | null
+    remarks: string | null
+    validationCode: string | null
     registeringDate: Date | null
     pi_firstName: string | null
     pi_lastName: string | null
@@ -2417,6 +3237,7 @@ export namespace Prisma {
     pi_anniversaryDate: string | null
     ref_nameOfTheperson: string | null
     ref_place: string | null
+    reporting_manager_name: string | null
     sod_nameOfTheDealer: string | null
     sod_place: string | null
     photoProofPath: string | null
@@ -2443,6 +3264,52 @@ export namespace Prisma {
     photoProofData: string | null
     idProofData: string | null
     idProofBackData: string | null
+    panProofPath: string | null
+    panProofData: string | null
+    dealershipName: string | null
+    contactPerson: string | null
+    gstNumber: string | null
+    panNumber: string | null
+    ownerSameAsAbove: boolean | null
+    ownerTitle: string | null
+    ownerFirstName: string | null
+    ownerLastName: string | null
+    ownerOfficeAddressLine1: string | null
+    ownerOfficeAddressLine2: string | null
+    ownerCity: string | null
+    ownerState: string | null
+    ownerPostalCode: string | null
+    ownerPlace: string | null
+    ownerPhoneNumber: string | null
+    ownerEmailId: string | null
+    secondContactTitle: string | null
+    secondContactFirstName: string | null
+    secondContactLastName: string | null
+    secondContactPhone: string | null
+    secondContactEmail: string | null
+    spouseName: string | null
+    spouseDob: string | null
+    weddingDay: string | null
+    childName1: string | null
+    childDob1: string | null
+    childName2: string | null
+    childDob2: string | null
+    childName3: string | null
+    childDob3: string | null
+    godownSameAsCompany: boolean | null
+    godownAddressLine1: string | null
+    godownAddressLine2: string | null
+    godownCity: string | null
+    godownState: string | null
+    godownPostalCode: string | null
+    godownContactPerson: string | null
+    godownContactMobile: string | null
+    referenceName1: string | null
+    referencePhone1: string | null
+    referenceDetails1: string | null
+    referenceName2: string | null
+    referencePhone2: string | null
+    referenceDetails2: string | null
     _count: FormSubmissionCountAggregateOutputType | null
     _avg: FormSubmissionAvgAggregateOutputType | null
     _sum: FormSubmissionSumAggregateOutputType | null
@@ -2469,7 +3336,13 @@ export namespace Prisma {
     legacyId?: boolean
     formType?: boolean
     skPassportNo?: boolean
+    skPassportSeq?: boolean
     validationOtpGenerated?: boolean
+    title?: boolean
+    age?: boolean
+    sameAsAbove?: boolean
+    remarks?: boolean
+    validationCode?: boolean
     registeringDate?: boolean
     pi_firstName?: boolean
     pi_lastName?: boolean
@@ -2489,6 +3362,7 @@ export namespace Prisma {
     pi_anniversaryDate?: boolean
     ref_nameOfTheperson?: boolean
     ref_place?: boolean
+    reporting_manager_name?: boolean
     sod_nameOfTheDealer?: boolean
     sod_place?: boolean
     photoProofPath?: boolean
@@ -2515,6 +3389,55 @@ export namespace Prisma {
     photoProofData?: boolean
     idProofData?: boolean
     idProofBackData?: boolean
+    panProofPath?: boolean
+    panProofData?: boolean
+    dealershipName?: boolean
+    contactPerson?: boolean
+    gstNumber?: boolean
+    panNumber?: boolean
+    ownerSameAsAbove?: boolean
+    ownerTitle?: boolean
+    ownerFirstName?: boolean
+    ownerLastName?: boolean
+    ownerOfficeAddressLine1?: boolean
+    ownerOfficeAddressLine2?: boolean
+    ownerCity?: boolean
+    ownerState?: boolean
+    ownerPostalCode?: boolean
+    ownerPlace?: boolean
+    ownerPhoneNumber?: boolean
+    ownerEmailId?: boolean
+    secondContactTitle?: boolean
+    secondContactFirstName?: boolean
+    secondContactLastName?: boolean
+    secondContactPhone?: boolean
+    secondContactEmail?: boolean
+    spouseName?: boolean
+    spouseDob?: boolean
+    weddingDay?: boolean
+    childName1?: boolean
+    childDob1?: boolean
+    childName2?: boolean
+    childDob2?: boolean
+    childName3?: boolean
+    childDob3?: boolean
+    godownSameAsCompany?: boolean
+    godownAddressLine1?: boolean
+    godownAddressLine2?: boolean
+    godownCity?: boolean
+    godownState?: boolean
+    godownPostalCode?: boolean
+    godownContactPerson?: boolean
+    godownContactMobile?: boolean
+    referenceName1?: boolean
+    referencePhone1?: boolean
+    referenceDetails1?: boolean
+    referenceName2?: boolean
+    referencePhone2?: boolean
+    referenceDetails2?: boolean
+    legacyRegistrations?: boolean | FormSubmission$legacyRegistrationsArgs<ExtArgs>
+    legacyBlob?: boolean | FormSubmission$legacyBlobArgs<ExtArgs>
+    _count?: boolean | FormSubmissionCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["formSubmission"]>
 
   export type FormSubmissionSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -2522,7 +3445,13 @@ export namespace Prisma {
     legacyId?: boolean
     formType?: boolean
     skPassportNo?: boolean
+    skPassportSeq?: boolean
     validationOtpGenerated?: boolean
+    title?: boolean
+    age?: boolean
+    sameAsAbove?: boolean
+    remarks?: boolean
+    validationCode?: boolean
     registeringDate?: boolean
     pi_firstName?: boolean
     pi_lastName?: boolean
@@ -2542,6 +3471,7 @@ export namespace Prisma {
     pi_anniversaryDate?: boolean
     ref_nameOfTheperson?: boolean
     ref_place?: boolean
+    reporting_manager_name?: boolean
     sod_nameOfTheDealer?: boolean
     sod_place?: boolean
     photoProofPath?: boolean
@@ -2568,6 +3498,52 @@ export namespace Prisma {
     photoProofData?: boolean
     idProofData?: boolean
     idProofBackData?: boolean
+    panProofPath?: boolean
+    panProofData?: boolean
+    dealershipName?: boolean
+    contactPerson?: boolean
+    gstNumber?: boolean
+    panNumber?: boolean
+    ownerSameAsAbove?: boolean
+    ownerTitle?: boolean
+    ownerFirstName?: boolean
+    ownerLastName?: boolean
+    ownerOfficeAddressLine1?: boolean
+    ownerOfficeAddressLine2?: boolean
+    ownerCity?: boolean
+    ownerState?: boolean
+    ownerPostalCode?: boolean
+    ownerPlace?: boolean
+    ownerPhoneNumber?: boolean
+    ownerEmailId?: boolean
+    secondContactTitle?: boolean
+    secondContactFirstName?: boolean
+    secondContactLastName?: boolean
+    secondContactPhone?: boolean
+    secondContactEmail?: boolean
+    spouseName?: boolean
+    spouseDob?: boolean
+    weddingDay?: boolean
+    childName1?: boolean
+    childDob1?: boolean
+    childName2?: boolean
+    childDob2?: boolean
+    childName3?: boolean
+    childDob3?: boolean
+    godownSameAsCompany?: boolean
+    godownAddressLine1?: boolean
+    godownAddressLine2?: boolean
+    godownCity?: boolean
+    godownState?: boolean
+    godownPostalCode?: boolean
+    godownContactPerson?: boolean
+    godownContactMobile?: boolean
+    referenceName1?: boolean
+    referencePhone1?: boolean
+    referenceDetails1?: boolean
+    referenceName2?: boolean
+    referencePhone2?: boolean
+    referenceDetails2?: boolean
   }, ExtArgs["result"]["formSubmission"]>
 
   export type FormSubmissionSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -2575,7 +3551,13 @@ export namespace Prisma {
     legacyId?: boolean
     formType?: boolean
     skPassportNo?: boolean
+    skPassportSeq?: boolean
     validationOtpGenerated?: boolean
+    title?: boolean
+    age?: boolean
+    sameAsAbove?: boolean
+    remarks?: boolean
+    validationCode?: boolean
     registeringDate?: boolean
     pi_firstName?: boolean
     pi_lastName?: boolean
@@ -2595,6 +3577,7 @@ export namespace Prisma {
     pi_anniversaryDate?: boolean
     ref_nameOfTheperson?: boolean
     ref_place?: boolean
+    reporting_manager_name?: boolean
     sod_nameOfTheDealer?: boolean
     sod_place?: boolean
     photoProofPath?: boolean
@@ -2621,6 +3604,52 @@ export namespace Prisma {
     photoProofData?: boolean
     idProofData?: boolean
     idProofBackData?: boolean
+    panProofPath?: boolean
+    panProofData?: boolean
+    dealershipName?: boolean
+    contactPerson?: boolean
+    gstNumber?: boolean
+    panNumber?: boolean
+    ownerSameAsAbove?: boolean
+    ownerTitle?: boolean
+    ownerFirstName?: boolean
+    ownerLastName?: boolean
+    ownerOfficeAddressLine1?: boolean
+    ownerOfficeAddressLine2?: boolean
+    ownerCity?: boolean
+    ownerState?: boolean
+    ownerPostalCode?: boolean
+    ownerPlace?: boolean
+    ownerPhoneNumber?: boolean
+    ownerEmailId?: boolean
+    secondContactTitle?: boolean
+    secondContactFirstName?: boolean
+    secondContactLastName?: boolean
+    secondContactPhone?: boolean
+    secondContactEmail?: boolean
+    spouseName?: boolean
+    spouseDob?: boolean
+    weddingDay?: boolean
+    childName1?: boolean
+    childDob1?: boolean
+    childName2?: boolean
+    childDob2?: boolean
+    childName3?: boolean
+    childDob3?: boolean
+    godownSameAsCompany?: boolean
+    godownAddressLine1?: boolean
+    godownAddressLine2?: boolean
+    godownCity?: boolean
+    godownState?: boolean
+    godownPostalCode?: boolean
+    godownContactPerson?: boolean
+    godownContactMobile?: boolean
+    referenceName1?: boolean
+    referencePhone1?: boolean
+    referenceDetails1?: boolean
+    referenceName2?: boolean
+    referencePhone2?: boolean
+    referenceDetails2?: boolean
   }, ExtArgs["result"]["formSubmission"]>
 
   export type FormSubmissionSelectScalar = {
@@ -2628,7 +3657,13 @@ export namespace Prisma {
     legacyId?: boolean
     formType?: boolean
     skPassportNo?: boolean
+    skPassportSeq?: boolean
     validationOtpGenerated?: boolean
+    title?: boolean
+    age?: boolean
+    sameAsAbove?: boolean
+    remarks?: boolean
+    validationCode?: boolean
     registeringDate?: boolean
     pi_firstName?: boolean
     pi_lastName?: boolean
@@ -2648,6 +3683,7 @@ export namespace Prisma {
     pi_anniversaryDate?: boolean
     ref_nameOfTheperson?: boolean
     ref_place?: boolean
+    reporting_manager_name?: boolean
     sod_nameOfTheDealer?: boolean
     sod_place?: boolean
     photoProofPath?: boolean
@@ -2674,19 +3710,86 @@ export namespace Prisma {
     photoProofData?: boolean
     idProofData?: boolean
     idProofBackData?: boolean
+    panProofPath?: boolean
+    panProofData?: boolean
+    dealershipName?: boolean
+    contactPerson?: boolean
+    gstNumber?: boolean
+    panNumber?: boolean
+    ownerSameAsAbove?: boolean
+    ownerTitle?: boolean
+    ownerFirstName?: boolean
+    ownerLastName?: boolean
+    ownerOfficeAddressLine1?: boolean
+    ownerOfficeAddressLine2?: boolean
+    ownerCity?: boolean
+    ownerState?: boolean
+    ownerPostalCode?: boolean
+    ownerPlace?: boolean
+    ownerPhoneNumber?: boolean
+    ownerEmailId?: boolean
+    secondContactTitle?: boolean
+    secondContactFirstName?: boolean
+    secondContactLastName?: boolean
+    secondContactPhone?: boolean
+    secondContactEmail?: boolean
+    spouseName?: boolean
+    spouseDob?: boolean
+    weddingDay?: boolean
+    childName1?: boolean
+    childDob1?: boolean
+    childName2?: boolean
+    childDob2?: boolean
+    childName3?: boolean
+    childDob3?: boolean
+    godownSameAsCompany?: boolean
+    godownAddressLine1?: boolean
+    godownAddressLine2?: boolean
+    godownCity?: boolean
+    godownState?: boolean
+    godownPostalCode?: boolean
+    godownContactPerson?: boolean
+    godownContactMobile?: boolean
+    referenceName1?: boolean
+    referencePhone1?: boolean
+    referenceDetails1?: boolean
+    referenceName2?: boolean
+    referencePhone2?: boolean
+    referenceDetails2?: boolean
   }
 
-  export type FormSubmissionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "legacyId" | "formType" | "skPassportNo" | "validationOtpGenerated" | "registeringDate" | "pi_firstName" | "pi_lastName" | "pi_profession" | "pi_dob" | "pi_phone" | "pi_whatsAppNumber" | "pi_emailId" | "pi_addressLane1" | "pi_addressLane2" | "pi_taluk" | "pi_district" | "pi_city" | "pi_state" | "pi_pincode" | "pi_landmark" | "pi_anniversaryDate" | "ref_nameOfTheperson" | "ref_place" | "sod_nameOfTheDealer" | "sod_place" | "photoProofPath" | "idProofPath" | "idProofBackPath" | "isContacted" | "isApproved" | "isDeleted" | "isActive" | "isPending" | "isRejected" | "shop_location" | "shop_Address1" | "shop_Address2" | "shop_District" | "shop_Taluk" | "shop_City" | "shop_Pincode" | "shop_Landmark" | "enteredBy" | "enteredDate" | "createdAt" | "updatedAt" | "photoProofData" | "idProofData" | "idProofBackData", ExtArgs["result"]["formSubmission"]>
+  export type FormSubmissionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "legacyId" | "formType" | "skPassportNo" | "skPassportSeq" | "validationOtpGenerated" | "title" | "age" | "sameAsAbove" | "remarks" | "validationCode" | "registeringDate" | "pi_firstName" | "pi_lastName" | "pi_profession" | "pi_dob" | "pi_phone" | "pi_whatsAppNumber" | "pi_emailId" | "pi_addressLane1" | "pi_addressLane2" | "pi_taluk" | "pi_district" | "pi_city" | "pi_state" | "pi_pincode" | "pi_landmark" | "pi_anniversaryDate" | "ref_nameOfTheperson" | "ref_place" | "reporting_manager_name" | "sod_nameOfTheDealer" | "sod_place" | "photoProofPath" | "idProofPath" | "idProofBackPath" | "isContacted" | "isApproved" | "isDeleted" | "isActive" | "isPending" | "isRejected" | "shop_location" | "shop_Address1" | "shop_Address2" | "shop_District" | "shop_Taluk" | "shop_City" | "shop_Pincode" | "shop_Landmark" | "enteredBy" | "enteredDate" | "createdAt" | "updatedAt" | "photoProofData" | "idProofData" | "idProofBackData" | "panProofPath" | "panProofData" | "dealershipName" | "contactPerson" | "gstNumber" | "panNumber" | "ownerSameAsAbove" | "ownerTitle" | "ownerFirstName" | "ownerLastName" | "ownerOfficeAddressLine1" | "ownerOfficeAddressLine2" | "ownerCity" | "ownerState" | "ownerPostalCode" | "ownerPlace" | "ownerPhoneNumber" | "ownerEmailId" | "secondContactTitle" | "secondContactFirstName" | "secondContactLastName" | "secondContactPhone" | "secondContactEmail" | "spouseName" | "spouseDob" | "weddingDay" | "childName1" | "childDob1" | "childName2" | "childDob2" | "childName3" | "childDob3" | "godownSameAsCompany" | "godownAddressLine1" | "godownAddressLine2" | "godownCity" | "godownState" | "godownPostalCode" | "godownContactPerson" | "godownContactMobile" | "referenceName1" | "referencePhone1" | "referenceDetails1" | "referenceName2" | "referencePhone2" | "referenceDetails2", ExtArgs["result"]["formSubmission"]>
+  export type FormSubmissionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    legacyRegistrations?: boolean | FormSubmission$legacyRegistrationsArgs<ExtArgs>
+    legacyBlob?: boolean | FormSubmission$legacyBlobArgs<ExtArgs>
+    _count?: boolean | FormSubmissionCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type FormSubmissionIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type FormSubmissionIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
 
   export type $FormSubmissionPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "FormSubmission"
-    objects: {}
+    objects: {
+      legacyRegistrations: Prisma.$LegacyRegistrationPayload<ExtArgs>[]
+      legacyBlob: Prisma.$LegacyBlobPayload<ExtArgs> | null
+    }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       legacyId: number | null
       formType: string
       skPassportNo: string | null
+      /**
+       * *
+       *    * Internal sequential issuer (source of truth) for newly-issued SK passports.
+       *    * Legacy rows keep this NULL so duplicate skPassportNo values can coexist.
+       */
+      skPassportSeq: bigint | null
       validationOtpGenerated: string | null
+      title: string | null
+      age: string | null
+      sameAsAbove: boolean | null
+      remarks: string | null
+      validationCode: string | null
       registeringDate: Date | null
       pi_firstName: string | null
       pi_lastName: string | null
@@ -2706,6 +3809,7 @@ export namespace Prisma {
       pi_anniversaryDate: string | null
       ref_nameOfTheperson: string | null
       ref_place: string | null
+      reporting_manager_name: string | null
       sod_nameOfTheDealer: string | null
       sod_place: string | null
       photoProofPath: string | null
@@ -2732,6 +3836,52 @@ export namespace Prisma {
       photoProofData: string | null
       idProofData: string | null
       idProofBackData: string | null
+      panProofPath: string | null
+      panProofData: string | null
+      dealershipName: string | null
+      contactPerson: string | null
+      gstNumber: string | null
+      panNumber: string | null
+      ownerSameAsAbove: boolean | null
+      ownerTitle: string | null
+      ownerFirstName: string | null
+      ownerLastName: string | null
+      ownerOfficeAddressLine1: string | null
+      ownerOfficeAddressLine2: string | null
+      ownerCity: string | null
+      ownerState: string | null
+      ownerPostalCode: string | null
+      ownerPlace: string | null
+      ownerPhoneNumber: string | null
+      ownerEmailId: string | null
+      secondContactTitle: string | null
+      secondContactFirstName: string | null
+      secondContactLastName: string | null
+      secondContactPhone: string | null
+      secondContactEmail: string | null
+      spouseName: string | null
+      spouseDob: string | null
+      weddingDay: string | null
+      childName1: string | null
+      childDob1: string | null
+      childName2: string | null
+      childDob2: string | null
+      childName3: string | null
+      childDob3: string | null
+      godownSameAsCompany: boolean | null
+      godownAddressLine1: string | null
+      godownAddressLine2: string | null
+      godownCity: string | null
+      godownState: string | null
+      godownPostalCode: string | null
+      godownContactPerson: string | null
+      godownContactMobile: string | null
+      referenceName1: string | null
+      referencePhone1: string | null
+      referenceDetails1: string | null
+      referenceName2: string | null
+      referencePhone2: string | null
+      referenceDetails2: string | null
     }, ExtArgs["result"]["formSubmission"]>
     composites: {}
   }
@@ -3126,6 +4276,8 @@ export namespace Prisma {
    */
   export interface Prisma__FormSubmissionClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    legacyRegistrations<T extends FormSubmission$legacyRegistrationsArgs<ExtArgs> = {}>(args?: Subset<T, FormSubmission$legacyRegistrationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LegacyRegistrationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    legacyBlob<T extends FormSubmission$legacyBlobArgs<ExtArgs> = {}>(args?: Subset<T, FormSubmission$legacyBlobArgs<ExtArgs>>): Prisma__LegacyBlobClient<$Result.GetResult<Prisma.$LegacyBlobPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3159,7 +4311,13 @@ export namespace Prisma {
     readonly legacyId: FieldRef<"FormSubmission", 'Int'>
     readonly formType: FieldRef<"FormSubmission", 'String'>
     readonly skPassportNo: FieldRef<"FormSubmission", 'String'>
+    readonly skPassportSeq: FieldRef<"FormSubmission", 'BigInt'>
     readonly validationOtpGenerated: FieldRef<"FormSubmission", 'String'>
+    readonly title: FieldRef<"FormSubmission", 'String'>
+    readonly age: FieldRef<"FormSubmission", 'String'>
+    readonly sameAsAbove: FieldRef<"FormSubmission", 'Boolean'>
+    readonly remarks: FieldRef<"FormSubmission", 'String'>
+    readonly validationCode: FieldRef<"FormSubmission", 'String'>
     readonly registeringDate: FieldRef<"FormSubmission", 'DateTime'>
     readonly pi_firstName: FieldRef<"FormSubmission", 'String'>
     readonly pi_lastName: FieldRef<"FormSubmission", 'String'>
@@ -3179,6 +4337,7 @@ export namespace Prisma {
     readonly pi_anniversaryDate: FieldRef<"FormSubmission", 'String'>
     readonly ref_nameOfTheperson: FieldRef<"FormSubmission", 'String'>
     readonly ref_place: FieldRef<"FormSubmission", 'String'>
+    readonly reporting_manager_name: FieldRef<"FormSubmission", 'String'>
     readonly sod_nameOfTheDealer: FieldRef<"FormSubmission", 'String'>
     readonly sod_place: FieldRef<"FormSubmission", 'String'>
     readonly photoProofPath: FieldRef<"FormSubmission", 'String'>
@@ -3205,6 +4364,52 @@ export namespace Prisma {
     readonly photoProofData: FieldRef<"FormSubmission", 'String'>
     readonly idProofData: FieldRef<"FormSubmission", 'String'>
     readonly idProofBackData: FieldRef<"FormSubmission", 'String'>
+    readonly panProofPath: FieldRef<"FormSubmission", 'String'>
+    readonly panProofData: FieldRef<"FormSubmission", 'String'>
+    readonly dealershipName: FieldRef<"FormSubmission", 'String'>
+    readonly contactPerson: FieldRef<"FormSubmission", 'String'>
+    readonly gstNumber: FieldRef<"FormSubmission", 'String'>
+    readonly panNumber: FieldRef<"FormSubmission", 'String'>
+    readonly ownerSameAsAbove: FieldRef<"FormSubmission", 'Boolean'>
+    readonly ownerTitle: FieldRef<"FormSubmission", 'String'>
+    readonly ownerFirstName: FieldRef<"FormSubmission", 'String'>
+    readonly ownerLastName: FieldRef<"FormSubmission", 'String'>
+    readonly ownerOfficeAddressLine1: FieldRef<"FormSubmission", 'String'>
+    readonly ownerOfficeAddressLine2: FieldRef<"FormSubmission", 'String'>
+    readonly ownerCity: FieldRef<"FormSubmission", 'String'>
+    readonly ownerState: FieldRef<"FormSubmission", 'String'>
+    readonly ownerPostalCode: FieldRef<"FormSubmission", 'String'>
+    readonly ownerPlace: FieldRef<"FormSubmission", 'String'>
+    readonly ownerPhoneNumber: FieldRef<"FormSubmission", 'String'>
+    readonly ownerEmailId: FieldRef<"FormSubmission", 'String'>
+    readonly secondContactTitle: FieldRef<"FormSubmission", 'String'>
+    readonly secondContactFirstName: FieldRef<"FormSubmission", 'String'>
+    readonly secondContactLastName: FieldRef<"FormSubmission", 'String'>
+    readonly secondContactPhone: FieldRef<"FormSubmission", 'String'>
+    readonly secondContactEmail: FieldRef<"FormSubmission", 'String'>
+    readonly spouseName: FieldRef<"FormSubmission", 'String'>
+    readonly spouseDob: FieldRef<"FormSubmission", 'String'>
+    readonly weddingDay: FieldRef<"FormSubmission", 'String'>
+    readonly childName1: FieldRef<"FormSubmission", 'String'>
+    readonly childDob1: FieldRef<"FormSubmission", 'String'>
+    readonly childName2: FieldRef<"FormSubmission", 'String'>
+    readonly childDob2: FieldRef<"FormSubmission", 'String'>
+    readonly childName3: FieldRef<"FormSubmission", 'String'>
+    readonly childDob3: FieldRef<"FormSubmission", 'String'>
+    readonly godownSameAsCompany: FieldRef<"FormSubmission", 'Boolean'>
+    readonly godownAddressLine1: FieldRef<"FormSubmission", 'String'>
+    readonly godownAddressLine2: FieldRef<"FormSubmission", 'String'>
+    readonly godownCity: FieldRef<"FormSubmission", 'String'>
+    readonly godownState: FieldRef<"FormSubmission", 'String'>
+    readonly godownPostalCode: FieldRef<"FormSubmission", 'String'>
+    readonly godownContactPerson: FieldRef<"FormSubmission", 'String'>
+    readonly godownContactMobile: FieldRef<"FormSubmission", 'String'>
+    readonly referenceName1: FieldRef<"FormSubmission", 'String'>
+    readonly referencePhone1: FieldRef<"FormSubmission", 'String'>
+    readonly referenceDetails1: FieldRef<"FormSubmission", 'String'>
+    readonly referenceName2: FieldRef<"FormSubmission", 'String'>
+    readonly referencePhone2: FieldRef<"FormSubmission", 'String'>
+    readonly referenceDetails2: FieldRef<"FormSubmission", 'String'>
   }
     
 
@@ -3221,6 +4426,10 @@ export namespace Prisma {
      * Omit specific fields from the FormSubmission
      */
     omit?: FormSubmissionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FormSubmissionInclude<ExtArgs> | null
     /**
      * Filter, which FormSubmission to fetch.
      */
@@ -3240,6 +4449,10 @@ export namespace Prisma {
      */
     omit?: FormSubmissionOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FormSubmissionInclude<ExtArgs> | null
+    /**
      * Filter, which FormSubmission to fetch.
      */
     where: FormSubmissionWhereUniqueInput
@@ -3257,6 +4470,10 @@ export namespace Prisma {
      * Omit specific fields from the FormSubmission
      */
     omit?: FormSubmissionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FormSubmissionInclude<ExtArgs> | null
     /**
      * Filter, which FormSubmission to fetch.
      */
@@ -3306,6 +4523,10 @@ export namespace Prisma {
      */
     omit?: FormSubmissionOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FormSubmissionInclude<ExtArgs> | null
+    /**
      * Filter, which FormSubmission to fetch.
      */
     where?: FormSubmissionWhereInput
@@ -3353,6 +4574,10 @@ export namespace Prisma {
      * Omit specific fields from the FormSubmission
      */
     omit?: FormSubmissionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FormSubmissionInclude<ExtArgs> | null
     /**
      * Filter, which FormSubmissions to fetch.
      */
@@ -3402,6 +4627,10 @@ export namespace Prisma {
      */
     omit?: FormSubmissionOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FormSubmissionInclude<ExtArgs> | null
+    /**
      * The data needed to create a FormSubmission.
      */
     data: XOR<FormSubmissionCreateInput, FormSubmissionUncheckedCreateInput>
@@ -3449,6 +4678,10 @@ export namespace Prisma {
      * Omit specific fields from the FormSubmission
      */
     omit?: FormSubmissionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FormSubmissionInclude<ExtArgs> | null
     /**
      * The data needed to update a FormSubmission.
      */
@@ -3516,6 +4749,10 @@ export namespace Prisma {
      */
     omit?: FormSubmissionOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FormSubmissionInclude<ExtArgs> | null
+    /**
      * The filter to search for the FormSubmission to update in case it exists.
      */
     where: FormSubmissionWhereUniqueInput
@@ -3542,6 +4779,10 @@ export namespace Prisma {
      */
     omit?: FormSubmissionOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FormSubmissionInclude<ExtArgs> | null
+    /**
      * Filter which FormSubmission to delete.
      */
     where: FormSubmissionWhereUniqueInput
@@ -3562,6 +4803,49 @@ export namespace Prisma {
   }
 
   /**
+   * FormSubmission.legacyRegistrations
+   */
+  export type FormSubmission$legacyRegistrationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LegacyRegistration
+     */
+    select?: LegacyRegistrationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LegacyRegistration
+     */
+    omit?: LegacyRegistrationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LegacyRegistrationInclude<ExtArgs> | null
+    where?: LegacyRegistrationWhereInput
+    orderBy?: LegacyRegistrationOrderByWithRelationInput | LegacyRegistrationOrderByWithRelationInput[]
+    cursor?: LegacyRegistrationWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: LegacyRegistrationScalarFieldEnum | LegacyRegistrationScalarFieldEnum[]
+  }
+
+  /**
+   * FormSubmission.legacyBlob
+   */
+  export type FormSubmission$legacyBlobArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LegacyBlob
+     */
+    select?: LegacyBlobSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LegacyBlob
+     */
+    omit?: LegacyBlobOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LegacyBlobInclude<ExtArgs> | null
+    where?: LegacyBlobWhereInput
+  }
+
+  /**
    * FormSubmission without action
    */
   export type FormSubmissionDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -3573,6 +4857,5271 @@ export namespace Prisma {
      * Omit specific fields from the FormSubmission
      */
     omit?: FormSubmissionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FormSubmissionInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model LegacyRegistration
+   */
+
+  export type AggregateLegacyRegistration = {
+    _count: LegacyRegistrationCountAggregateOutputType | null
+    _avg: LegacyRegistrationAvgAggregateOutputType | null
+    _sum: LegacyRegistrationSumAggregateOutputType | null
+    _min: LegacyRegistrationMinAggregateOutputType | null
+    _max: LegacyRegistrationMaxAggregateOutputType | null
+  }
+
+  export type LegacyRegistrationAvgAggregateOutputType = {
+    legacyRowIndex: number | null
+    legacyId: number | null
+  }
+
+  export type LegacyRegistrationSumAggregateOutputType = {
+    legacyRowIndex: number | null
+    legacyId: number | null
+  }
+
+  export type LegacyRegistrationMinAggregateOutputType = {
+    id: string | null
+    legacySource: string | null
+    legacyRowIndex: number | null
+    legacyId: number | null
+    legacyPassportNo: string | null
+    submissionId: string | null
+    createdAt: Date | null
+  }
+
+  export type LegacyRegistrationMaxAggregateOutputType = {
+    id: string | null
+    legacySource: string | null
+    legacyRowIndex: number | null
+    legacyId: number | null
+    legacyPassportNo: string | null
+    submissionId: string | null
+    createdAt: Date | null
+  }
+
+  export type LegacyRegistrationCountAggregateOutputType = {
+    id: number
+    legacySource: number
+    legacyRowIndex: number
+    legacyId: number
+    legacyPassportNo: number
+    rawTableRecord: number
+    rawDetailRecord: number
+    submissionId: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type LegacyRegistrationAvgAggregateInputType = {
+    legacyRowIndex?: true
+    legacyId?: true
+  }
+
+  export type LegacyRegistrationSumAggregateInputType = {
+    legacyRowIndex?: true
+    legacyId?: true
+  }
+
+  export type LegacyRegistrationMinAggregateInputType = {
+    id?: true
+    legacySource?: true
+    legacyRowIndex?: true
+    legacyId?: true
+    legacyPassportNo?: true
+    submissionId?: true
+    createdAt?: true
+  }
+
+  export type LegacyRegistrationMaxAggregateInputType = {
+    id?: true
+    legacySource?: true
+    legacyRowIndex?: true
+    legacyId?: true
+    legacyPassportNo?: true
+    submissionId?: true
+    createdAt?: true
+  }
+
+  export type LegacyRegistrationCountAggregateInputType = {
+    id?: true
+    legacySource?: true
+    legacyRowIndex?: true
+    legacyId?: true
+    legacyPassportNo?: true
+    rawTableRecord?: true
+    rawDetailRecord?: true
+    submissionId?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type LegacyRegistrationAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which LegacyRegistration to aggregate.
+     */
+    where?: LegacyRegistrationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of LegacyRegistrations to fetch.
+     */
+    orderBy?: LegacyRegistrationOrderByWithRelationInput | LegacyRegistrationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: LegacyRegistrationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` LegacyRegistrations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` LegacyRegistrations.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned LegacyRegistrations
+    **/
+    _count?: true | LegacyRegistrationCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: LegacyRegistrationAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: LegacyRegistrationSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: LegacyRegistrationMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: LegacyRegistrationMaxAggregateInputType
+  }
+
+  export type GetLegacyRegistrationAggregateType<T extends LegacyRegistrationAggregateArgs> = {
+        [P in keyof T & keyof AggregateLegacyRegistration]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateLegacyRegistration[P]>
+      : GetScalarType<T[P], AggregateLegacyRegistration[P]>
+  }
+
+
+
+
+  export type LegacyRegistrationGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: LegacyRegistrationWhereInput
+    orderBy?: LegacyRegistrationOrderByWithAggregationInput | LegacyRegistrationOrderByWithAggregationInput[]
+    by: LegacyRegistrationScalarFieldEnum[] | LegacyRegistrationScalarFieldEnum
+    having?: LegacyRegistrationScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: LegacyRegistrationCountAggregateInputType | true
+    _avg?: LegacyRegistrationAvgAggregateInputType
+    _sum?: LegacyRegistrationSumAggregateInputType
+    _min?: LegacyRegistrationMinAggregateInputType
+    _max?: LegacyRegistrationMaxAggregateInputType
+  }
+
+  export type LegacyRegistrationGroupByOutputType = {
+    id: string
+    legacySource: string
+    legacyRowIndex: number
+    legacyId: number | null
+    legacyPassportNo: string | null
+    rawTableRecord: JsonValue | null
+    rawDetailRecord: JsonValue | null
+    submissionId: string | null
+    createdAt: Date
+    _count: LegacyRegistrationCountAggregateOutputType | null
+    _avg: LegacyRegistrationAvgAggregateOutputType | null
+    _sum: LegacyRegistrationSumAggregateOutputType | null
+    _min: LegacyRegistrationMinAggregateOutputType | null
+    _max: LegacyRegistrationMaxAggregateOutputType | null
+  }
+
+  type GetLegacyRegistrationGroupByPayload<T extends LegacyRegistrationGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<LegacyRegistrationGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof LegacyRegistrationGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], LegacyRegistrationGroupByOutputType[P]>
+            : GetScalarType<T[P], LegacyRegistrationGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type LegacyRegistrationSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    legacySource?: boolean
+    legacyRowIndex?: boolean
+    legacyId?: boolean
+    legacyPassportNo?: boolean
+    rawTableRecord?: boolean
+    rawDetailRecord?: boolean
+    submissionId?: boolean
+    createdAt?: boolean
+    submission?: boolean | LegacyRegistration$submissionArgs<ExtArgs>
+  }, ExtArgs["result"]["legacyRegistration"]>
+
+  export type LegacyRegistrationSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    legacySource?: boolean
+    legacyRowIndex?: boolean
+    legacyId?: boolean
+    legacyPassportNo?: boolean
+    rawTableRecord?: boolean
+    rawDetailRecord?: boolean
+    submissionId?: boolean
+    createdAt?: boolean
+    submission?: boolean | LegacyRegistration$submissionArgs<ExtArgs>
+  }, ExtArgs["result"]["legacyRegistration"]>
+
+  export type LegacyRegistrationSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    legacySource?: boolean
+    legacyRowIndex?: boolean
+    legacyId?: boolean
+    legacyPassportNo?: boolean
+    rawTableRecord?: boolean
+    rawDetailRecord?: boolean
+    submissionId?: boolean
+    createdAt?: boolean
+    submission?: boolean | LegacyRegistration$submissionArgs<ExtArgs>
+  }, ExtArgs["result"]["legacyRegistration"]>
+
+  export type LegacyRegistrationSelectScalar = {
+    id?: boolean
+    legacySource?: boolean
+    legacyRowIndex?: boolean
+    legacyId?: boolean
+    legacyPassportNo?: boolean
+    rawTableRecord?: boolean
+    rawDetailRecord?: boolean
+    submissionId?: boolean
+    createdAt?: boolean
+  }
+
+  export type LegacyRegistrationOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "legacySource" | "legacyRowIndex" | "legacyId" | "legacyPassportNo" | "rawTableRecord" | "rawDetailRecord" | "submissionId" | "createdAt", ExtArgs["result"]["legacyRegistration"]>
+  export type LegacyRegistrationInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    submission?: boolean | LegacyRegistration$submissionArgs<ExtArgs>
+  }
+  export type LegacyRegistrationIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    submission?: boolean | LegacyRegistration$submissionArgs<ExtArgs>
+  }
+  export type LegacyRegistrationIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    submission?: boolean | LegacyRegistration$submissionArgs<ExtArgs>
+  }
+
+  export type $LegacyRegistrationPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "LegacyRegistration"
+    objects: {
+      submission: Prisma.$FormSubmissionPayload<ExtArgs> | null
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      legacySource: string
+      legacyRowIndex: number
+      legacyId: number | null
+      legacyPassportNo: string | null
+      rawTableRecord: Prisma.JsonValue | null
+      rawDetailRecord: Prisma.JsonValue | null
+      submissionId: string | null
+      createdAt: Date
+    }, ExtArgs["result"]["legacyRegistration"]>
+    composites: {}
+  }
+
+  type LegacyRegistrationGetPayload<S extends boolean | null | undefined | LegacyRegistrationDefaultArgs> = $Result.GetResult<Prisma.$LegacyRegistrationPayload, S>
+
+  type LegacyRegistrationCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<LegacyRegistrationFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: LegacyRegistrationCountAggregateInputType | true
+    }
+
+  export interface LegacyRegistrationDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['LegacyRegistration'], meta: { name: 'LegacyRegistration' } }
+    /**
+     * Find zero or one LegacyRegistration that matches the filter.
+     * @param {LegacyRegistrationFindUniqueArgs} args - Arguments to find a LegacyRegistration
+     * @example
+     * // Get one LegacyRegistration
+     * const legacyRegistration = await prisma.legacyRegistration.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends LegacyRegistrationFindUniqueArgs>(args: SelectSubset<T, LegacyRegistrationFindUniqueArgs<ExtArgs>>): Prisma__LegacyRegistrationClient<$Result.GetResult<Prisma.$LegacyRegistrationPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one LegacyRegistration that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {LegacyRegistrationFindUniqueOrThrowArgs} args - Arguments to find a LegacyRegistration
+     * @example
+     * // Get one LegacyRegistration
+     * const legacyRegistration = await prisma.legacyRegistration.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends LegacyRegistrationFindUniqueOrThrowArgs>(args: SelectSubset<T, LegacyRegistrationFindUniqueOrThrowArgs<ExtArgs>>): Prisma__LegacyRegistrationClient<$Result.GetResult<Prisma.$LegacyRegistrationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first LegacyRegistration that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LegacyRegistrationFindFirstArgs} args - Arguments to find a LegacyRegistration
+     * @example
+     * // Get one LegacyRegistration
+     * const legacyRegistration = await prisma.legacyRegistration.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends LegacyRegistrationFindFirstArgs>(args?: SelectSubset<T, LegacyRegistrationFindFirstArgs<ExtArgs>>): Prisma__LegacyRegistrationClient<$Result.GetResult<Prisma.$LegacyRegistrationPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first LegacyRegistration that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LegacyRegistrationFindFirstOrThrowArgs} args - Arguments to find a LegacyRegistration
+     * @example
+     * // Get one LegacyRegistration
+     * const legacyRegistration = await prisma.legacyRegistration.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends LegacyRegistrationFindFirstOrThrowArgs>(args?: SelectSubset<T, LegacyRegistrationFindFirstOrThrowArgs<ExtArgs>>): Prisma__LegacyRegistrationClient<$Result.GetResult<Prisma.$LegacyRegistrationPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more LegacyRegistrations that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LegacyRegistrationFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all LegacyRegistrations
+     * const legacyRegistrations = await prisma.legacyRegistration.findMany()
+     * 
+     * // Get first 10 LegacyRegistrations
+     * const legacyRegistrations = await prisma.legacyRegistration.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const legacyRegistrationWithIdOnly = await prisma.legacyRegistration.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends LegacyRegistrationFindManyArgs>(args?: SelectSubset<T, LegacyRegistrationFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LegacyRegistrationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a LegacyRegistration.
+     * @param {LegacyRegistrationCreateArgs} args - Arguments to create a LegacyRegistration.
+     * @example
+     * // Create one LegacyRegistration
+     * const LegacyRegistration = await prisma.legacyRegistration.create({
+     *   data: {
+     *     // ... data to create a LegacyRegistration
+     *   }
+     * })
+     * 
+     */
+    create<T extends LegacyRegistrationCreateArgs>(args: SelectSubset<T, LegacyRegistrationCreateArgs<ExtArgs>>): Prisma__LegacyRegistrationClient<$Result.GetResult<Prisma.$LegacyRegistrationPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many LegacyRegistrations.
+     * @param {LegacyRegistrationCreateManyArgs} args - Arguments to create many LegacyRegistrations.
+     * @example
+     * // Create many LegacyRegistrations
+     * const legacyRegistration = await prisma.legacyRegistration.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends LegacyRegistrationCreateManyArgs>(args?: SelectSubset<T, LegacyRegistrationCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many LegacyRegistrations and returns the data saved in the database.
+     * @param {LegacyRegistrationCreateManyAndReturnArgs} args - Arguments to create many LegacyRegistrations.
+     * @example
+     * // Create many LegacyRegistrations
+     * const legacyRegistration = await prisma.legacyRegistration.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many LegacyRegistrations and only return the `id`
+     * const legacyRegistrationWithIdOnly = await prisma.legacyRegistration.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends LegacyRegistrationCreateManyAndReturnArgs>(args?: SelectSubset<T, LegacyRegistrationCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LegacyRegistrationPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a LegacyRegistration.
+     * @param {LegacyRegistrationDeleteArgs} args - Arguments to delete one LegacyRegistration.
+     * @example
+     * // Delete one LegacyRegistration
+     * const LegacyRegistration = await prisma.legacyRegistration.delete({
+     *   where: {
+     *     // ... filter to delete one LegacyRegistration
+     *   }
+     * })
+     * 
+     */
+    delete<T extends LegacyRegistrationDeleteArgs>(args: SelectSubset<T, LegacyRegistrationDeleteArgs<ExtArgs>>): Prisma__LegacyRegistrationClient<$Result.GetResult<Prisma.$LegacyRegistrationPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one LegacyRegistration.
+     * @param {LegacyRegistrationUpdateArgs} args - Arguments to update one LegacyRegistration.
+     * @example
+     * // Update one LegacyRegistration
+     * const legacyRegistration = await prisma.legacyRegistration.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends LegacyRegistrationUpdateArgs>(args: SelectSubset<T, LegacyRegistrationUpdateArgs<ExtArgs>>): Prisma__LegacyRegistrationClient<$Result.GetResult<Prisma.$LegacyRegistrationPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more LegacyRegistrations.
+     * @param {LegacyRegistrationDeleteManyArgs} args - Arguments to filter LegacyRegistrations to delete.
+     * @example
+     * // Delete a few LegacyRegistrations
+     * const { count } = await prisma.legacyRegistration.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends LegacyRegistrationDeleteManyArgs>(args?: SelectSubset<T, LegacyRegistrationDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more LegacyRegistrations.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LegacyRegistrationUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many LegacyRegistrations
+     * const legacyRegistration = await prisma.legacyRegistration.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends LegacyRegistrationUpdateManyArgs>(args: SelectSubset<T, LegacyRegistrationUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more LegacyRegistrations and returns the data updated in the database.
+     * @param {LegacyRegistrationUpdateManyAndReturnArgs} args - Arguments to update many LegacyRegistrations.
+     * @example
+     * // Update many LegacyRegistrations
+     * const legacyRegistration = await prisma.legacyRegistration.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more LegacyRegistrations and only return the `id`
+     * const legacyRegistrationWithIdOnly = await prisma.legacyRegistration.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends LegacyRegistrationUpdateManyAndReturnArgs>(args: SelectSubset<T, LegacyRegistrationUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LegacyRegistrationPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one LegacyRegistration.
+     * @param {LegacyRegistrationUpsertArgs} args - Arguments to update or create a LegacyRegistration.
+     * @example
+     * // Update or create a LegacyRegistration
+     * const legacyRegistration = await prisma.legacyRegistration.upsert({
+     *   create: {
+     *     // ... data to create a LegacyRegistration
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the LegacyRegistration we want to update
+     *   }
+     * })
+     */
+    upsert<T extends LegacyRegistrationUpsertArgs>(args: SelectSubset<T, LegacyRegistrationUpsertArgs<ExtArgs>>): Prisma__LegacyRegistrationClient<$Result.GetResult<Prisma.$LegacyRegistrationPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of LegacyRegistrations.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LegacyRegistrationCountArgs} args - Arguments to filter LegacyRegistrations to count.
+     * @example
+     * // Count the number of LegacyRegistrations
+     * const count = await prisma.legacyRegistration.count({
+     *   where: {
+     *     // ... the filter for the LegacyRegistrations we want to count
+     *   }
+     * })
+    **/
+    count<T extends LegacyRegistrationCountArgs>(
+      args?: Subset<T, LegacyRegistrationCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], LegacyRegistrationCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a LegacyRegistration.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LegacyRegistrationAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends LegacyRegistrationAggregateArgs>(args: Subset<T, LegacyRegistrationAggregateArgs>): Prisma.PrismaPromise<GetLegacyRegistrationAggregateType<T>>
+
+    /**
+     * Group by LegacyRegistration.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LegacyRegistrationGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends LegacyRegistrationGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: LegacyRegistrationGroupByArgs['orderBy'] }
+        : { orderBy?: LegacyRegistrationGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, LegacyRegistrationGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetLegacyRegistrationGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the LegacyRegistration model
+   */
+  readonly fields: LegacyRegistrationFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for LegacyRegistration.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__LegacyRegistrationClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    submission<T extends LegacyRegistration$submissionArgs<ExtArgs> = {}>(args?: Subset<T, LegacyRegistration$submissionArgs<ExtArgs>>): Prisma__FormSubmissionClient<$Result.GetResult<Prisma.$FormSubmissionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the LegacyRegistration model
+   */
+  interface LegacyRegistrationFieldRefs {
+    readonly id: FieldRef<"LegacyRegistration", 'String'>
+    readonly legacySource: FieldRef<"LegacyRegistration", 'String'>
+    readonly legacyRowIndex: FieldRef<"LegacyRegistration", 'Int'>
+    readonly legacyId: FieldRef<"LegacyRegistration", 'Int'>
+    readonly legacyPassportNo: FieldRef<"LegacyRegistration", 'String'>
+    readonly rawTableRecord: FieldRef<"LegacyRegistration", 'Json'>
+    readonly rawDetailRecord: FieldRef<"LegacyRegistration", 'Json'>
+    readonly submissionId: FieldRef<"LegacyRegistration", 'String'>
+    readonly createdAt: FieldRef<"LegacyRegistration", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * LegacyRegistration findUnique
+   */
+  export type LegacyRegistrationFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LegacyRegistration
+     */
+    select?: LegacyRegistrationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LegacyRegistration
+     */
+    omit?: LegacyRegistrationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LegacyRegistrationInclude<ExtArgs> | null
+    /**
+     * Filter, which LegacyRegistration to fetch.
+     */
+    where: LegacyRegistrationWhereUniqueInput
+  }
+
+  /**
+   * LegacyRegistration findUniqueOrThrow
+   */
+  export type LegacyRegistrationFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LegacyRegistration
+     */
+    select?: LegacyRegistrationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LegacyRegistration
+     */
+    omit?: LegacyRegistrationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LegacyRegistrationInclude<ExtArgs> | null
+    /**
+     * Filter, which LegacyRegistration to fetch.
+     */
+    where: LegacyRegistrationWhereUniqueInput
+  }
+
+  /**
+   * LegacyRegistration findFirst
+   */
+  export type LegacyRegistrationFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LegacyRegistration
+     */
+    select?: LegacyRegistrationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LegacyRegistration
+     */
+    omit?: LegacyRegistrationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LegacyRegistrationInclude<ExtArgs> | null
+    /**
+     * Filter, which LegacyRegistration to fetch.
+     */
+    where?: LegacyRegistrationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of LegacyRegistrations to fetch.
+     */
+    orderBy?: LegacyRegistrationOrderByWithRelationInput | LegacyRegistrationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for LegacyRegistrations.
+     */
+    cursor?: LegacyRegistrationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` LegacyRegistrations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` LegacyRegistrations.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of LegacyRegistrations.
+     */
+    distinct?: LegacyRegistrationScalarFieldEnum | LegacyRegistrationScalarFieldEnum[]
+  }
+
+  /**
+   * LegacyRegistration findFirstOrThrow
+   */
+  export type LegacyRegistrationFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LegacyRegistration
+     */
+    select?: LegacyRegistrationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LegacyRegistration
+     */
+    omit?: LegacyRegistrationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LegacyRegistrationInclude<ExtArgs> | null
+    /**
+     * Filter, which LegacyRegistration to fetch.
+     */
+    where?: LegacyRegistrationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of LegacyRegistrations to fetch.
+     */
+    orderBy?: LegacyRegistrationOrderByWithRelationInput | LegacyRegistrationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for LegacyRegistrations.
+     */
+    cursor?: LegacyRegistrationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` LegacyRegistrations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` LegacyRegistrations.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of LegacyRegistrations.
+     */
+    distinct?: LegacyRegistrationScalarFieldEnum | LegacyRegistrationScalarFieldEnum[]
+  }
+
+  /**
+   * LegacyRegistration findMany
+   */
+  export type LegacyRegistrationFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LegacyRegistration
+     */
+    select?: LegacyRegistrationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LegacyRegistration
+     */
+    omit?: LegacyRegistrationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LegacyRegistrationInclude<ExtArgs> | null
+    /**
+     * Filter, which LegacyRegistrations to fetch.
+     */
+    where?: LegacyRegistrationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of LegacyRegistrations to fetch.
+     */
+    orderBy?: LegacyRegistrationOrderByWithRelationInput | LegacyRegistrationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing LegacyRegistrations.
+     */
+    cursor?: LegacyRegistrationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` LegacyRegistrations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` LegacyRegistrations.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of LegacyRegistrations.
+     */
+    distinct?: LegacyRegistrationScalarFieldEnum | LegacyRegistrationScalarFieldEnum[]
+  }
+
+  /**
+   * LegacyRegistration create
+   */
+  export type LegacyRegistrationCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LegacyRegistration
+     */
+    select?: LegacyRegistrationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LegacyRegistration
+     */
+    omit?: LegacyRegistrationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LegacyRegistrationInclude<ExtArgs> | null
+    /**
+     * The data needed to create a LegacyRegistration.
+     */
+    data: XOR<LegacyRegistrationCreateInput, LegacyRegistrationUncheckedCreateInput>
+  }
+
+  /**
+   * LegacyRegistration createMany
+   */
+  export type LegacyRegistrationCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many LegacyRegistrations.
+     */
+    data: LegacyRegistrationCreateManyInput | LegacyRegistrationCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * LegacyRegistration createManyAndReturn
+   */
+  export type LegacyRegistrationCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LegacyRegistration
+     */
+    select?: LegacyRegistrationSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the LegacyRegistration
+     */
+    omit?: LegacyRegistrationOmit<ExtArgs> | null
+    /**
+     * The data used to create many LegacyRegistrations.
+     */
+    data: LegacyRegistrationCreateManyInput | LegacyRegistrationCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LegacyRegistrationIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * LegacyRegistration update
+   */
+  export type LegacyRegistrationUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LegacyRegistration
+     */
+    select?: LegacyRegistrationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LegacyRegistration
+     */
+    omit?: LegacyRegistrationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LegacyRegistrationInclude<ExtArgs> | null
+    /**
+     * The data needed to update a LegacyRegistration.
+     */
+    data: XOR<LegacyRegistrationUpdateInput, LegacyRegistrationUncheckedUpdateInput>
+    /**
+     * Choose, which LegacyRegistration to update.
+     */
+    where: LegacyRegistrationWhereUniqueInput
+  }
+
+  /**
+   * LegacyRegistration updateMany
+   */
+  export type LegacyRegistrationUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update LegacyRegistrations.
+     */
+    data: XOR<LegacyRegistrationUpdateManyMutationInput, LegacyRegistrationUncheckedUpdateManyInput>
+    /**
+     * Filter which LegacyRegistrations to update
+     */
+    where?: LegacyRegistrationWhereInput
+    /**
+     * Limit how many LegacyRegistrations to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * LegacyRegistration updateManyAndReturn
+   */
+  export type LegacyRegistrationUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LegacyRegistration
+     */
+    select?: LegacyRegistrationSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the LegacyRegistration
+     */
+    omit?: LegacyRegistrationOmit<ExtArgs> | null
+    /**
+     * The data used to update LegacyRegistrations.
+     */
+    data: XOR<LegacyRegistrationUpdateManyMutationInput, LegacyRegistrationUncheckedUpdateManyInput>
+    /**
+     * Filter which LegacyRegistrations to update
+     */
+    where?: LegacyRegistrationWhereInput
+    /**
+     * Limit how many LegacyRegistrations to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LegacyRegistrationIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * LegacyRegistration upsert
+   */
+  export type LegacyRegistrationUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LegacyRegistration
+     */
+    select?: LegacyRegistrationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LegacyRegistration
+     */
+    omit?: LegacyRegistrationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LegacyRegistrationInclude<ExtArgs> | null
+    /**
+     * The filter to search for the LegacyRegistration to update in case it exists.
+     */
+    where: LegacyRegistrationWhereUniqueInput
+    /**
+     * In case the LegacyRegistration found by the `where` argument doesn't exist, create a new LegacyRegistration with this data.
+     */
+    create: XOR<LegacyRegistrationCreateInput, LegacyRegistrationUncheckedCreateInput>
+    /**
+     * In case the LegacyRegistration was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<LegacyRegistrationUpdateInput, LegacyRegistrationUncheckedUpdateInput>
+  }
+
+  /**
+   * LegacyRegistration delete
+   */
+  export type LegacyRegistrationDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LegacyRegistration
+     */
+    select?: LegacyRegistrationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LegacyRegistration
+     */
+    omit?: LegacyRegistrationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LegacyRegistrationInclude<ExtArgs> | null
+    /**
+     * Filter which LegacyRegistration to delete.
+     */
+    where: LegacyRegistrationWhereUniqueInput
+  }
+
+  /**
+   * LegacyRegistration deleteMany
+   */
+  export type LegacyRegistrationDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which LegacyRegistrations to delete
+     */
+    where?: LegacyRegistrationWhereInput
+    /**
+     * Limit how many LegacyRegistrations to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * LegacyRegistration.submission
+   */
+  export type LegacyRegistration$submissionArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FormSubmission
+     */
+    select?: FormSubmissionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the FormSubmission
+     */
+    omit?: FormSubmissionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FormSubmissionInclude<ExtArgs> | null
+    where?: FormSubmissionWhereInput
+  }
+
+  /**
+   * LegacyRegistration without action
+   */
+  export type LegacyRegistrationDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LegacyRegistration
+     */
+    select?: LegacyRegistrationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LegacyRegistration
+     */
+    omit?: LegacyRegistrationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LegacyRegistrationInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model LegacyBlob
+   */
+
+  export type AggregateLegacyBlob = {
+    _count: LegacyBlobCountAggregateOutputType | null
+    _min: LegacyBlobMinAggregateOutputType | null
+    _max: LegacyBlobMaxAggregateOutputType | null
+  }
+
+  export type LegacyBlobMinAggregateOutputType = {
+    id: string | null
+    submissionId: string | null
+    photoProofData: string | null
+    idProofData: string | null
+    idProofBackData: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type LegacyBlobMaxAggregateOutputType = {
+    id: string | null
+    submissionId: string | null
+    photoProofData: string | null
+    idProofData: string | null
+    idProofBackData: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type LegacyBlobCountAggregateOutputType = {
+    id: number
+    submissionId: number
+    photoProofData: number
+    idProofData: number
+    idProofBackData: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type LegacyBlobMinAggregateInputType = {
+    id?: true
+    submissionId?: true
+    photoProofData?: true
+    idProofData?: true
+    idProofBackData?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type LegacyBlobMaxAggregateInputType = {
+    id?: true
+    submissionId?: true
+    photoProofData?: true
+    idProofData?: true
+    idProofBackData?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type LegacyBlobCountAggregateInputType = {
+    id?: true
+    submissionId?: true
+    photoProofData?: true
+    idProofData?: true
+    idProofBackData?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type LegacyBlobAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which LegacyBlob to aggregate.
+     */
+    where?: LegacyBlobWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of LegacyBlobs to fetch.
+     */
+    orderBy?: LegacyBlobOrderByWithRelationInput | LegacyBlobOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: LegacyBlobWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` LegacyBlobs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` LegacyBlobs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned LegacyBlobs
+    **/
+    _count?: true | LegacyBlobCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: LegacyBlobMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: LegacyBlobMaxAggregateInputType
+  }
+
+  export type GetLegacyBlobAggregateType<T extends LegacyBlobAggregateArgs> = {
+        [P in keyof T & keyof AggregateLegacyBlob]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateLegacyBlob[P]>
+      : GetScalarType<T[P], AggregateLegacyBlob[P]>
+  }
+
+
+
+
+  export type LegacyBlobGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: LegacyBlobWhereInput
+    orderBy?: LegacyBlobOrderByWithAggregationInput | LegacyBlobOrderByWithAggregationInput[]
+    by: LegacyBlobScalarFieldEnum[] | LegacyBlobScalarFieldEnum
+    having?: LegacyBlobScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: LegacyBlobCountAggregateInputType | true
+    _min?: LegacyBlobMinAggregateInputType
+    _max?: LegacyBlobMaxAggregateInputType
+  }
+
+  export type LegacyBlobGroupByOutputType = {
+    id: string
+    submissionId: string
+    photoProofData: string | null
+    idProofData: string | null
+    idProofBackData: string | null
+    createdAt: Date
+    updatedAt: Date
+    _count: LegacyBlobCountAggregateOutputType | null
+    _min: LegacyBlobMinAggregateOutputType | null
+    _max: LegacyBlobMaxAggregateOutputType | null
+  }
+
+  type GetLegacyBlobGroupByPayload<T extends LegacyBlobGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<LegacyBlobGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof LegacyBlobGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], LegacyBlobGroupByOutputType[P]>
+            : GetScalarType<T[P], LegacyBlobGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type LegacyBlobSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    submissionId?: boolean
+    photoProofData?: boolean
+    idProofData?: boolean
+    idProofBackData?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    submission?: boolean | FormSubmissionDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["legacyBlob"]>
+
+  export type LegacyBlobSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    submissionId?: boolean
+    photoProofData?: boolean
+    idProofData?: boolean
+    idProofBackData?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    submission?: boolean | FormSubmissionDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["legacyBlob"]>
+
+  export type LegacyBlobSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    submissionId?: boolean
+    photoProofData?: boolean
+    idProofData?: boolean
+    idProofBackData?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    submission?: boolean | FormSubmissionDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["legacyBlob"]>
+
+  export type LegacyBlobSelectScalar = {
+    id?: boolean
+    submissionId?: boolean
+    photoProofData?: boolean
+    idProofData?: boolean
+    idProofBackData?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type LegacyBlobOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "submissionId" | "photoProofData" | "idProofData" | "idProofBackData" | "createdAt" | "updatedAt", ExtArgs["result"]["legacyBlob"]>
+  export type LegacyBlobInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    submission?: boolean | FormSubmissionDefaultArgs<ExtArgs>
+  }
+  export type LegacyBlobIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    submission?: boolean | FormSubmissionDefaultArgs<ExtArgs>
+  }
+  export type LegacyBlobIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    submission?: boolean | FormSubmissionDefaultArgs<ExtArgs>
+  }
+
+  export type $LegacyBlobPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "LegacyBlob"
+    objects: {
+      submission: Prisma.$FormSubmissionPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      submissionId: string
+      photoProofData: string | null
+      idProofData: string | null
+      idProofBackData: string | null
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["legacyBlob"]>
+    composites: {}
+  }
+
+  type LegacyBlobGetPayload<S extends boolean | null | undefined | LegacyBlobDefaultArgs> = $Result.GetResult<Prisma.$LegacyBlobPayload, S>
+
+  type LegacyBlobCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<LegacyBlobFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: LegacyBlobCountAggregateInputType | true
+    }
+
+  export interface LegacyBlobDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['LegacyBlob'], meta: { name: 'LegacyBlob' } }
+    /**
+     * Find zero or one LegacyBlob that matches the filter.
+     * @param {LegacyBlobFindUniqueArgs} args - Arguments to find a LegacyBlob
+     * @example
+     * // Get one LegacyBlob
+     * const legacyBlob = await prisma.legacyBlob.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends LegacyBlobFindUniqueArgs>(args: SelectSubset<T, LegacyBlobFindUniqueArgs<ExtArgs>>): Prisma__LegacyBlobClient<$Result.GetResult<Prisma.$LegacyBlobPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one LegacyBlob that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {LegacyBlobFindUniqueOrThrowArgs} args - Arguments to find a LegacyBlob
+     * @example
+     * // Get one LegacyBlob
+     * const legacyBlob = await prisma.legacyBlob.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends LegacyBlobFindUniqueOrThrowArgs>(args: SelectSubset<T, LegacyBlobFindUniqueOrThrowArgs<ExtArgs>>): Prisma__LegacyBlobClient<$Result.GetResult<Prisma.$LegacyBlobPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first LegacyBlob that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LegacyBlobFindFirstArgs} args - Arguments to find a LegacyBlob
+     * @example
+     * // Get one LegacyBlob
+     * const legacyBlob = await prisma.legacyBlob.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends LegacyBlobFindFirstArgs>(args?: SelectSubset<T, LegacyBlobFindFirstArgs<ExtArgs>>): Prisma__LegacyBlobClient<$Result.GetResult<Prisma.$LegacyBlobPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first LegacyBlob that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LegacyBlobFindFirstOrThrowArgs} args - Arguments to find a LegacyBlob
+     * @example
+     * // Get one LegacyBlob
+     * const legacyBlob = await prisma.legacyBlob.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends LegacyBlobFindFirstOrThrowArgs>(args?: SelectSubset<T, LegacyBlobFindFirstOrThrowArgs<ExtArgs>>): Prisma__LegacyBlobClient<$Result.GetResult<Prisma.$LegacyBlobPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more LegacyBlobs that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LegacyBlobFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all LegacyBlobs
+     * const legacyBlobs = await prisma.legacyBlob.findMany()
+     * 
+     * // Get first 10 LegacyBlobs
+     * const legacyBlobs = await prisma.legacyBlob.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const legacyBlobWithIdOnly = await prisma.legacyBlob.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends LegacyBlobFindManyArgs>(args?: SelectSubset<T, LegacyBlobFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LegacyBlobPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a LegacyBlob.
+     * @param {LegacyBlobCreateArgs} args - Arguments to create a LegacyBlob.
+     * @example
+     * // Create one LegacyBlob
+     * const LegacyBlob = await prisma.legacyBlob.create({
+     *   data: {
+     *     // ... data to create a LegacyBlob
+     *   }
+     * })
+     * 
+     */
+    create<T extends LegacyBlobCreateArgs>(args: SelectSubset<T, LegacyBlobCreateArgs<ExtArgs>>): Prisma__LegacyBlobClient<$Result.GetResult<Prisma.$LegacyBlobPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many LegacyBlobs.
+     * @param {LegacyBlobCreateManyArgs} args - Arguments to create many LegacyBlobs.
+     * @example
+     * // Create many LegacyBlobs
+     * const legacyBlob = await prisma.legacyBlob.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends LegacyBlobCreateManyArgs>(args?: SelectSubset<T, LegacyBlobCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many LegacyBlobs and returns the data saved in the database.
+     * @param {LegacyBlobCreateManyAndReturnArgs} args - Arguments to create many LegacyBlobs.
+     * @example
+     * // Create many LegacyBlobs
+     * const legacyBlob = await prisma.legacyBlob.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many LegacyBlobs and only return the `id`
+     * const legacyBlobWithIdOnly = await prisma.legacyBlob.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends LegacyBlobCreateManyAndReturnArgs>(args?: SelectSubset<T, LegacyBlobCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LegacyBlobPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a LegacyBlob.
+     * @param {LegacyBlobDeleteArgs} args - Arguments to delete one LegacyBlob.
+     * @example
+     * // Delete one LegacyBlob
+     * const LegacyBlob = await prisma.legacyBlob.delete({
+     *   where: {
+     *     // ... filter to delete one LegacyBlob
+     *   }
+     * })
+     * 
+     */
+    delete<T extends LegacyBlobDeleteArgs>(args: SelectSubset<T, LegacyBlobDeleteArgs<ExtArgs>>): Prisma__LegacyBlobClient<$Result.GetResult<Prisma.$LegacyBlobPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one LegacyBlob.
+     * @param {LegacyBlobUpdateArgs} args - Arguments to update one LegacyBlob.
+     * @example
+     * // Update one LegacyBlob
+     * const legacyBlob = await prisma.legacyBlob.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends LegacyBlobUpdateArgs>(args: SelectSubset<T, LegacyBlobUpdateArgs<ExtArgs>>): Prisma__LegacyBlobClient<$Result.GetResult<Prisma.$LegacyBlobPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more LegacyBlobs.
+     * @param {LegacyBlobDeleteManyArgs} args - Arguments to filter LegacyBlobs to delete.
+     * @example
+     * // Delete a few LegacyBlobs
+     * const { count } = await prisma.legacyBlob.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends LegacyBlobDeleteManyArgs>(args?: SelectSubset<T, LegacyBlobDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more LegacyBlobs.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LegacyBlobUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many LegacyBlobs
+     * const legacyBlob = await prisma.legacyBlob.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends LegacyBlobUpdateManyArgs>(args: SelectSubset<T, LegacyBlobUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more LegacyBlobs and returns the data updated in the database.
+     * @param {LegacyBlobUpdateManyAndReturnArgs} args - Arguments to update many LegacyBlobs.
+     * @example
+     * // Update many LegacyBlobs
+     * const legacyBlob = await prisma.legacyBlob.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more LegacyBlobs and only return the `id`
+     * const legacyBlobWithIdOnly = await prisma.legacyBlob.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends LegacyBlobUpdateManyAndReturnArgs>(args: SelectSubset<T, LegacyBlobUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LegacyBlobPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one LegacyBlob.
+     * @param {LegacyBlobUpsertArgs} args - Arguments to update or create a LegacyBlob.
+     * @example
+     * // Update or create a LegacyBlob
+     * const legacyBlob = await prisma.legacyBlob.upsert({
+     *   create: {
+     *     // ... data to create a LegacyBlob
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the LegacyBlob we want to update
+     *   }
+     * })
+     */
+    upsert<T extends LegacyBlobUpsertArgs>(args: SelectSubset<T, LegacyBlobUpsertArgs<ExtArgs>>): Prisma__LegacyBlobClient<$Result.GetResult<Prisma.$LegacyBlobPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of LegacyBlobs.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LegacyBlobCountArgs} args - Arguments to filter LegacyBlobs to count.
+     * @example
+     * // Count the number of LegacyBlobs
+     * const count = await prisma.legacyBlob.count({
+     *   where: {
+     *     // ... the filter for the LegacyBlobs we want to count
+     *   }
+     * })
+    **/
+    count<T extends LegacyBlobCountArgs>(
+      args?: Subset<T, LegacyBlobCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], LegacyBlobCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a LegacyBlob.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LegacyBlobAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends LegacyBlobAggregateArgs>(args: Subset<T, LegacyBlobAggregateArgs>): Prisma.PrismaPromise<GetLegacyBlobAggregateType<T>>
+
+    /**
+     * Group by LegacyBlob.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LegacyBlobGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends LegacyBlobGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: LegacyBlobGroupByArgs['orderBy'] }
+        : { orderBy?: LegacyBlobGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, LegacyBlobGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetLegacyBlobGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the LegacyBlob model
+   */
+  readonly fields: LegacyBlobFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for LegacyBlob.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__LegacyBlobClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    submission<T extends FormSubmissionDefaultArgs<ExtArgs> = {}>(args?: Subset<T, FormSubmissionDefaultArgs<ExtArgs>>): Prisma__FormSubmissionClient<$Result.GetResult<Prisma.$FormSubmissionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the LegacyBlob model
+   */
+  interface LegacyBlobFieldRefs {
+    readonly id: FieldRef<"LegacyBlob", 'String'>
+    readonly submissionId: FieldRef<"LegacyBlob", 'String'>
+    readonly photoProofData: FieldRef<"LegacyBlob", 'String'>
+    readonly idProofData: FieldRef<"LegacyBlob", 'String'>
+    readonly idProofBackData: FieldRef<"LegacyBlob", 'String'>
+    readonly createdAt: FieldRef<"LegacyBlob", 'DateTime'>
+    readonly updatedAt: FieldRef<"LegacyBlob", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * LegacyBlob findUnique
+   */
+  export type LegacyBlobFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LegacyBlob
+     */
+    select?: LegacyBlobSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LegacyBlob
+     */
+    omit?: LegacyBlobOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LegacyBlobInclude<ExtArgs> | null
+    /**
+     * Filter, which LegacyBlob to fetch.
+     */
+    where: LegacyBlobWhereUniqueInput
+  }
+
+  /**
+   * LegacyBlob findUniqueOrThrow
+   */
+  export type LegacyBlobFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LegacyBlob
+     */
+    select?: LegacyBlobSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LegacyBlob
+     */
+    omit?: LegacyBlobOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LegacyBlobInclude<ExtArgs> | null
+    /**
+     * Filter, which LegacyBlob to fetch.
+     */
+    where: LegacyBlobWhereUniqueInput
+  }
+
+  /**
+   * LegacyBlob findFirst
+   */
+  export type LegacyBlobFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LegacyBlob
+     */
+    select?: LegacyBlobSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LegacyBlob
+     */
+    omit?: LegacyBlobOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LegacyBlobInclude<ExtArgs> | null
+    /**
+     * Filter, which LegacyBlob to fetch.
+     */
+    where?: LegacyBlobWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of LegacyBlobs to fetch.
+     */
+    orderBy?: LegacyBlobOrderByWithRelationInput | LegacyBlobOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for LegacyBlobs.
+     */
+    cursor?: LegacyBlobWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` LegacyBlobs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` LegacyBlobs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of LegacyBlobs.
+     */
+    distinct?: LegacyBlobScalarFieldEnum | LegacyBlobScalarFieldEnum[]
+  }
+
+  /**
+   * LegacyBlob findFirstOrThrow
+   */
+  export type LegacyBlobFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LegacyBlob
+     */
+    select?: LegacyBlobSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LegacyBlob
+     */
+    omit?: LegacyBlobOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LegacyBlobInclude<ExtArgs> | null
+    /**
+     * Filter, which LegacyBlob to fetch.
+     */
+    where?: LegacyBlobWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of LegacyBlobs to fetch.
+     */
+    orderBy?: LegacyBlobOrderByWithRelationInput | LegacyBlobOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for LegacyBlobs.
+     */
+    cursor?: LegacyBlobWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` LegacyBlobs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` LegacyBlobs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of LegacyBlobs.
+     */
+    distinct?: LegacyBlobScalarFieldEnum | LegacyBlobScalarFieldEnum[]
+  }
+
+  /**
+   * LegacyBlob findMany
+   */
+  export type LegacyBlobFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LegacyBlob
+     */
+    select?: LegacyBlobSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LegacyBlob
+     */
+    omit?: LegacyBlobOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LegacyBlobInclude<ExtArgs> | null
+    /**
+     * Filter, which LegacyBlobs to fetch.
+     */
+    where?: LegacyBlobWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of LegacyBlobs to fetch.
+     */
+    orderBy?: LegacyBlobOrderByWithRelationInput | LegacyBlobOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing LegacyBlobs.
+     */
+    cursor?: LegacyBlobWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` LegacyBlobs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` LegacyBlobs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of LegacyBlobs.
+     */
+    distinct?: LegacyBlobScalarFieldEnum | LegacyBlobScalarFieldEnum[]
+  }
+
+  /**
+   * LegacyBlob create
+   */
+  export type LegacyBlobCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LegacyBlob
+     */
+    select?: LegacyBlobSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LegacyBlob
+     */
+    omit?: LegacyBlobOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LegacyBlobInclude<ExtArgs> | null
+    /**
+     * The data needed to create a LegacyBlob.
+     */
+    data: XOR<LegacyBlobCreateInput, LegacyBlobUncheckedCreateInput>
+  }
+
+  /**
+   * LegacyBlob createMany
+   */
+  export type LegacyBlobCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many LegacyBlobs.
+     */
+    data: LegacyBlobCreateManyInput | LegacyBlobCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * LegacyBlob createManyAndReturn
+   */
+  export type LegacyBlobCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LegacyBlob
+     */
+    select?: LegacyBlobSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the LegacyBlob
+     */
+    omit?: LegacyBlobOmit<ExtArgs> | null
+    /**
+     * The data used to create many LegacyBlobs.
+     */
+    data: LegacyBlobCreateManyInput | LegacyBlobCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LegacyBlobIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * LegacyBlob update
+   */
+  export type LegacyBlobUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LegacyBlob
+     */
+    select?: LegacyBlobSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LegacyBlob
+     */
+    omit?: LegacyBlobOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LegacyBlobInclude<ExtArgs> | null
+    /**
+     * The data needed to update a LegacyBlob.
+     */
+    data: XOR<LegacyBlobUpdateInput, LegacyBlobUncheckedUpdateInput>
+    /**
+     * Choose, which LegacyBlob to update.
+     */
+    where: LegacyBlobWhereUniqueInput
+  }
+
+  /**
+   * LegacyBlob updateMany
+   */
+  export type LegacyBlobUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update LegacyBlobs.
+     */
+    data: XOR<LegacyBlobUpdateManyMutationInput, LegacyBlobUncheckedUpdateManyInput>
+    /**
+     * Filter which LegacyBlobs to update
+     */
+    where?: LegacyBlobWhereInput
+    /**
+     * Limit how many LegacyBlobs to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * LegacyBlob updateManyAndReturn
+   */
+  export type LegacyBlobUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LegacyBlob
+     */
+    select?: LegacyBlobSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the LegacyBlob
+     */
+    omit?: LegacyBlobOmit<ExtArgs> | null
+    /**
+     * The data used to update LegacyBlobs.
+     */
+    data: XOR<LegacyBlobUpdateManyMutationInput, LegacyBlobUncheckedUpdateManyInput>
+    /**
+     * Filter which LegacyBlobs to update
+     */
+    where?: LegacyBlobWhereInput
+    /**
+     * Limit how many LegacyBlobs to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LegacyBlobIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * LegacyBlob upsert
+   */
+  export type LegacyBlobUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LegacyBlob
+     */
+    select?: LegacyBlobSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LegacyBlob
+     */
+    omit?: LegacyBlobOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LegacyBlobInclude<ExtArgs> | null
+    /**
+     * The filter to search for the LegacyBlob to update in case it exists.
+     */
+    where: LegacyBlobWhereUniqueInput
+    /**
+     * In case the LegacyBlob found by the `where` argument doesn't exist, create a new LegacyBlob with this data.
+     */
+    create: XOR<LegacyBlobCreateInput, LegacyBlobUncheckedCreateInput>
+    /**
+     * In case the LegacyBlob was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<LegacyBlobUpdateInput, LegacyBlobUncheckedUpdateInput>
+  }
+
+  /**
+   * LegacyBlob delete
+   */
+  export type LegacyBlobDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LegacyBlob
+     */
+    select?: LegacyBlobSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LegacyBlob
+     */
+    omit?: LegacyBlobOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LegacyBlobInclude<ExtArgs> | null
+    /**
+     * Filter which LegacyBlob to delete.
+     */
+    where: LegacyBlobWhereUniqueInput
+  }
+
+  /**
+   * LegacyBlob deleteMany
+   */
+  export type LegacyBlobDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which LegacyBlobs to delete
+     */
+    where?: LegacyBlobWhereInput
+    /**
+     * Limit how many LegacyBlobs to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * LegacyBlob without action
+   */
+  export type LegacyBlobDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LegacyBlob
+     */
+    select?: LegacyBlobSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LegacyBlob
+     */
+    omit?: LegacyBlobOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LegacyBlobInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model PassportCounter
+   */
+
+  export type AggregatePassportCounter = {
+    _count: PassportCounterCountAggregateOutputType | null
+    _avg: PassportCounterAvgAggregateOutputType | null
+    _sum: PassportCounterSumAggregateOutputType | null
+    _min: PassportCounterMinAggregateOutputType | null
+    _max: PassportCounterMaxAggregateOutputType | null
+  }
+
+  export type PassportCounterAvgAggregateOutputType = {
+    lastIssued: number | null
+  }
+
+  export type PassportCounterSumAggregateOutputType = {
+    lastIssued: bigint | null
+  }
+
+  export type PassportCounterMinAggregateOutputType = {
+    key: string | null
+    lastIssued: bigint | null
+    updatedAt: Date | null
+  }
+
+  export type PassportCounterMaxAggregateOutputType = {
+    key: string | null
+    lastIssued: bigint | null
+    updatedAt: Date | null
+  }
+
+  export type PassportCounterCountAggregateOutputType = {
+    key: number
+    lastIssued: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type PassportCounterAvgAggregateInputType = {
+    lastIssued?: true
+  }
+
+  export type PassportCounterSumAggregateInputType = {
+    lastIssued?: true
+  }
+
+  export type PassportCounterMinAggregateInputType = {
+    key?: true
+    lastIssued?: true
+    updatedAt?: true
+  }
+
+  export type PassportCounterMaxAggregateInputType = {
+    key?: true
+    lastIssued?: true
+    updatedAt?: true
+  }
+
+  export type PassportCounterCountAggregateInputType = {
+    key?: true
+    lastIssued?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type PassportCounterAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which PassportCounter to aggregate.
+     */
+    where?: PassportCounterWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PassportCounters to fetch.
+     */
+    orderBy?: PassportCounterOrderByWithRelationInput | PassportCounterOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: PassportCounterWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PassportCounters from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PassportCounters.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned PassportCounters
+    **/
+    _count?: true | PassportCounterCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: PassportCounterAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: PassportCounterSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: PassportCounterMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: PassportCounterMaxAggregateInputType
+  }
+
+  export type GetPassportCounterAggregateType<T extends PassportCounterAggregateArgs> = {
+        [P in keyof T & keyof AggregatePassportCounter]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregatePassportCounter[P]>
+      : GetScalarType<T[P], AggregatePassportCounter[P]>
+  }
+
+
+
+
+  export type PassportCounterGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PassportCounterWhereInput
+    orderBy?: PassportCounterOrderByWithAggregationInput | PassportCounterOrderByWithAggregationInput[]
+    by: PassportCounterScalarFieldEnum[] | PassportCounterScalarFieldEnum
+    having?: PassportCounterScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: PassportCounterCountAggregateInputType | true
+    _avg?: PassportCounterAvgAggregateInputType
+    _sum?: PassportCounterSumAggregateInputType
+    _min?: PassportCounterMinAggregateInputType
+    _max?: PassportCounterMaxAggregateInputType
+  }
+
+  export type PassportCounterGroupByOutputType = {
+    key: string
+    lastIssued: bigint
+    updatedAt: Date
+    _count: PassportCounterCountAggregateOutputType | null
+    _avg: PassportCounterAvgAggregateOutputType | null
+    _sum: PassportCounterSumAggregateOutputType | null
+    _min: PassportCounterMinAggregateOutputType | null
+    _max: PassportCounterMaxAggregateOutputType | null
+  }
+
+  type GetPassportCounterGroupByPayload<T extends PassportCounterGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<PassportCounterGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof PassportCounterGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], PassportCounterGroupByOutputType[P]>
+            : GetScalarType<T[P], PassportCounterGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type PassportCounterSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    key?: boolean
+    lastIssued?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["passportCounter"]>
+
+  export type PassportCounterSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    key?: boolean
+    lastIssued?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["passportCounter"]>
+
+  export type PassportCounterSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    key?: boolean
+    lastIssued?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["passportCounter"]>
+
+  export type PassportCounterSelectScalar = {
+    key?: boolean
+    lastIssued?: boolean
+    updatedAt?: boolean
+  }
+
+  export type PassportCounterOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"key" | "lastIssued" | "updatedAt", ExtArgs["result"]["passportCounter"]>
+
+  export type $PassportCounterPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "PassportCounter"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      key: string
+      lastIssued: bigint
+      updatedAt: Date
+    }, ExtArgs["result"]["passportCounter"]>
+    composites: {}
+  }
+
+  type PassportCounterGetPayload<S extends boolean | null | undefined | PassportCounterDefaultArgs> = $Result.GetResult<Prisma.$PassportCounterPayload, S>
+
+  type PassportCounterCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<PassportCounterFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: PassportCounterCountAggregateInputType | true
+    }
+
+  export interface PassportCounterDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['PassportCounter'], meta: { name: 'PassportCounter' } }
+    /**
+     * Find zero or one PassportCounter that matches the filter.
+     * @param {PassportCounterFindUniqueArgs} args - Arguments to find a PassportCounter
+     * @example
+     * // Get one PassportCounter
+     * const passportCounter = await prisma.passportCounter.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends PassportCounterFindUniqueArgs>(args: SelectSubset<T, PassportCounterFindUniqueArgs<ExtArgs>>): Prisma__PassportCounterClient<$Result.GetResult<Prisma.$PassportCounterPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one PassportCounter that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {PassportCounterFindUniqueOrThrowArgs} args - Arguments to find a PassportCounter
+     * @example
+     * // Get one PassportCounter
+     * const passportCounter = await prisma.passportCounter.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends PassportCounterFindUniqueOrThrowArgs>(args: SelectSubset<T, PassportCounterFindUniqueOrThrowArgs<ExtArgs>>): Prisma__PassportCounterClient<$Result.GetResult<Prisma.$PassportCounterPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first PassportCounter that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PassportCounterFindFirstArgs} args - Arguments to find a PassportCounter
+     * @example
+     * // Get one PassportCounter
+     * const passportCounter = await prisma.passportCounter.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends PassportCounterFindFirstArgs>(args?: SelectSubset<T, PassportCounterFindFirstArgs<ExtArgs>>): Prisma__PassportCounterClient<$Result.GetResult<Prisma.$PassportCounterPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first PassportCounter that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PassportCounterFindFirstOrThrowArgs} args - Arguments to find a PassportCounter
+     * @example
+     * // Get one PassportCounter
+     * const passportCounter = await prisma.passportCounter.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends PassportCounterFindFirstOrThrowArgs>(args?: SelectSubset<T, PassportCounterFindFirstOrThrowArgs<ExtArgs>>): Prisma__PassportCounterClient<$Result.GetResult<Prisma.$PassportCounterPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more PassportCounters that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PassportCounterFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all PassportCounters
+     * const passportCounters = await prisma.passportCounter.findMany()
+     * 
+     * // Get first 10 PassportCounters
+     * const passportCounters = await prisma.passportCounter.findMany({ take: 10 })
+     * 
+     * // Only select the `key`
+     * const passportCounterWithKeyOnly = await prisma.passportCounter.findMany({ select: { key: true } })
+     * 
+     */
+    findMany<T extends PassportCounterFindManyArgs>(args?: SelectSubset<T, PassportCounterFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PassportCounterPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a PassportCounter.
+     * @param {PassportCounterCreateArgs} args - Arguments to create a PassportCounter.
+     * @example
+     * // Create one PassportCounter
+     * const PassportCounter = await prisma.passportCounter.create({
+     *   data: {
+     *     // ... data to create a PassportCounter
+     *   }
+     * })
+     * 
+     */
+    create<T extends PassportCounterCreateArgs>(args: SelectSubset<T, PassportCounterCreateArgs<ExtArgs>>): Prisma__PassportCounterClient<$Result.GetResult<Prisma.$PassportCounterPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many PassportCounters.
+     * @param {PassportCounterCreateManyArgs} args - Arguments to create many PassportCounters.
+     * @example
+     * // Create many PassportCounters
+     * const passportCounter = await prisma.passportCounter.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends PassportCounterCreateManyArgs>(args?: SelectSubset<T, PassportCounterCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many PassportCounters and returns the data saved in the database.
+     * @param {PassportCounterCreateManyAndReturnArgs} args - Arguments to create many PassportCounters.
+     * @example
+     * // Create many PassportCounters
+     * const passportCounter = await prisma.passportCounter.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many PassportCounters and only return the `key`
+     * const passportCounterWithKeyOnly = await prisma.passportCounter.createManyAndReturn({
+     *   select: { key: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends PassportCounterCreateManyAndReturnArgs>(args?: SelectSubset<T, PassportCounterCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PassportCounterPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a PassportCounter.
+     * @param {PassportCounterDeleteArgs} args - Arguments to delete one PassportCounter.
+     * @example
+     * // Delete one PassportCounter
+     * const PassportCounter = await prisma.passportCounter.delete({
+     *   where: {
+     *     // ... filter to delete one PassportCounter
+     *   }
+     * })
+     * 
+     */
+    delete<T extends PassportCounterDeleteArgs>(args: SelectSubset<T, PassportCounterDeleteArgs<ExtArgs>>): Prisma__PassportCounterClient<$Result.GetResult<Prisma.$PassportCounterPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one PassportCounter.
+     * @param {PassportCounterUpdateArgs} args - Arguments to update one PassportCounter.
+     * @example
+     * // Update one PassportCounter
+     * const passportCounter = await prisma.passportCounter.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends PassportCounterUpdateArgs>(args: SelectSubset<T, PassportCounterUpdateArgs<ExtArgs>>): Prisma__PassportCounterClient<$Result.GetResult<Prisma.$PassportCounterPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more PassportCounters.
+     * @param {PassportCounterDeleteManyArgs} args - Arguments to filter PassportCounters to delete.
+     * @example
+     * // Delete a few PassportCounters
+     * const { count } = await prisma.passportCounter.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends PassportCounterDeleteManyArgs>(args?: SelectSubset<T, PassportCounterDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more PassportCounters.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PassportCounterUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many PassportCounters
+     * const passportCounter = await prisma.passportCounter.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends PassportCounterUpdateManyArgs>(args: SelectSubset<T, PassportCounterUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more PassportCounters and returns the data updated in the database.
+     * @param {PassportCounterUpdateManyAndReturnArgs} args - Arguments to update many PassportCounters.
+     * @example
+     * // Update many PassportCounters
+     * const passportCounter = await prisma.passportCounter.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more PassportCounters and only return the `key`
+     * const passportCounterWithKeyOnly = await prisma.passportCounter.updateManyAndReturn({
+     *   select: { key: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends PassportCounterUpdateManyAndReturnArgs>(args: SelectSubset<T, PassportCounterUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PassportCounterPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one PassportCounter.
+     * @param {PassportCounterUpsertArgs} args - Arguments to update or create a PassportCounter.
+     * @example
+     * // Update or create a PassportCounter
+     * const passportCounter = await prisma.passportCounter.upsert({
+     *   create: {
+     *     // ... data to create a PassportCounter
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the PassportCounter we want to update
+     *   }
+     * })
+     */
+    upsert<T extends PassportCounterUpsertArgs>(args: SelectSubset<T, PassportCounterUpsertArgs<ExtArgs>>): Prisma__PassportCounterClient<$Result.GetResult<Prisma.$PassportCounterPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of PassportCounters.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PassportCounterCountArgs} args - Arguments to filter PassportCounters to count.
+     * @example
+     * // Count the number of PassportCounters
+     * const count = await prisma.passportCounter.count({
+     *   where: {
+     *     // ... the filter for the PassportCounters we want to count
+     *   }
+     * })
+    **/
+    count<T extends PassportCounterCountArgs>(
+      args?: Subset<T, PassportCounterCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], PassportCounterCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a PassportCounter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PassportCounterAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends PassportCounterAggregateArgs>(args: Subset<T, PassportCounterAggregateArgs>): Prisma.PrismaPromise<GetPassportCounterAggregateType<T>>
+
+    /**
+     * Group by PassportCounter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PassportCounterGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends PassportCounterGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: PassportCounterGroupByArgs['orderBy'] }
+        : { orderBy?: PassportCounterGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, PassportCounterGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetPassportCounterGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the PassportCounter model
+   */
+  readonly fields: PassportCounterFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for PassportCounter.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__PassportCounterClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the PassportCounter model
+   */
+  interface PassportCounterFieldRefs {
+    readonly key: FieldRef<"PassportCounter", 'String'>
+    readonly lastIssued: FieldRef<"PassportCounter", 'BigInt'>
+    readonly updatedAt: FieldRef<"PassportCounter", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * PassportCounter findUnique
+   */
+  export type PassportCounterFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PassportCounter
+     */
+    select?: PassportCounterSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PassportCounter
+     */
+    omit?: PassportCounterOmit<ExtArgs> | null
+    /**
+     * Filter, which PassportCounter to fetch.
+     */
+    where: PassportCounterWhereUniqueInput
+  }
+
+  /**
+   * PassportCounter findUniqueOrThrow
+   */
+  export type PassportCounterFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PassportCounter
+     */
+    select?: PassportCounterSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PassportCounter
+     */
+    omit?: PassportCounterOmit<ExtArgs> | null
+    /**
+     * Filter, which PassportCounter to fetch.
+     */
+    where: PassportCounterWhereUniqueInput
+  }
+
+  /**
+   * PassportCounter findFirst
+   */
+  export type PassportCounterFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PassportCounter
+     */
+    select?: PassportCounterSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PassportCounter
+     */
+    omit?: PassportCounterOmit<ExtArgs> | null
+    /**
+     * Filter, which PassportCounter to fetch.
+     */
+    where?: PassportCounterWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PassportCounters to fetch.
+     */
+    orderBy?: PassportCounterOrderByWithRelationInput | PassportCounterOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for PassportCounters.
+     */
+    cursor?: PassportCounterWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PassportCounters from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PassportCounters.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of PassportCounters.
+     */
+    distinct?: PassportCounterScalarFieldEnum | PassportCounterScalarFieldEnum[]
+  }
+
+  /**
+   * PassportCounter findFirstOrThrow
+   */
+  export type PassportCounterFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PassportCounter
+     */
+    select?: PassportCounterSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PassportCounter
+     */
+    omit?: PassportCounterOmit<ExtArgs> | null
+    /**
+     * Filter, which PassportCounter to fetch.
+     */
+    where?: PassportCounterWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PassportCounters to fetch.
+     */
+    orderBy?: PassportCounterOrderByWithRelationInput | PassportCounterOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for PassportCounters.
+     */
+    cursor?: PassportCounterWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PassportCounters from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PassportCounters.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of PassportCounters.
+     */
+    distinct?: PassportCounterScalarFieldEnum | PassportCounterScalarFieldEnum[]
+  }
+
+  /**
+   * PassportCounter findMany
+   */
+  export type PassportCounterFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PassportCounter
+     */
+    select?: PassportCounterSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PassportCounter
+     */
+    omit?: PassportCounterOmit<ExtArgs> | null
+    /**
+     * Filter, which PassportCounters to fetch.
+     */
+    where?: PassportCounterWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PassportCounters to fetch.
+     */
+    orderBy?: PassportCounterOrderByWithRelationInput | PassportCounterOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing PassportCounters.
+     */
+    cursor?: PassportCounterWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PassportCounters from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PassportCounters.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of PassportCounters.
+     */
+    distinct?: PassportCounterScalarFieldEnum | PassportCounterScalarFieldEnum[]
+  }
+
+  /**
+   * PassportCounter create
+   */
+  export type PassportCounterCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PassportCounter
+     */
+    select?: PassportCounterSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PassportCounter
+     */
+    omit?: PassportCounterOmit<ExtArgs> | null
+    /**
+     * The data needed to create a PassportCounter.
+     */
+    data: XOR<PassportCounterCreateInput, PassportCounterUncheckedCreateInput>
+  }
+
+  /**
+   * PassportCounter createMany
+   */
+  export type PassportCounterCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many PassportCounters.
+     */
+    data: PassportCounterCreateManyInput | PassportCounterCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * PassportCounter createManyAndReturn
+   */
+  export type PassportCounterCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PassportCounter
+     */
+    select?: PassportCounterSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the PassportCounter
+     */
+    omit?: PassportCounterOmit<ExtArgs> | null
+    /**
+     * The data used to create many PassportCounters.
+     */
+    data: PassportCounterCreateManyInput | PassportCounterCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * PassportCounter update
+   */
+  export type PassportCounterUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PassportCounter
+     */
+    select?: PassportCounterSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PassportCounter
+     */
+    omit?: PassportCounterOmit<ExtArgs> | null
+    /**
+     * The data needed to update a PassportCounter.
+     */
+    data: XOR<PassportCounterUpdateInput, PassportCounterUncheckedUpdateInput>
+    /**
+     * Choose, which PassportCounter to update.
+     */
+    where: PassportCounterWhereUniqueInput
+  }
+
+  /**
+   * PassportCounter updateMany
+   */
+  export type PassportCounterUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update PassportCounters.
+     */
+    data: XOR<PassportCounterUpdateManyMutationInput, PassportCounterUncheckedUpdateManyInput>
+    /**
+     * Filter which PassportCounters to update
+     */
+    where?: PassportCounterWhereInput
+    /**
+     * Limit how many PassportCounters to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * PassportCounter updateManyAndReturn
+   */
+  export type PassportCounterUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PassportCounter
+     */
+    select?: PassportCounterSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the PassportCounter
+     */
+    omit?: PassportCounterOmit<ExtArgs> | null
+    /**
+     * The data used to update PassportCounters.
+     */
+    data: XOR<PassportCounterUpdateManyMutationInput, PassportCounterUncheckedUpdateManyInput>
+    /**
+     * Filter which PassportCounters to update
+     */
+    where?: PassportCounterWhereInput
+    /**
+     * Limit how many PassportCounters to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * PassportCounter upsert
+   */
+  export type PassportCounterUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PassportCounter
+     */
+    select?: PassportCounterSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PassportCounter
+     */
+    omit?: PassportCounterOmit<ExtArgs> | null
+    /**
+     * The filter to search for the PassportCounter to update in case it exists.
+     */
+    where: PassportCounterWhereUniqueInput
+    /**
+     * In case the PassportCounter found by the `where` argument doesn't exist, create a new PassportCounter with this data.
+     */
+    create: XOR<PassportCounterCreateInput, PassportCounterUncheckedCreateInput>
+    /**
+     * In case the PassportCounter was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<PassportCounterUpdateInput, PassportCounterUncheckedUpdateInput>
+  }
+
+  /**
+   * PassportCounter delete
+   */
+  export type PassportCounterDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PassportCounter
+     */
+    select?: PassportCounterSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PassportCounter
+     */
+    omit?: PassportCounterOmit<ExtArgs> | null
+    /**
+     * Filter which PassportCounter to delete.
+     */
+    where: PassportCounterWhereUniqueInput
+  }
+
+  /**
+   * PassportCounter deleteMany
+   */
+  export type PassportCounterDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which PassportCounters to delete
+     */
+    where?: PassportCounterWhereInput
+    /**
+     * Limit how many PassportCounters to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * PassportCounter without action
+   */
+  export type PassportCounterDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PassportCounter
+     */
+    select?: PassportCounterSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PassportCounter
+     */
+    omit?: PassportCounterOmit<ExtArgs> | null
+  }
+
+
+  /**
+   * Model SalesOfficer
+   */
+
+  export type AggregateSalesOfficer = {
+    _count: SalesOfficerCountAggregateOutputType | null
+    _min: SalesOfficerMinAggregateOutputType | null
+    _max: SalesOfficerMaxAggregateOutputType | null
+  }
+
+  export type SalesOfficerMinAggregateOutputType = {
+    id: string | null
+    name: string | null
+    nameNormalized: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type SalesOfficerMaxAggregateOutputType = {
+    id: string | null
+    name: string | null
+    nameNormalized: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type SalesOfficerCountAggregateOutputType = {
+    id: number
+    name: number
+    nameNormalized: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type SalesOfficerMinAggregateInputType = {
+    id?: true
+    name?: true
+    nameNormalized?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type SalesOfficerMaxAggregateInputType = {
+    id?: true
+    name?: true
+    nameNormalized?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type SalesOfficerCountAggregateInputType = {
+    id?: true
+    name?: true
+    nameNormalized?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type SalesOfficerAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which SalesOfficer to aggregate.
+     */
+    where?: SalesOfficerWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SalesOfficers to fetch.
+     */
+    orderBy?: SalesOfficerOrderByWithRelationInput | SalesOfficerOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: SalesOfficerWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SalesOfficers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SalesOfficers.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned SalesOfficers
+    **/
+    _count?: true | SalesOfficerCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: SalesOfficerMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: SalesOfficerMaxAggregateInputType
+  }
+
+  export type GetSalesOfficerAggregateType<T extends SalesOfficerAggregateArgs> = {
+        [P in keyof T & keyof AggregateSalesOfficer]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateSalesOfficer[P]>
+      : GetScalarType<T[P], AggregateSalesOfficer[P]>
+  }
+
+
+
+
+  export type SalesOfficerGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SalesOfficerWhereInput
+    orderBy?: SalesOfficerOrderByWithAggregationInput | SalesOfficerOrderByWithAggregationInput[]
+    by: SalesOfficerScalarFieldEnum[] | SalesOfficerScalarFieldEnum
+    having?: SalesOfficerScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: SalesOfficerCountAggregateInputType | true
+    _min?: SalesOfficerMinAggregateInputType
+    _max?: SalesOfficerMaxAggregateInputType
+  }
+
+  export type SalesOfficerGroupByOutputType = {
+    id: string
+    name: string
+    nameNormalized: string
+    createdAt: Date
+    updatedAt: Date
+    _count: SalesOfficerCountAggregateOutputType | null
+    _min: SalesOfficerMinAggregateOutputType | null
+    _max: SalesOfficerMaxAggregateOutputType | null
+  }
+
+  type GetSalesOfficerGroupByPayload<T extends SalesOfficerGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<SalesOfficerGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof SalesOfficerGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], SalesOfficerGroupByOutputType[P]>
+            : GetScalarType<T[P], SalesOfficerGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type SalesOfficerSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    nameNormalized?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["salesOfficer"]>
+
+  export type SalesOfficerSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    nameNormalized?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["salesOfficer"]>
+
+  export type SalesOfficerSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    nameNormalized?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["salesOfficer"]>
+
+  export type SalesOfficerSelectScalar = {
+    id?: boolean
+    name?: boolean
+    nameNormalized?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type SalesOfficerOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "nameNormalized" | "createdAt" | "updatedAt", ExtArgs["result"]["salesOfficer"]>
+
+  export type $SalesOfficerPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "SalesOfficer"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      name: string
+      nameNormalized: string
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["salesOfficer"]>
+    composites: {}
+  }
+
+  type SalesOfficerGetPayload<S extends boolean | null | undefined | SalesOfficerDefaultArgs> = $Result.GetResult<Prisma.$SalesOfficerPayload, S>
+
+  type SalesOfficerCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<SalesOfficerFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: SalesOfficerCountAggregateInputType | true
+    }
+
+  export interface SalesOfficerDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['SalesOfficer'], meta: { name: 'SalesOfficer' } }
+    /**
+     * Find zero or one SalesOfficer that matches the filter.
+     * @param {SalesOfficerFindUniqueArgs} args - Arguments to find a SalesOfficer
+     * @example
+     * // Get one SalesOfficer
+     * const salesOfficer = await prisma.salesOfficer.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends SalesOfficerFindUniqueArgs>(args: SelectSubset<T, SalesOfficerFindUniqueArgs<ExtArgs>>): Prisma__SalesOfficerClient<$Result.GetResult<Prisma.$SalesOfficerPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one SalesOfficer that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {SalesOfficerFindUniqueOrThrowArgs} args - Arguments to find a SalesOfficer
+     * @example
+     * // Get one SalesOfficer
+     * const salesOfficer = await prisma.salesOfficer.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends SalesOfficerFindUniqueOrThrowArgs>(args: SelectSubset<T, SalesOfficerFindUniqueOrThrowArgs<ExtArgs>>): Prisma__SalesOfficerClient<$Result.GetResult<Prisma.$SalesOfficerPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first SalesOfficer that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SalesOfficerFindFirstArgs} args - Arguments to find a SalesOfficer
+     * @example
+     * // Get one SalesOfficer
+     * const salesOfficer = await prisma.salesOfficer.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends SalesOfficerFindFirstArgs>(args?: SelectSubset<T, SalesOfficerFindFirstArgs<ExtArgs>>): Prisma__SalesOfficerClient<$Result.GetResult<Prisma.$SalesOfficerPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first SalesOfficer that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SalesOfficerFindFirstOrThrowArgs} args - Arguments to find a SalesOfficer
+     * @example
+     * // Get one SalesOfficer
+     * const salesOfficer = await prisma.salesOfficer.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends SalesOfficerFindFirstOrThrowArgs>(args?: SelectSubset<T, SalesOfficerFindFirstOrThrowArgs<ExtArgs>>): Prisma__SalesOfficerClient<$Result.GetResult<Prisma.$SalesOfficerPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more SalesOfficers that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SalesOfficerFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all SalesOfficers
+     * const salesOfficers = await prisma.salesOfficer.findMany()
+     * 
+     * // Get first 10 SalesOfficers
+     * const salesOfficers = await prisma.salesOfficer.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const salesOfficerWithIdOnly = await prisma.salesOfficer.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends SalesOfficerFindManyArgs>(args?: SelectSubset<T, SalesOfficerFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SalesOfficerPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a SalesOfficer.
+     * @param {SalesOfficerCreateArgs} args - Arguments to create a SalesOfficer.
+     * @example
+     * // Create one SalesOfficer
+     * const SalesOfficer = await prisma.salesOfficer.create({
+     *   data: {
+     *     // ... data to create a SalesOfficer
+     *   }
+     * })
+     * 
+     */
+    create<T extends SalesOfficerCreateArgs>(args: SelectSubset<T, SalesOfficerCreateArgs<ExtArgs>>): Prisma__SalesOfficerClient<$Result.GetResult<Prisma.$SalesOfficerPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many SalesOfficers.
+     * @param {SalesOfficerCreateManyArgs} args - Arguments to create many SalesOfficers.
+     * @example
+     * // Create many SalesOfficers
+     * const salesOfficer = await prisma.salesOfficer.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends SalesOfficerCreateManyArgs>(args?: SelectSubset<T, SalesOfficerCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many SalesOfficers and returns the data saved in the database.
+     * @param {SalesOfficerCreateManyAndReturnArgs} args - Arguments to create many SalesOfficers.
+     * @example
+     * // Create many SalesOfficers
+     * const salesOfficer = await prisma.salesOfficer.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many SalesOfficers and only return the `id`
+     * const salesOfficerWithIdOnly = await prisma.salesOfficer.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends SalesOfficerCreateManyAndReturnArgs>(args?: SelectSubset<T, SalesOfficerCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SalesOfficerPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a SalesOfficer.
+     * @param {SalesOfficerDeleteArgs} args - Arguments to delete one SalesOfficer.
+     * @example
+     * // Delete one SalesOfficer
+     * const SalesOfficer = await prisma.salesOfficer.delete({
+     *   where: {
+     *     // ... filter to delete one SalesOfficer
+     *   }
+     * })
+     * 
+     */
+    delete<T extends SalesOfficerDeleteArgs>(args: SelectSubset<T, SalesOfficerDeleteArgs<ExtArgs>>): Prisma__SalesOfficerClient<$Result.GetResult<Prisma.$SalesOfficerPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one SalesOfficer.
+     * @param {SalesOfficerUpdateArgs} args - Arguments to update one SalesOfficer.
+     * @example
+     * // Update one SalesOfficer
+     * const salesOfficer = await prisma.salesOfficer.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends SalesOfficerUpdateArgs>(args: SelectSubset<T, SalesOfficerUpdateArgs<ExtArgs>>): Prisma__SalesOfficerClient<$Result.GetResult<Prisma.$SalesOfficerPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more SalesOfficers.
+     * @param {SalesOfficerDeleteManyArgs} args - Arguments to filter SalesOfficers to delete.
+     * @example
+     * // Delete a few SalesOfficers
+     * const { count } = await prisma.salesOfficer.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends SalesOfficerDeleteManyArgs>(args?: SelectSubset<T, SalesOfficerDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more SalesOfficers.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SalesOfficerUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many SalesOfficers
+     * const salesOfficer = await prisma.salesOfficer.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends SalesOfficerUpdateManyArgs>(args: SelectSubset<T, SalesOfficerUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more SalesOfficers and returns the data updated in the database.
+     * @param {SalesOfficerUpdateManyAndReturnArgs} args - Arguments to update many SalesOfficers.
+     * @example
+     * // Update many SalesOfficers
+     * const salesOfficer = await prisma.salesOfficer.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more SalesOfficers and only return the `id`
+     * const salesOfficerWithIdOnly = await prisma.salesOfficer.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends SalesOfficerUpdateManyAndReturnArgs>(args: SelectSubset<T, SalesOfficerUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SalesOfficerPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one SalesOfficer.
+     * @param {SalesOfficerUpsertArgs} args - Arguments to update or create a SalesOfficer.
+     * @example
+     * // Update or create a SalesOfficer
+     * const salesOfficer = await prisma.salesOfficer.upsert({
+     *   create: {
+     *     // ... data to create a SalesOfficer
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the SalesOfficer we want to update
+     *   }
+     * })
+     */
+    upsert<T extends SalesOfficerUpsertArgs>(args: SelectSubset<T, SalesOfficerUpsertArgs<ExtArgs>>): Prisma__SalesOfficerClient<$Result.GetResult<Prisma.$SalesOfficerPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of SalesOfficers.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SalesOfficerCountArgs} args - Arguments to filter SalesOfficers to count.
+     * @example
+     * // Count the number of SalesOfficers
+     * const count = await prisma.salesOfficer.count({
+     *   where: {
+     *     // ... the filter for the SalesOfficers we want to count
+     *   }
+     * })
+    **/
+    count<T extends SalesOfficerCountArgs>(
+      args?: Subset<T, SalesOfficerCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], SalesOfficerCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a SalesOfficer.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SalesOfficerAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends SalesOfficerAggregateArgs>(args: Subset<T, SalesOfficerAggregateArgs>): Prisma.PrismaPromise<GetSalesOfficerAggregateType<T>>
+
+    /**
+     * Group by SalesOfficer.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SalesOfficerGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends SalesOfficerGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: SalesOfficerGroupByArgs['orderBy'] }
+        : { orderBy?: SalesOfficerGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, SalesOfficerGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetSalesOfficerGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the SalesOfficer model
+   */
+  readonly fields: SalesOfficerFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for SalesOfficer.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__SalesOfficerClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the SalesOfficer model
+   */
+  interface SalesOfficerFieldRefs {
+    readonly id: FieldRef<"SalesOfficer", 'String'>
+    readonly name: FieldRef<"SalesOfficer", 'String'>
+    readonly nameNormalized: FieldRef<"SalesOfficer", 'String'>
+    readonly createdAt: FieldRef<"SalesOfficer", 'DateTime'>
+    readonly updatedAt: FieldRef<"SalesOfficer", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * SalesOfficer findUnique
+   */
+  export type SalesOfficerFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SalesOfficer
+     */
+    select?: SalesOfficerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SalesOfficer
+     */
+    omit?: SalesOfficerOmit<ExtArgs> | null
+    /**
+     * Filter, which SalesOfficer to fetch.
+     */
+    where: SalesOfficerWhereUniqueInput
+  }
+
+  /**
+   * SalesOfficer findUniqueOrThrow
+   */
+  export type SalesOfficerFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SalesOfficer
+     */
+    select?: SalesOfficerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SalesOfficer
+     */
+    omit?: SalesOfficerOmit<ExtArgs> | null
+    /**
+     * Filter, which SalesOfficer to fetch.
+     */
+    where: SalesOfficerWhereUniqueInput
+  }
+
+  /**
+   * SalesOfficer findFirst
+   */
+  export type SalesOfficerFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SalesOfficer
+     */
+    select?: SalesOfficerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SalesOfficer
+     */
+    omit?: SalesOfficerOmit<ExtArgs> | null
+    /**
+     * Filter, which SalesOfficer to fetch.
+     */
+    where?: SalesOfficerWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SalesOfficers to fetch.
+     */
+    orderBy?: SalesOfficerOrderByWithRelationInput | SalesOfficerOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for SalesOfficers.
+     */
+    cursor?: SalesOfficerWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SalesOfficers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SalesOfficers.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SalesOfficers.
+     */
+    distinct?: SalesOfficerScalarFieldEnum | SalesOfficerScalarFieldEnum[]
+  }
+
+  /**
+   * SalesOfficer findFirstOrThrow
+   */
+  export type SalesOfficerFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SalesOfficer
+     */
+    select?: SalesOfficerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SalesOfficer
+     */
+    omit?: SalesOfficerOmit<ExtArgs> | null
+    /**
+     * Filter, which SalesOfficer to fetch.
+     */
+    where?: SalesOfficerWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SalesOfficers to fetch.
+     */
+    orderBy?: SalesOfficerOrderByWithRelationInput | SalesOfficerOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for SalesOfficers.
+     */
+    cursor?: SalesOfficerWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SalesOfficers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SalesOfficers.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SalesOfficers.
+     */
+    distinct?: SalesOfficerScalarFieldEnum | SalesOfficerScalarFieldEnum[]
+  }
+
+  /**
+   * SalesOfficer findMany
+   */
+  export type SalesOfficerFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SalesOfficer
+     */
+    select?: SalesOfficerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SalesOfficer
+     */
+    omit?: SalesOfficerOmit<ExtArgs> | null
+    /**
+     * Filter, which SalesOfficers to fetch.
+     */
+    where?: SalesOfficerWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SalesOfficers to fetch.
+     */
+    orderBy?: SalesOfficerOrderByWithRelationInput | SalesOfficerOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing SalesOfficers.
+     */
+    cursor?: SalesOfficerWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SalesOfficers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SalesOfficers.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SalesOfficers.
+     */
+    distinct?: SalesOfficerScalarFieldEnum | SalesOfficerScalarFieldEnum[]
+  }
+
+  /**
+   * SalesOfficer create
+   */
+  export type SalesOfficerCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SalesOfficer
+     */
+    select?: SalesOfficerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SalesOfficer
+     */
+    omit?: SalesOfficerOmit<ExtArgs> | null
+    /**
+     * The data needed to create a SalesOfficer.
+     */
+    data: XOR<SalesOfficerCreateInput, SalesOfficerUncheckedCreateInput>
+  }
+
+  /**
+   * SalesOfficer createMany
+   */
+  export type SalesOfficerCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many SalesOfficers.
+     */
+    data: SalesOfficerCreateManyInput | SalesOfficerCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * SalesOfficer createManyAndReturn
+   */
+  export type SalesOfficerCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SalesOfficer
+     */
+    select?: SalesOfficerSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the SalesOfficer
+     */
+    omit?: SalesOfficerOmit<ExtArgs> | null
+    /**
+     * The data used to create many SalesOfficers.
+     */
+    data: SalesOfficerCreateManyInput | SalesOfficerCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * SalesOfficer update
+   */
+  export type SalesOfficerUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SalesOfficer
+     */
+    select?: SalesOfficerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SalesOfficer
+     */
+    omit?: SalesOfficerOmit<ExtArgs> | null
+    /**
+     * The data needed to update a SalesOfficer.
+     */
+    data: XOR<SalesOfficerUpdateInput, SalesOfficerUncheckedUpdateInput>
+    /**
+     * Choose, which SalesOfficer to update.
+     */
+    where: SalesOfficerWhereUniqueInput
+  }
+
+  /**
+   * SalesOfficer updateMany
+   */
+  export type SalesOfficerUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update SalesOfficers.
+     */
+    data: XOR<SalesOfficerUpdateManyMutationInput, SalesOfficerUncheckedUpdateManyInput>
+    /**
+     * Filter which SalesOfficers to update
+     */
+    where?: SalesOfficerWhereInput
+    /**
+     * Limit how many SalesOfficers to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * SalesOfficer updateManyAndReturn
+   */
+  export type SalesOfficerUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SalesOfficer
+     */
+    select?: SalesOfficerSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the SalesOfficer
+     */
+    omit?: SalesOfficerOmit<ExtArgs> | null
+    /**
+     * The data used to update SalesOfficers.
+     */
+    data: XOR<SalesOfficerUpdateManyMutationInput, SalesOfficerUncheckedUpdateManyInput>
+    /**
+     * Filter which SalesOfficers to update
+     */
+    where?: SalesOfficerWhereInput
+    /**
+     * Limit how many SalesOfficers to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * SalesOfficer upsert
+   */
+  export type SalesOfficerUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SalesOfficer
+     */
+    select?: SalesOfficerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SalesOfficer
+     */
+    omit?: SalesOfficerOmit<ExtArgs> | null
+    /**
+     * The filter to search for the SalesOfficer to update in case it exists.
+     */
+    where: SalesOfficerWhereUniqueInput
+    /**
+     * In case the SalesOfficer found by the `where` argument doesn't exist, create a new SalesOfficer with this data.
+     */
+    create: XOR<SalesOfficerCreateInput, SalesOfficerUncheckedCreateInput>
+    /**
+     * In case the SalesOfficer was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<SalesOfficerUpdateInput, SalesOfficerUncheckedUpdateInput>
+  }
+
+  /**
+   * SalesOfficer delete
+   */
+  export type SalesOfficerDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SalesOfficer
+     */
+    select?: SalesOfficerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SalesOfficer
+     */
+    omit?: SalesOfficerOmit<ExtArgs> | null
+    /**
+     * Filter which SalesOfficer to delete.
+     */
+    where: SalesOfficerWhereUniqueInput
+  }
+
+  /**
+   * SalesOfficer deleteMany
+   */
+  export type SalesOfficerDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which SalesOfficers to delete
+     */
+    where?: SalesOfficerWhereInput
+    /**
+     * Limit how many SalesOfficers to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * SalesOfficer without action
+   */
+  export type SalesOfficerDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SalesOfficer
+     */
+    select?: SalesOfficerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SalesOfficer
+     */
+    omit?: SalesOfficerOmit<ExtArgs> | null
+  }
+
+
+  /**
+   * Model ReportingManager
+   */
+
+  export type AggregateReportingManager = {
+    _count: ReportingManagerCountAggregateOutputType | null
+    _min: ReportingManagerMinAggregateOutputType | null
+    _max: ReportingManagerMaxAggregateOutputType | null
+  }
+
+  export type ReportingManagerMinAggregateOutputType = {
+    id: string | null
+    name: string | null
+    nameNormalized: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type ReportingManagerMaxAggregateOutputType = {
+    id: string | null
+    name: string | null
+    nameNormalized: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type ReportingManagerCountAggregateOutputType = {
+    id: number
+    name: number
+    nameNormalized: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type ReportingManagerMinAggregateInputType = {
+    id?: true
+    name?: true
+    nameNormalized?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type ReportingManagerMaxAggregateInputType = {
+    id?: true
+    name?: true
+    nameNormalized?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type ReportingManagerCountAggregateInputType = {
+    id?: true
+    name?: true
+    nameNormalized?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type ReportingManagerAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ReportingManager to aggregate.
+     */
+    where?: ReportingManagerWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ReportingManagers to fetch.
+     */
+    orderBy?: ReportingManagerOrderByWithRelationInput | ReportingManagerOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: ReportingManagerWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ReportingManagers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ReportingManagers.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned ReportingManagers
+    **/
+    _count?: true | ReportingManagerCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ReportingManagerMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ReportingManagerMaxAggregateInputType
+  }
+
+  export type GetReportingManagerAggregateType<T extends ReportingManagerAggregateArgs> = {
+        [P in keyof T & keyof AggregateReportingManager]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateReportingManager[P]>
+      : GetScalarType<T[P], AggregateReportingManager[P]>
+  }
+
+
+
+
+  export type ReportingManagerGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ReportingManagerWhereInput
+    orderBy?: ReportingManagerOrderByWithAggregationInput | ReportingManagerOrderByWithAggregationInput[]
+    by: ReportingManagerScalarFieldEnum[] | ReportingManagerScalarFieldEnum
+    having?: ReportingManagerScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ReportingManagerCountAggregateInputType | true
+    _min?: ReportingManagerMinAggregateInputType
+    _max?: ReportingManagerMaxAggregateInputType
+  }
+
+  export type ReportingManagerGroupByOutputType = {
+    id: string
+    name: string
+    nameNormalized: string
+    createdAt: Date
+    updatedAt: Date
+    _count: ReportingManagerCountAggregateOutputType | null
+    _min: ReportingManagerMinAggregateOutputType | null
+    _max: ReportingManagerMaxAggregateOutputType | null
+  }
+
+  type GetReportingManagerGroupByPayload<T extends ReportingManagerGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ReportingManagerGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ReportingManagerGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ReportingManagerGroupByOutputType[P]>
+            : GetScalarType<T[P], ReportingManagerGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type ReportingManagerSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    nameNormalized?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["reportingManager"]>
+
+  export type ReportingManagerSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    nameNormalized?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["reportingManager"]>
+
+  export type ReportingManagerSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    nameNormalized?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["reportingManager"]>
+
+  export type ReportingManagerSelectScalar = {
+    id?: boolean
+    name?: boolean
+    nameNormalized?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type ReportingManagerOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "nameNormalized" | "createdAt" | "updatedAt", ExtArgs["result"]["reportingManager"]>
+
+  export type $ReportingManagerPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "ReportingManager"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      name: string
+      nameNormalized: string
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["reportingManager"]>
+    composites: {}
+  }
+
+  type ReportingManagerGetPayload<S extends boolean | null | undefined | ReportingManagerDefaultArgs> = $Result.GetResult<Prisma.$ReportingManagerPayload, S>
+
+  type ReportingManagerCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<ReportingManagerFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: ReportingManagerCountAggregateInputType | true
+    }
+
+  export interface ReportingManagerDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['ReportingManager'], meta: { name: 'ReportingManager' } }
+    /**
+     * Find zero or one ReportingManager that matches the filter.
+     * @param {ReportingManagerFindUniqueArgs} args - Arguments to find a ReportingManager
+     * @example
+     * // Get one ReportingManager
+     * const reportingManager = await prisma.reportingManager.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends ReportingManagerFindUniqueArgs>(args: SelectSubset<T, ReportingManagerFindUniqueArgs<ExtArgs>>): Prisma__ReportingManagerClient<$Result.GetResult<Prisma.$ReportingManagerPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one ReportingManager that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {ReportingManagerFindUniqueOrThrowArgs} args - Arguments to find a ReportingManager
+     * @example
+     * // Get one ReportingManager
+     * const reportingManager = await prisma.reportingManager.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends ReportingManagerFindUniqueOrThrowArgs>(args: SelectSubset<T, ReportingManagerFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ReportingManagerClient<$Result.GetResult<Prisma.$ReportingManagerPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first ReportingManager that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ReportingManagerFindFirstArgs} args - Arguments to find a ReportingManager
+     * @example
+     * // Get one ReportingManager
+     * const reportingManager = await prisma.reportingManager.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends ReportingManagerFindFirstArgs>(args?: SelectSubset<T, ReportingManagerFindFirstArgs<ExtArgs>>): Prisma__ReportingManagerClient<$Result.GetResult<Prisma.$ReportingManagerPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first ReportingManager that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ReportingManagerFindFirstOrThrowArgs} args - Arguments to find a ReportingManager
+     * @example
+     * // Get one ReportingManager
+     * const reportingManager = await prisma.reportingManager.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends ReportingManagerFindFirstOrThrowArgs>(args?: SelectSubset<T, ReportingManagerFindFirstOrThrowArgs<ExtArgs>>): Prisma__ReportingManagerClient<$Result.GetResult<Prisma.$ReportingManagerPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more ReportingManagers that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ReportingManagerFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all ReportingManagers
+     * const reportingManagers = await prisma.reportingManager.findMany()
+     * 
+     * // Get first 10 ReportingManagers
+     * const reportingManagers = await prisma.reportingManager.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const reportingManagerWithIdOnly = await prisma.reportingManager.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends ReportingManagerFindManyArgs>(args?: SelectSubset<T, ReportingManagerFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ReportingManagerPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a ReportingManager.
+     * @param {ReportingManagerCreateArgs} args - Arguments to create a ReportingManager.
+     * @example
+     * // Create one ReportingManager
+     * const ReportingManager = await prisma.reportingManager.create({
+     *   data: {
+     *     // ... data to create a ReportingManager
+     *   }
+     * })
+     * 
+     */
+    create<T extends ReportingManagerCreateArgs>(args: SelectSubset<T, ReportingManagerCreateArgs<ExtArgs>>): Prisma__ReportingManagerClient<$Result.GetResult<Prisma.$ReportingManagerPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many ReportingManagers.
+     * @param {ReportingManagerCreateManyArgs} args - Arguments to create many ReportingManagers.
+     * @example
+     * // Create many ReportingManagers
+     * const reportingManager = await prisma.reportingManager.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends ReportingManagerCreateManyArgs>(args?: SelectSubset<T, ReportingManagerCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many ReportingManagers and returns the data saved in the database.
+     * @param {ReportingManagerCreateManyAndReturnArgs} args - Arguments to create many ReportingManagers.
+     * @example
+     * // Create many ReportingManagers
+     * const reportingManager = await prisma.reportingManager.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many ReportingManagers and only return the `id`
+     * const reportingManagerWithIdOnly = await prisma.reportingManager.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends ReportingManagerCreateManyAndReturnArgs>(args?: SelectSubset<T, ReportingManagerCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ReportingManagerPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a ReportingManager.
+     * @param {ReportingManagerDeleteArgs} args - Arguments to delete one ReportingManager.
+     * @example
+     * // Delete one ReportingManager
+     * const ReportingManager = await prisma.reportingManager.delete({
+     *   where: {
+     *     // ... filter to delete one ReportingManager
+     *   }
+     * })
+     * 
+     */
+    delete<T extends ReportingManagerDeleteArgs>(args: SelectSubset<T, ReportingManagerDeleteArgs<ExtArgs>>): Prisma__ReportingManagerClient<$Result.GetResult<Prisma.$ReportingManagerPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one ReportingManager.
+     * @param {ReportingManagerUpdateArgs} args - Arguments to update one ReportingManager.
+     * @example
+     * // Update one ReportingManager
+     * const reportingManager = await prisma.reportingManager.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends ReportingManagerUpdateArgs>(args: SelectSubset<T, ReportingManagerUpdateArgs<ExtArgs>>): Prisma__ReportingManagerClient<$Result.GetResult<Prisma.$ReportingManagerPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more ReportingManagers.
+     * @param {ReportingManagerDeleteManyArgs} args - Arguments to filter ReportingManagers to delete.
+     * @example
+     * // Delete a few ReportingManagers
+     * const { count } = await prisma.reportingManager.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends ReportingManagerDeleteManyArgs>(args?: SelectSubset<T, ReportingManagerDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more ReportingManagers.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ReportingManagerUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many ReportingManagers
+     * const reportingManager = await prisma.reportingManager.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends ReportingManagerUpdateManyArgs>(args: SelectSubset<T, ReportingManagerUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more ReportingManagers and returns the data updated in the database.
+     * @param {ReportingManagerUpdateManyAndReturnArgs} args - Arguments to update many ReportingManagers.
+     * @example
+     * // Update many ReportingManagers
+     * const reportingManager = await prisma.reportingManager.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more ReportingManagers and only return the `id`
+     * const reportingManagerWithIdOnly = await prisma.reportingManager.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends ReportingManagerUpdateManyAndReturnArgs>(args: SelectSubset<T, ReportingManagerUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ReportingManagerPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one ReportingManager.
+     * @param {ReportingManagerUpsertArgs} args - Arguments to update or create a ReportingManager.
+     * @example
+     * // Update or create a ReportingManager
+     * const reportingManager = await prisma.reportingManager.upsert({
+     *   create: {
+     *     // ... data to create a ReportingManager
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the ReportingManager we want to update
+     *   }
+     * })
+     */
+    upsert<T extends ReportingManagerUpsertArgs>(args: SelectSubset<T, ReportingManagerUpsertArgs<ExtArgs>>): Prisma__ReportingManagerClient<$Result.GetResult<Prisma.$ReportingManagerPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of ReportingManagers.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ReportingManagerCountArgs} args - Arguments to filter ReportingManagers to count.
+     * @example
+     * // Count the number of ReportingManagers
+     * const count = await prisma.reportingManager.count({
+     *   where: {
+     *     // ... the filter for the ReportingManagers we want to count
+     *   }
+     * })
+    **/
+    count<T extends ReportingManagerCountArgs>(
+      args?: Subset<T, ReportingManagerCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ReportingManagerCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a ReportingManager.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ReportingManagerAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ReportingManagerAggregateArgs>(args: Subset<T, ReportingManagerAggregateArgs>): Prisma.PrismaPromise<GetReportingManagerAggregateType<T>>
+
+    /**
+     * Group by ReportingManager.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ReportingManagerGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends ReportingManagerGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: ReportingManagerGroupByArgs['orderBy'] }
+        : { orderBy?: ReportingManagerGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, ReportingManagerGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetReportingManagerGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the ReportingManager model
+   */
+  readonly fields: ReportingManagerFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for ReportingManager.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__ReportingManagerClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the ReportingManager model
+   */
+  interface ReportingManagerFieldRefs {
+    readonly id: FieldRef<"ReportingManager", 'String'>
+    readonly name: FieldRef<"ReportingManager", 'String'>
+    readonly nameNormalized: FieldRef<"ReportingManager", 'String'>
+    readonly createdAt: FieldRef<"ReportingManager", 'DateTime'>
+    readonly updatedAt: FieldRef<"ReportingManager", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * ReportingManager findUnique
+   */
+  export type ReportingManagerFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ReportingManager
+     */
+    select?: ReportingManagerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ReportingManager
+     */
+    omit?: ReportingManagerOmit<ExtArgs> | null
+    /**
+     * Filter, which ReportingManager to fetch.
+     */
+    where: ReportingManagerWhereUniqueInput
+  }
+
+  /**
+   * ReportingManager findUniqueOrThrow
+   */
+  export type ReportingManagerFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ReportingManager
+     */
+    select?: ReportingManagerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ReportingManager
+     */
+    omit?: ReportingManagerOmit<ExtArgs> | null
+    /**
+     * Filter, which ReportingManager to fetch.
+     */
+    where: ReportingManagerWhereUniqueInput
+  }
+
+  /**
+   * ReportingManager findFirst
+   */
+  export type ReportingManagerFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ReportingManager
+     */
+    select?: ReportingManagerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ReportingManager
+     */
+    omit?: ReportingManagerOmit<ExtArgs> | null
+    /**
+     * Filter, which ReportingManager to fetch.
+     */
+    where?: ReportingManagerWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ReportingManagers to fetch.
+     */
+    orderBy?: ReportingManagerOrderByWithRelationInput | ReportingManagerOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ReportingManagers.
+     */
+    cursor?: ReportingManagerWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ReportingManagers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ReportingManagers.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ReportingManagers.
+     */
+    distinct?: ReportingManagerScalarFieldEnum | ReportingManagerScalarFieldEnum[]
+  }
+
+  /**
+   * ReportingManager findFirstOrThrow
+   */
+  export type ReportingManagerFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ReportingManager
+     */
+    select?: ReportingManagerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ReportingManager
+     */
+    omit?: ReportingManagerOmit<ExtArgs> | null
+    /**
+     * Filter, which ReportingManager to fetch.
+     */
+    where?: ReportingManagerWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ReportingManagers to fetch.
+     */
+    orderBy?: ReportingManagerOrderByWithRelationInput | ReportingManagerOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ReportingManagers.
+     */
+    cursor?: ReportingManagerWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ReportingManagers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ReportingManagers.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ReportingManagers.
+     */
+    distinct?: ReportingManagerScalarFieldEnum | ReportingManagerScalarFieldEnum[]
+  }
+
+  /**
+   * ReportingManager findMany
+   */
+  export type ReportingManagerFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ReportingManager
+     */
+    select?: ReportingManagerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ReportingManager
+     */
+    omit?: ReportingManagerOmit<ExtArgs> | null
+    /**
+     * Filter, which ReportingManagers to fetch.
+     */
+    where?: ReportingManagerWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ReportingManagers to fetch.
+     */
+    orderBy?: ReportingManagerOrderByWithRelationInput | ReportingManagerOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing ReportingManagers.
+     */
+    cursor?: ReportingManagerWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ReportingManagers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ReportingManagers.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ReportingManagers.
+     */
+    distinct?: ReportingManagerScalarFieldEnum | ReportingManagerScalarFieldEnum[]
+  }
+
+  /**
+   * ReportingManager create
+   */
+  export type ReportingManagerCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ReportingManager
+     */
+    select?: ReportingManagerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ReportingManager
+     */
+    omit?: ReportingManagerOmit<ExtArgs> | null
+    /**
+     * The data needed to create a ReportingManager.
+     */
+    data: XOR<ReportingManagerCreateInput, ReportingManagerUncheckedCreateInput>
+  }
+
+  /**
+   * ReportingManager createMany
+   */
+  export type ReportingManagerCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many ReportingManagers.
+     */
+    data: ReportingManagerCreateManyInput | ReportingManagerCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * ReportingManager createManyAndReturn
+   */
+  export type ReportingManagerCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ReportingManager
+     */
+    select?: ReportingManagerSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the ReportingManager
+     */
+    omit?: ReportingManagerOmit<ExtArgs> | null
+    /**
+     * The data used to create many ReportingManagers.
+     */
+    data: ReportingManagerCreateManyInput | ReportingManagerCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * ReportingManager update
+   */
+  export type ReportingManagerUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ReportingManager
+     */
+    select?: ReportingManagerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ReportingManager
+     */
+    omit?: ReportingManagerOmit<ExtArgs> | null
+    /**
+     * The data needed to update a ReportingManager.
+     */
+    data: XOR<ReportingManagerUpdateInput, ReportingManagerUncheckedUpdateInput>
+    /**
+     * Choose, which ReportingManager to update.
+     */
+    where: ReportingManagerWhereUniqueInput
+  }
+
+  /**
+   * ReportingManager updateMany
+   */
+  export type ReportingManagerUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update ReportingManagers.
+     */
+    data: XOR<ReportingManagerUpdateManyMutationInput, ReportingManagerUncheckedUpdateManyInput>
+    /**
+     * Filter which ReportingManagers to update
+     */
+    where?: ReportingManagerWhereInput
+    /**
+     * Limit how many ReportingManagers to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * ReportingManager updateManyAndReturn
+   */
+  export type ReportingManagerUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ReportingManager
+     */
+    select?: ReportingManagerSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the ReportingManager
+     */
+    omit?: ReportingManagerOmit<ExtArgs> | null
+    /**
+     * The data used to update ReportingManagers.
+     */
+    data: XOR<ReportingManagerUpdateManyMutationInput, ReportingManagerUncheckedUpdateManyInput>
+    /**
+     * Filter which ReportingManagers to update
+     */
+    where?: ReportingManagerWhereInput
+    /**
+     * Limit how many ReportingManagers to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * ReportingManager upsert
+   */
+  export type ReportingManagerUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ReportingManager
+     */
+    select?: ReportingManagerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ReportingManager
+     */
+    omit?: ReportingManagerOmit<ExtArgs> | null
+    /**
+     * The filter to search for the ReportingManager to update in case it exists.
+     */
+    where: ReportingManagerWhereUniqueInput
+    /**
+     * In case the ReportingManager found by the `where` argument doesn't exist, create a new ReportingManager with this data.
+     */
+    create: XOR<ReportingManagerCreateInput, ReportingManagerUncheckedCreateInput>
+    /**
+     * In case the ReportingManager was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<ReportingManagerUpdateInput, ReportingManagerUncheckedUpdateInput>
+  }
+
+  /**
+   * ReportingManager delete
+   */
+  export type ReportingManagerDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ReportingManager
+     */
+    select?: ReportingManagerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ReportingManager
+     */
+    omit?: ReportingManagerOmit<ExtArgs> | null
+    /**
+     * Filter which ReportingManager to delete.
+     */
+    where: ReportingManagerWhereUniqueInput
+  }
+
+  /**
+   * ReportingManager deleteMany
+   */
+  export type ReportingManagerDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ReportingManagers to delete
+     */
+    where?: ReportingManagerWhereInput
+    /**
+     * Limit how many ReportingManagers to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * ReportingManager without action
+   */
+  export type ReportingManagerDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ReportingManager
+     */
+    select?: ReportingManagerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ReportingManager
+     */
+    omit?: ReportingManagerOmit<ExtArgs> | null
   }
 
 
@@ -3606,7 +10155,13 @@ export namespace Prisma {
     legacyId: 'legacyId',
     formType: 'formType',
     skPassportNo: 'skPassportNo',
+    skPassportSeq: 'skPassportSeq',
     validationOtpGenerated: 'validationOtpGenerated',
+    title: 'title',
+    age: 'age',
+    sameAsAbove: 'sameAsAbove',
+    remarks: 'remarks',
+    validationCode: 'validationCode',
     registeringDate: 'registeringDate',
     pi_firstName: 'pi_firstName',
     pi_lastName: 'pi_lastName',
@@ -3626,6 +10181,7 @@ export namespace Prisma {
     pi_anniversaryDate: 'pi_anniversaryDate',
     ref_nameOfTheperson: 'ref_nameOfTheperson',
     ref_place: 'ref_place',
+    reporting_manager_name: 'reporting_manager_name',
     sod_nameOfTheDealer: 'sod_nameOfTheDealer',
     sod_place: 'sod_place',
     photoProofPath: 'photoProofPath',
@@ -3651,10 +10207,115 @@ export namespace Prisma {
     updatedAt: 'updatedAt',
     photoProofData: 'photoProofData',
     idProofData: 'idProofData',
-    idProofBackData: 'idProofBackData'
+    idProofBackData: 'idProofBackData',
+    panProofPath: 'panProofPath',
+    panProofData: 'panProofData',
+    dealershipName: 'dealershipName',
+    contactPerson: 'contactPerson',
+    gstNumber: 'gstNumber',
+    panNumber: 'panNumber',
+    ownerSameAsAbove: 'ownerSameAsAbove',
+    ownerTitle: 'ownerTitle',
+    ownerFirstName: 'ownerFirstName',
+    ownerLastName: 'ownerLastName',
+    ownerOfficeAddressLine1: 'ownerOfficeAddressLine1',
+    ownerOfficeAddressLine2: 'ownerOfficeAddressLine2',
+    ownerCity: 'ownerCity',
+    ownerState: 'ownerState',
+    ownerPostalCode: 'ownerPostalCode',
+    ownerPlace: 'ownerPlace',
+    ownerPhoneNumber: 'ownerPhoneNumber',
+    ownerEmailId: 'ownerEmailId',
+    secondContactTitle: 'secondContactTitle',
+    secondContactFirstName: 'secondContactFirstName',
+    secondContactLastName: 'secondContactLastName',
+    secondContactPhone: 'secondContactPhone',
+    secondContactEmail: 'secondContactEmail',
+    spouseName: 'spouseName',
+    spouseDob: 'spouseDob',
+    weddingDay: 'weddingDay',
+    childName1: 'childName1',
+    childDob1: 'childDob1',
+    childName2: 'childName2',
+    childDob2: 'childDob2',
+    childName3: 'childName3',
+    childDob3: 'childDob3',
+    godownSameAsCompany: 'godownSameAsCompany',
+    godownAddressLine1: 'godownAddressLine1',
+    godownAddressLine2: 'godownAddressLine2',
+    godownCity: 'godownCity',
+    godownState: 'godownState',
+    godownPostalCode: 'godownPostalCode',
+    godownContactPerson: 'godownContactPerson',
+    godownContactMobile: 'godownContactMobile',
+    referenceName1: 'referenceName1',
+    referencePhone1: 'referencePhone1',
+    referenceDetails1: 'referenceDetails1',
+    referenceName2: 'referenceName2',
+    referencePhone2: 'referencePhone2',
+    referenceDetails2: 'referenceDetails2'
   };
 
   export type FormSubmissionScalarFieldEnum = (typeof FormSubmissionScalarFieldEnum)[keyof typeof FormSubmissionScalarFieldEnum]
+
+
+  export const LegacyRegistrationScalarFieldEnum: {
+    id: 'id',
+    legacySource: 'legacySource',
+    legacyRowIndex: 'legacyRowIndex',
+    legacyId: 'legacyId',
+    legacyPassportNo: 'legacyPassportNo',
+    rawTableRecord: 'rawTableRecord',
+    rawDetailRecord: 'rawDetailRecord',
+    submissionId: 'submissionId',
+    createdAt: 'createdAt'
+  };
+
+  export type LegacyRegistrationScalarFieldEnum = (typeof LegacyRegistrationScalarFieldEnum)[keyof typeof LegacyRegistrationScalarFieldEnum]
+
+
+  export const LegacyBlobScalarFieldEnum: {
+    id: 'id',
+    submissionId: 'submissionId',
+    photoProofData: 'photoProofData',
+    idProofData: 'idProofData',
+    idProofBackData: 'idProofBackData',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type LegacyBlobScalarFieldEnum = (typeof LegacyBlobScalarFieldEnum)[keyof typeof LegacyBlobScalarFieldEnum]
+
+
+  export const PassportCounterScalarFieldEnum: {
+    key: 'key',
+    lastIssued: 'lastIssued',
+    updatedAt: 'updatedAt'
+  };
+
+  export type PassportCounterScalarFieldEnum = (typeof PassportCounterScalarFieldEnum)[keyof typeof PassportCounterScalarFieldEnum]
+
+
+  export const SalesOfficerScalarFieldEnum: {
+    id: 'id',
+    name: 'name',
+    nameNormalized: 'nameNormalized',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type SalesOfficerScalarFieldEnum = (typeof SalesOfficerScalarFieldEnum)[keyof typeof SalesOfficerScalarFieldEnum]
+
+
+  export const ReportingManagerScalarFieldEnum: {
+    id: 'id',
+    name: 'name',
+    nameNormalized: 'nameNormalized',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type ReportingManagerScalarFieldEnum = (typeof ReportingManagerScalarFieldEnum)[keyof typeof ReportingManagerScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -3663,6 +10324,14 @@ export namespace Prisma {
   };
 
   export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
+
+
+  export const NullableJsonNullValueInput: {
+    DbNull: typeof DbNull,
+    JsonNull: typeof JsonNull
+  };
+
+  export type NullableJsonNullValueInput = (typeof NullableJsonNullValueInput)[keyof typeof NullableJsonNullValueInput]
 
 
   export const QueryMode: {
@@ -3679,6 +10348,15 @@ export namespace Prisma {
   };
 
   export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
+
+
+  export const JsonNullValueFilter: {
+    DbNull: typeof DbNull,
+    JsonNull: typeof JsonNull,
+    AnyNull: typeof AnyNull
+  };
+
+  export type JsonNullValueFilter = (typeof JsonNullValueFilter)[keyof typeof JsonNullValueFilter]
 
 
   /**
@@ -3729,9 +10407,37 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'BigInt'
+   */
+  export type BigIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BigInt'>
+    
+
+
+  /**
+   * Reference to a field of type 'BigInt[]'
+   */
+  export type ListBigIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BigInt[]'>
+    
+
+
+  /**
    * Reference to a field of type 'Boolean'
    */
   export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
+    
+
+
+  /**
+   * Reference to a field of type 'Json'
+   */
+  export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Json'>
+    
+
+
+  /**
+   * Reference to a field of type 'QueryMode'
+   */
+  export type EnumQueryModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QueryMode'>
     
 
 
@@ -3812,7 +10518,13 @@ export namespace Prisma {
     legacyId?: IntNullableFilter<"FormSubmission"> | number | null
     formType?: StringFilter<"FormSubmission"> | string
     skPassportNo?: StringNullableFilter<"FormSubmission"> | string | null
+    skPassportSeq?: BigIntNullableFilter<"FormSubmission"> | bigint | number | null
     validationOtpGenerated?: StringNullableFilter<"FormSubmission"> | string | null
+    title?: StringNullableFilter<"FormSubmission"> | string | null
+    age?: StringNullableFilter<"FormSubmission"> | string | null
+    sameAsAbove?: BoolNullableFilter<"FormSubmission"> | boolean | null
+    remarks?: StringNullableFilter<"FormSubmission"> | string | null
+    validationCode?: StringNullableFilter<"FormSubmission"> | string | null
     registeringDate?: DateTimeNullableFilter<"FormSubmission"> | Date | string | null
     pi_firstName?: StringNullableFilter<"FormSubmission"> | string | null
     pi_lastName?: StringNullableFilter<"FormSubmission"> | string | null
@@ -3832,6 +10544,7 @@ export namespace Prisma {
     pi_anniversaryDate?: StringNullableFilter<"FormSubmission"> | string | null
     ref_nameOfTheperson?: StringNullableFilter<"FormSubmission"> | string | null
     ref_place?: StringNullableFilter<"FormSubmission"> | string | null
+    reporting_manager_name?: StringNullableFilter<"FormSubmission"> | string | null
     sod_nameOfTheDealer?: StringNullableFilter<"FormSubmission"> | string | null
     sod_place?: StringNullableFilter<"FormSubmission"> | string | null
     photoProofPath?: StringNullableFilter<"FormSubmission"> | string | null
@@ -3858,6 +10571,54 @@ export namespace Prisma {
     photoProofData?: StringNullableFilter<"FormSubmission"> | string | null
     idProofData?: StringNullableFilter<"FormSubmission"> | string | null
     idProofBackData?: StringNullableFilter<"FormSubmission"> | string | null
+    panProofPath?: StringNullableFilter<"FormSubmission"> | string | null
+    panProofData?: StringNullableFilter<"FormSubmission"> | string | null
+    dealershipName?: StringNullableFilter<"FormSubmission"> | string | null
+    contactPerson?: StringNullableFilter<"FormSubmission"> | string | null
+    gstNumber?: StringNullableFilter<"FormSubmission"> | string | null
+    panNumber?: StringNullableFilter<"FormSubmission"> | string | null
+    ownerSameAsAbove?: BoolNullableFilter<"FormSubmission"> | boolean | null
+    ownerTitle?: StringNullableFilter<"FormSubmission"> | string | null
+    ownerFirstName?: StringNullableFilter<"FormSubmission"> | string | null
+    ownerLastName?: StringNullableFilter<"FormSubmission"> | string | null
+    ownerOfficeAddressLine1?: StringNullableFilter<"FormSubmission"> | string | null
+    ownerOfficeAddressLine2?: StringNullableFilter<"FormSubmission"> | string | null
+    ownerCity?: StringNullableFilter<"FormSubmission"> | string | null
+    ownerState?: StringNullableFilter<"FormSubmission"> | string | null
+    ownerPostalCode?: StringNullableFilter<"FormSubmission"> | string | null
+    ownerPlace?: StringNullableFilter<"FormSubmission"> | string | null
+    ownerPhoneNumber?: StringNullableFilter<"FormSubmission"> | string | null
+    ownerEmailId?: StringNullableFilter<"FormSubmission"> | string | null
+    secondContactTitle?: StringNullableFilter<"FormSubmission"> | string | null
+    secondContactFirstName?: StringNullableFilter<"FormSubmission"> | string | null
+    secondContactLastName?: StringNullableFilter<"FormSubmission"> | string | null
+    secondContactPhone?: StringNullableFilter<"FormSubmission"> | string | null
+    secondContactEmail?: StringNullableFilter<"FormSubmission"> | string | null
+    spouseName?: StringNullableFilter<"FormSubmission"> | string | null
+    spouseDob?: StringNullableFilter<"FormSubmission"> | string | null
+    weddingDay?: StringNullableFilter<"FormSubmission"> | string | null
+    childName1?: StringNullableFilter<"FormSubmission"> | string | null
+    childDob1?: StringNullableFilter<"FormSubmission"> | string | null
+    childName2?: StringNullableFilter<"FormSubmission"> | string | null
+    childDob2?: StringNullableFilter<"FormSubmission"> | string | null
+    childName3?: StringNullableFilter<"FormSubmission"> | string | null
+    childDob3?: StringNullableFilter<"FormSubmission"> | string | null
+    godownSameAsCompany?: BoolNullableFilter<"FormSubmission"> | boolean | null
+    godownAddressLine1?: StringNullableFilter<"FormSubmission"> | string | null
+    godownAddressLine2?: StringNullableFilter<"FormSubmission"> | string | null
+    godownCity?: StringNullableFilter<"FormSubmission"> | string | null
+    godownState?: StringNullableFilter<"FormSubmission"> | string | null
+    godownPostalCode?: StringNullableFilter<"FormSubmission"> | string | null
+    godownContactPerson?: StringNullableFilter<"FormSubmission"> | string | null
+    godownContactMobile?: StringNullableFilter<"FormSubmission"> | string | null
+    referenceName1?: StringNullableFilter<"FormSubmission"> | string | null
+    referencePhone1?: StringNullableFilter<"FormSubmission"> | string | null
+    referenceDetails1?: StringNullableFilter<"FormSubmission"> | string | null
+    referenceName2?: StringNullableFilter<"FormSubmission"> | string | null
+    referencePhone2?: StringNullableFilter<"FormSubmission"> | string | null
+    referenceDetails2?: StringNullableFilter<"FormSubmission"> | string | null
+    legacyRegistrations?: LegacyRegistrationListRelationFilter
+    legacyBlob?: XOR<LegacyBlobNullableScalarRelationFilter, LegacyBlobWhereInput> | null
   }
 
   export type FormSubmissionOrderByWithRelationInput = {
@@ -3865,7 +10626,13 @@ export namespace Prisma {
     legacyId?: SortOrderInput | SortOrder
     formType?: SortOrder
     skPassportNo?: SortOrderInput | SortOrder
+    skPassportSeq?: SortOrderInput | SortOrder
     validationOtpGenerated?: SortOrderInput | SortOrder
+    title?: SortOrderInput | SortOrder
+    age?: SortOrderInput | SortOrder
+    sameAsAbove?: SortOrderInput | SortOrder
+    remarks?: SortOrderInput | SortOrder
+    validationCode?: SortOrderInput | SortOrder
     registeringDate?: SortOrderInput | SortOrder
     pi_firstName?: SortOrderInput | SortOrder
     pi_lastName?: SortOrderInput | SortOrder
@@ -3885,6 +10652,7 @@ export namespace Prisma {
     pi_anniversaryDate?: SortOrderInput | SortOrder
     ref_nameOfTheperson?: SortOrderInput | SortOrder
     ref_place?: SortOrderInput | SortOrder
+    reporting_manager_name?: SortOrderInput | SortOrder
     sod_nameOfTheDealer?: SortOrderInput | SortOrder
     sod_place?: SortOrderInput | SortOrder
     photoProofPath?: SortOrderInput | SortOrder
@@ -3911,17 +10679,71 @@ export namespace Prisma {
     photoProofData?: SortOrderInput | SortOrder
     idProofData?: SortOrderInput | SortOrder
     idProofBackData?: SortOrderInput | SortOrder
+    panProofPath?: SortOrderInput | SortOrder
+    panProofData?: SortOrderInput | SortOrder
+    dealershipName?: SortOrderInput | SortOrder
+    contactPerson?: SortOrderInput | SortOrder
+    gstNumber?: SortOrderInput | SortOrder
+    panNumber?: SortOrderInput | SortOrder
+    ownerSameAsAbove?: SortOrderInput | SortOrder
+    ownerTitle?: SortOrderInput | SortOrder
+    ownerFirstName?: SortOrderInput | SortOrder
+    ownerLastName?: SortOrderInput | SortOrder
+    ownerOfficeAddressLine1?: SortOrderInput | SortOrder
+    ownerOfficeAddressLine2?: SortOrderInput | SortOrder
+    ownerCity?: SortOrderInput | SortOrder
+    ownerState?: SortOrderInput | SortOrder
+    ownerPostalCode?: SortOrderInput | SortOrder
+    ownerPlace?: SortOrderInput | SortOrder
+    ownerPhoneNumber?: SortOrderInput | SortOrder
+    ownerEmailId?: SortOrderInput | SortOrder
+    secondContactTitle?: SortOrderInput | SortOrder
+    secondContactFirstName?: SortOrderInput | SortOrder
+    secondContactLastName?: SortOrderInput | SortOrder
+    secondContactPhone?: SortOrderInput | SortOrder
+    secondContactEmail?: SortOrderInput | SortOrder
+    spouseName?: SortOrderInput | SortOrder
+    spouseDob?: SortOrderInput | SortOrder
+    weddingDay?: SortOrderInput | SortOrder
+    childName1?: SortOrderInput | SortOrder
+    childDob1?: SortOrderInput | SortOrder
+    childName2?: SortOrderInput | SortOrder
+    childDob2?: SortOrderInput | SortOrder
+    childName3?: SortOrderInput | SortOrder
+    childDob3?: SortOrderInput | SortOrder
+    godownSameAsCompany?: SortOrderInput | SortOrder
+    godownAddressLine1?: SortOrderInput | SortOrder
+    godownAddressLine2?: SortOrderInput | SortOrder
+    godownCity?: SortOrderInput | SortOrder
+    godownState?: SortOrderInput | SortOrder
+    godownPostalCode?: SortOrderInput | SortOrder
+    godownContactPerson?: SortOrderInput | SortOrder
+    godownContactMobile?: SortOrderInput | SortOrder
+    referenceName1?: SortOrderInput | SortOrder
+    referencePhone1?: SortOrderInput | SortOrder
+    referenceDetails1?: SortOrderInput | SortOrder
+    referenceName2?: SortOrderInput | SortOrder
+    referencePhone2?: SortOrderInput | SortOrder
+    referenceDetails2?: SortOrderInput | SortOrder
+    legacyRegistrations?: LegacyRegistrationOrderByRelationAggregateInput
+    legacyBlob?: LegacyBlobOrderByWithRelationInput
   }
 
   export type FormSubmissionWhereUniqueInput = Prisma.AtLeast<{
     id?: string
-    legacyId?: number
-    skPassportNo?: string
+    skPassportSeq?: bigint | number
     AND?: FormSubmissionWhereInput | FormSubmissionWhereInput[]
     OR?: FormSubmissionWhereInput[]
     NOT?: FormSubmissionWhereInput | FormSubmissionWhereInput[]
+    legacyId?: IntNullableFilter<"FormSubmission"> | number | null
     formType?: StringFilter<"FormSubmission"> | string
+    skPassportNo?: StringNullableFilter<"FormSubmission"> | string | null
     validationOtpGenerated?: StringNullableFilter<"FormSubmission"> | string | null
+    title?: StringNullableFilter<"FormSubmission"> | string | null
+    age?: StringNullableFilter<"FormSubmission"> | string | null
+    sameAsAbove?: BoolNullableFilter<"FormSubmission"> | boolean | null
+    remarks?: StringNullableFilter<"FormSubmission"> | string | null
+    validationCode?: StringNullableFilter<"FormSubmission"> | string | null
     registeringDate?: DateTimeNullableFilter<"FormSubmission"> | Date | string | null
     pi_firstName?: StringNullableFilter<"FormSubmission"> | string | null
     pi_lastName?: StringNullableFilter<"FormSubmission"> | string | null
@@ -3941,6 +10763,7 @@ export namespace Prisma {
     pi_anniversaryDate?: StringNullableFilter<"FormSubmission"> | string | null
     ref_nameOfTheperson?: StringNullableFilter<"FormSubmission"> | string | null
     ref_place?: StringNullableFilter<"FormSubmission"> | string | null
+    reporting_manager_name?: StringNullableFilter<"FormSubmission"> | string | null
     sod_nameOfTheDealer?: StringNullableFilter<"FormSubmission"> | string | null
     sod_place?: StringNullableFilter<"FormSubmission"> | string | null
     photoProofPath?: StringNullableFilter<"FormSubmission"> | string | null
@@ -3967,14 +10790,68 @@ export namespace Prisma {
     photoProofData?: StringNullableFilter<"FormSubmission"> | string | null
     idProofData?: StringNullableFilter<"FormSubmission"> | string | null
     idProofBackData?: StringNullableFilter<"FormSubmission"> | string | null
-  }, "id" | "legacyId" | "skPassportNo">
+    panProofPath?: StringNullableFilter<"FormSubmission"> | string | null
+    panProofData?: StringNullableFilter<"FormSubmission"> | string | null
+    dealershipName?: StringNullableFilter<"FormSubmission"> | string | null
+    contactPerson?: StringNullableFilter<"FormSubmission"> | string | null
+    gstNumber?: StringNullableFilter<"FormSubmission"> | string | null
+    panNumber?: StringNullableFilter<"FormSubmission"> | string | null
+    ownerSameAsAbove?: BoolNullableFilter<"FormSubmission"> | boolean | null
+    ownerTitle?: StringNullableFilter<"FormSubmission"> | string | null
+    ownerFirstName?: StringNullableFilter<"FormSubmission"> | string | null
+    ownerLastName?: StringNullableFilter<"FormSubmission"> | string | null
+    ownerOfficeAddressLine1?: StringNullableFilter<"FormSubmission"> | string | null
+    ownerOfficeAddressLine2?: StringNullableFilter<"FormSubmission"> | string | null
+    ownerCity?: StringNullableFilter<"FormSubmission"> | string | null
+    ownerState?: StringNullableFilter<"FormSubmission"> | string | null
+    ownerPostalCode?: StringNullableFilter<"FormSubmission"> | string | null
+    ownerPlace?: StringNullableFilter<"FormSubmission"> | string | null
+    ownerPhoneNumber?: StringNullableFilter<"FormSubmission"> | string | null
+    ownerEmailId?: StringNullableFilter<"FormSubmission"> | string | null
+    secondContactTitle?: StringNullableFilter<"FormSubmission"> | string | null
+    secondContactFirstName?: StringNullableFilter<"FormSubmission"> | string | null
+    secondContactLastName?: StringNullableFilter<"FormSubmission"> | string | null
+    secondContactPhone?: StringNullableFilter<"FormSubmission"> | string | null
+    secondContactEmail?: StringNullableFilter<"FormSubmission"> | string | null
+    spouseName?: StringNullableFilter<"FormSubmission"> | string | null
+    spouseDob?: StringNullableFilter<"FormSubmission"> | string | null
+    weddingDay?: StringNullableFilter<"FormSubmission"> | string | null
+    childName1?: StringNullableFilter<"FormSubmission"> | string | null
+    childDob1?: StringNullableFilter<"FormSubmission"> | string | null
+    childName2?: StringNullableFilter<"FormSubmission"> | string | null
+    childDob2?: StringNullableFilter<"FormSubmission"> | string | null
+    childName3?: StringNullableFilter<"FormSubmission"> | string | null
+    childDob3?: StringNullableFilter<"FormSubmission"> | string | null
+    godownSameAsCompany?: BoolNullableFilter<"FormSubmission"> | boolean | null
+    godownAddressLine1?: StringNullableFilter<"FormSubmission"> | string | null
+    godownAddressLine2?: StringNullableFilter<"FormSubmission"> | string | null
+    godownCity?: StringNullableFilter<"FormSubmission"> | string | null
+    godownState?: StringNullableFilter<"FormSubmission"> | string | null
+    godownPostalCode?: StringNullableFilter<"FormSubmission"> | string | null
+    godownContactPerson?: StringNullableFilter<"FormSubmission"> | string | null
+    godownContactMobile?: StringNullableFilter<"FormSubmission"> | string | null
+    referenceName1?: StringNullableFilter<"FormSubmission"> | string | null
+    referencePhone1?: StringNullableFilter<"FormSubmission"> | string | null
+    referenceDetails1?: StringNullableFilter<"FormSubmission"> | string | null
+    referenceName2?: StringNullableFilter<"FormSubmission"> | string | null
+    referencePhone2?: StringNullableFilter<"FormSubmission"> | string | null
+    referenceDetails2?: StringNullableFilter<"FormSubmission"> | string | null
+    legacyRegistrations?: LegacyRegistrationListRelationFilter
+    legacyBlob?: XOR<LegacyBlobNullableScalarRelationFilter, LegacyBlobWhereInput> | null
+  }, "id" | "skPassportSeq">
 
   export type FormSubmissionOrderByWithAggregationInput = {
     id?: SortOrder
     legacyId?: SortOrderInput | SortOrder
     formType?: SortOrder
     skPassportNo?: SortOrderInput | SortOrder
+    skPassportSeq?: SortOrderInput | SortOrder
     validationOtpGenerated?: SortOrderInput | SortOrder
+    title?: SortOrderInput | SortOrder
+    age?: SortOrderInput | SortOrder
+    sameAsAbove?: SortOrderInput | SortOrder
+    remarks?: SortOrderInput | SortOrder
+    validationCode?: SortOrderInput | SortOrder
     registeringDate?: SortOrderInput | SortOrder
     pi_firstName?: SortOrderInput | SortOrder
     pi_lastName?: SortOrderInput | SortOrder
@@ -3994,6 +10871,7 @@ export namespace Prisma {
     pi_anniversaryDate?: SortOrderInput | SortOrder
     ref_nameOfTheperson?: SortOrderInput | SortOrder
     ref_place?: SortOrderInput | SortOrder
+    reporting_manager_name?: SortOrderInput | SortOrder
     sod_nameOfTheDealer?: SortOrderInput | SortOrder
     sod_place?: SortOrderInput | SortOrder
     photoProofPath?: SortOrderInput | SortOrder
@@ -4020,6 +10898,52 @@ export namespace Prisma {
     photoProofData?: SortOrderInput | SortOrder
     idProofData?: SortOrderInput | SortOrder
     idProofBackData?: SortOrderInput | SortOrder
+    panProofPath?: SortOrderInput | SortOrder
+    panProofData?: SortOrderInput | SortOrder
+    dealershipName?: SortOrderInput | SortOrder
+    contactPerson?: SortOrderInput | SortOrder
+    gstNumber?: SortOrderInput | SortOrder
+    panNumber?: SortOrderInput | SortOrder
+    ownerSameAsAbove?: SortOrderInput | SortOrder
+    ownerTitle?: SortOrderInput | SortOrder
+    ownerFirstName?: SortOrderInput | SortOrder
+    ownerLastName?: SortOrderInput | SortOrder
+    ownerOfficeAddressLine1?: SortOrderInput | SortOrder
+    ownerOfficeAddressLine2?: SortOrderInput | SortOrder
+    ownerCity?: SortOrderInput | SortOrder
+    ownerState?: SortOrderInput | SortOrder
+    ownerPostalCode?: SortOrderInput | SortOrder
+    ownerPlace?: SortOrderInput | SortOrder
+    ownerPhoneNumber?: SortOrderInput | SortOrder
+    ownerEmailId?: SortOrderInput | SortOrder
+    secondContactTitle?: SortOrderInput | SortOrder
+    secondContactFirstName?: SortOrderInput | SortOrder
+    secondContactLastName?: SortOrderInput | SortOrder
+    secondContactPhone?: SortOrderInput | SortOrder
+    secondContactEmail?: SortOrderInput | SortOrder
+    spouseName?: SortOrderInput | SortOrder
+    spouseDob?: SortOrderInput | SortOrder
+    weddingDay?: SortOrderInput | SortOrder
+    childName1?: SortOrderInput | SortOrder
+    childDob1?: SortOrderInput | SortOrder
+    childName2?: SortOrderInput | SortOrder
+    childDob2?: SortOrderInput | SortOrder
+    childName3?: SortOrderInput | SortOrder
+    childDob3?: SortOrderInput | SortOrder
+    godownSameAsCompany?: SortOrderInput | SortOrder
+    godownAddressLine1?: SortOrderInput | SortOrder
+    godownAddressLine2?: SortOrderInput | SortOrder
+    godownCity?: SortOrderInput | SortOrder
+    godownState?: SortOrderInput | SortOrder
+    godownPostalCode?: SortOrderInput | SortOrder
+    godownContactPerson?: SortOrderInput | SortOrder
+    godownContactMobile?: SortOrderInput | SortOrder
+    referenceName1?: SortOrderInput | SortOrder
+    referencePhone1?: SortOrderInput | SortOrder
+    referenceDetails1?: SortOrderInput | SortOrder
+    referenceName2?: SortOrderInput | SortOrder
+    referencePhone2?: SortOrderInput | SortOrder
+    referenceDetails2?: SortOrderInput | SortOrder
     _count?: FormSubmissionCountOrderByAggregateInput
     _avg?: FormSubmissionAvgOrderByAggregateInput
     _max?: FormSubmissionMaxOrderByAggregateInput
@@ -4035,7 +10959,13 @@ export namespace Prisma {
     legacyId?: IntNullableWithAggregatesFilter<"FormSubmission"> | number | null
     formType?: StringWithAggregatesFilter<"FormSubmission"> | string
     skPassportNo?: StringNullableWithAggregatesFilter<"FormSubmission"> | string | null
+    skPassportSeq?: BigIntNullableWithAggregatesFilter<"FormSubmission"> | bigint | number | null
     validationOtpGenerated?: StringNullableWithAggregatesFilter<"FormSubmission"> | string | null
+    title?: StringNullableWithAggregatesFilter<"FormSubmission"> | string | null
+    age?: StringNullableWithAggregatesFilter<"FormSubmission"> | string | null
+    sameAsAbove?: BoolNullableWithAggregatesFilter<"FormSubmission"> | boolean | null
+    remarks?: StringNullableWithAggregatesFilter<"FormSubmission"> | string | null
+    validationCode?: StringNullableWithAggregatesFilter<"FormSubmission"> | string | null
     registeringDate?: DateTimeNullableWithAggregatesFilter<"FormSubmission"> | Date | string | null
     pi_firstName?: StringNullableWithAggregatesFilter<"FormSubmission"> | string | null
     pi_lastName?: StringNullableWithAggregatesFilter<"FormSubmission"> | string | null
@@ -4055,6 +10985,7 @@ export namespace Prisma {
     pi_anniversaryDate?: StringNullableWithAggregatesFilter<"FormSubmission"> | string | null
     ref_nameOfTheperson?: StringNullableWithAggregatesFilter<"FormSubmission"> | string | null
     ref_place?: StringNullableWithAggregatesFilter<"FormSubmission"> | string | null
+    reporting_manager_name?: StringNullableWithAggregatesFilter<"FormSubmission"> | string | null
     sod_nameOfTheDealer?: StringNullableWithAggregatesFilter<"FormSubmission"> | string | null
     sod_place?: StringNullableWithAggregatesFilter<"FormSubmission"> | string | null
     photoProofPath?: StringNullableWithAggregatesFilter<"FormSubmission"> | string | null
@@ -4081,6 +11012,343 @@ export namespace Prisma {
     photoProofData?: StringNullableWithAggregatesFilter<"FormSubmission"> | string | null
     idProofData?: StringNullableWithAggregatesFilter<"FormSubmission"> | string | null
     idProofBackData?: StringNullableWithAggregatesFilter<"FormSubmission"> | string | null
+    panProofPath?: StringNullableWithAggregatesFilter<"FormSubmission"> | string | null
+    panProofData?: StringNullableWithAggregatesFilter<"FormSubmission"> | string | null
+    dealershipName?: StringNullableWithAggregatesFilter<"FormSubmission"> | string | null
+    contactPerson?: StringNullableWithAggregatesFilter<"FormSubmission"> | string | null
+    gstNumber?: StringNullableWithAggregatesFilter<"FormSubmission"> | string | null
+    panNumber?: StringNullableWithAggregatesFilter<"FormSubmission"> | string | null
+    ownerSameAsAbove?: BoolNullableWithAggregatesFilter<"FormSubmission"> | boolean | null
+    ownerTitle?: StringNullableWithAggregatesFilter<"FormSubmission"> | string | null
+    ownerFirstName?: StringNullableWithAggregatesFilter<"FormSubmission"> | string | null
+    ownerLastName?: StringNullableWithAggregatesFilter<"FormSubmission"> | string | null
+    ownerOfficeAddressLine1?: StringNullableWithAggregatesFilter<"FormSubmission"> | string | null
+    ownerOfficeAddressLine2?: StringNullableWithAggregatesFilter<"FormSubmission"> | string | null
+    ownerCity?: StringNullableWithAggregatesFilter<"FormSubmission"> | string | null
+    ownerState?: StringNullableWithAggregatesFilter<"FormSubmission"> | string | null
+    ownerPostalCode?: StringNullableWithAggregatesFilter<"FormSubmission"> | string | null
+    ownerPlace?: StringNullableWithAggregatesFilter<"FormSubmission"> | string | null
+    ownerPhoneNumber?: StringNullableWithAggregatesFilter<"FormSubmission"> | string | null
+    ownerEmailId?: StringNullableWithAggregatesFilter<"FormSubmission"> | string | null
+    secondContactTitle?: StringNullableWithAggregatesFilter<"FormSubmission"> | string | null
+    secondContactFirstName?: StringNullableWithAggregatesFilter<"FormSubmission"> | string | null
+    secondContactLastName?: StringNullableWithAggregatesFilter<"FormSubmission"> | string | null
+    secondContactPhone?: StringNullableWithAggregatesFilter<"FormSubmission"> | string | null
+    secondContactEmail?: StringNullableWithAggregatesFilter<"FormSubmission"> | string | null
+    spouseName?: StringNullableWithAggregatesFilter<"FormSubmission"> | string | null
+    spouseDob?: StringNullableWithAggregatesFilter<"FormSubmission"> | string | null
+    weddingDay?: StringNullableWithAggregatesFilter<"FormSubmission"> | string | null
+    childName1?: StringNullableWithAggregatesFilter<"FormSubmission"> | string | null
+    childDob1?: StringNullableWithAggregatesFilter<"FormSubmission"> | string | null
+    childName2?: StringNullableWithAggregatesFilter<"FormSubmission"> | string | null
+    childDob2?: StringNullableWithAggregatesFilter<"FormSubmission"> | string | null
+    childName3?: StringNullableWithAggregatesFilter<"FormSubmission"> | string | null
+    childDob3?: StringNullableWithAggregatesFilter<"FormSubmission"> | string | null
+    godownSameAsCompany?: BoolNullableWithAggregatesFilter<"FormSubmission"> | boolean | null
+    godownAddressLine1?: StringNullableWithAggregatesFilter<"FormSubmission"> | string | null
+    godownAddressLine2?: StringNullableWithAggregatesFilter<"FormSubmission"> | string | null
+    godownCity?: StringNullableWithAggregatesFilter<"FormSubmission"> | string | null
+    godownState?: StringNullableWithAggregatesFilter<"FormSubmission"> | string | null
+    godownPostalCode?: StringNullableWithAggregatesFilter<"FormSubmission"> | string | null
+    godownContactPerson?: StringNullableWithAggregatesFilter<"FormSubmission"> | string | null
+    godownContactMobile?: StringNullableWithAggregatesFilter<"FormSubmission"> | string | null
+    referenceName1?: StringNullableWithAggregatesFilter<"FormSubmission"> | string | null
+    referencePhone1?: StringNullableWithAggregatesFilter<"FormSubmission"> | string | null
+    referenceDetails1?: StringNullableWithAggregatesFilter<"FormSubmission"> | string | null
+    referenceName2?: StringNullableWithAggregatesFilter<"FormSubmission"> | string | null
+    referencePhone2?: StringNullableWithAggregatesFilter<"FormSubmission"> | string | null
+    referenceDetails2?: StringNullableWithAggregatesFilter<"FormSubmission"> | string | null
+  }
+
+  export type LegacyRegistrationWhereInput = {
+    AND?: LegacyRegistrationWhereInput | LegacyRegistrationWhereInput[]
+    OR?: LegacyRegistrationWhereInput[]
+    NOT?: LegacyRegistrationWhereInput | LegacyRegistrationWhereInput[]
+    id?: StringFilter<"LegacyRegistration"> | string
+    legacySource?: StringFilter<"LegacyRegistration"> | string
+    legacyRowIndex?: IntFilter<"LegacyRegistration"> | number
+    legacyId?: IntNullableFilter<"LegacyRegistration"> | number | null
+    legacyPassportNo?: StringNullableFilter<"LegacyRegistration"> | string | null
+    rawTableRecord?: JsonNullableFilter<"LegacyRegistration">
+    rawDetailRecord?: JsonNullableFilter<"LegacyRegistration">
+    submissionId?: StringNullableFilter<"LegacyRegistration"> | string | null
+    createdAt?: DateTimeFilter<"LegacyRegistration"> | Date | string
+    submission?: XOR<FormSubmissionNullableScalarRelationFilter, FormSubmissionWhereInput> | null
+  }
+
+  export type LegacyRegistrationOrderByWithRelationInput = {
+    id?: SortOrder
+    legacySource?: SortOrder
+    legacyRowIndex?: SortOrder
+    legacyId?: SortOrderInput | SortOrder
+    legacyPassportNo?: SortOrderInput | SortOrder
+    rawTableRecord?: SortOrderInput | SortOrder
+    rawDetailRecord?: SortOrderInput | SortOrder
+    submissionId?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    submission?: FormSubmissionOrderByWithRelationInput
+  }
+
+  export type LegacyRegistrationWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    legacySource_legacyRowIndex?: LegacyRegistrationLegacySourceLegacyRowIndexCompoundUniqueInput
+    AND?: LegacyRegistrationWhereInput | LegacyRegistrationWhereInput[]
+    OR?: LegacyRegistrationWhereInput[]
+    NOT?: LegacyRegistrationWhereInput | LegacyRegistrationWhereInput[]
+    legacySource?: StringFilter<"LegacyRegistration"> | string
+    legacyRowIndex?: IntFilter<"LegacyRegistration"> | number
+    legacyId?: IntNullableFilter<"LegacyRegistration"> | number | null
+    legacyPassportNo?: StringNullableFilter<"LegacyRegistration"> | string | null
+    rawTableRecord?: JsonNullableFilter<"LegacyRegistration">
+    rawDetailRecord?: JsonNullableFilter<"LegacyRegistration">
+    submissionId?: StringNullableFilter<"LegacyRegistration"> | string | null
+    createdAt?: DateTimeFilter<"LegacyRegistration"> | Date | string
+    submission?: XOR<FormSubmissionNullableScalarRelationFilter, FormSubmissionWhereInput> | null
+  }, "id" | "legacySource_legacyRowIndex">
+
+  export type LegacyRegistrationOrderByWithAggregationInput = {
+    id?: SortOrder
+    legacySource?: SortOrder
+    legacyRowIndex?: SortOrder
+    legacyId?: SortOrderInput | SortOrder
+    legacyPassportNo?: SortOrderInput | SortOrder
+    rawTableRecord?: SortOrderInput | SortOrder
+    rawDetailRecord?: SortOrderInput | SortOrder
+    submissionId?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    _count?: LegacyRegistrationCountOrderByAggregateInput
+    _avg?: LegacyRegistrationAvgOrderByAggregateInput
+    _max?: LegacyRegistrationMaxOrderByAggregateInput
+    _min?: LegacyRegistrationMinOrderByAggregateInput
+    _sum?: LegacyRegistrationSumOrderByAggregateInput
+  }
+
+  export type LegacyRegistrationScalarWhereWithAggregatesInput = {
+    AND?: LegacyRegistrationScalarWhereWithAggregatesInput | LegacyRegistrationScalarWhereWithAggregatesInput[]
+    OR?: LegacyRegistrationScalarWhereWithAggregatesInput[]
+    NOT?: LegacyRegistrationScalarWhereWithAggregatesInput | LegacyRegistrationScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"LegacyRegistration"> | string
+    legacySource?: StringWithAggregatesFilter<"LegacyRegistration"> | string
+    legacyRowIndex?: IntWithAggregatesFilter<"LegacyRegistration"> | number
+    legacyId?: IntNullableWithAggregatesFilter<"LegacyRegistration"> | number | null
+    legacyPassportNo?: StringNullableWithAggregatesFilter<"LegacyRegistration"> | string | null
+    rawTableRecord?: JsonNullableWithAggregatesFilter<"LegacyRegistration">
+    rawDetailRecord?: JsonNullableWithAggregatesFilter<"LegacyRegistration">
+    submissionId?: StringNullableWithAggregatesFilter<"LegacyRegistration"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"LegacyRegistration"> | Date | string
+  }
+
+  export type LegacyBlobWhereInput = {
+    AND?: LegacyBlobWhereInput | LegacyBlobWhereInput[]
+    OR?: LegacyBlobWhereInput[]
+    NOT?: LegacyBlobWhereInput | LegacyBlobWhereInput[]
+    id?: StringFilter<"LegacyBlob"> | string
+    submissionId?: StringFilter<"LegacyBlob"> | string
+    photoProofData?: StringNullableFilter<"LegacyBlob"> | string | null
+    idProofData?: StringNullableFilter<"LegacyBlob"> | string | null
+    idProofBackData?: StringNullableFilter<"LegacyBlob"> | string | null
+    createdAt?: DateTimeFilter<"LegacyBlob"> | Date | string
+    updatedAt?: DateTimeFilter<"LegacyBlob"> | Date | string
+    submission?: XOR<FormSubmissionScalarRelationFilter, FormSubmissionWhereInput>
+  }
+
+  export type LegacyBlobOrderByWithRelationInput = {
+    id?: SortOrder
+    submissionId?: SortOrder
+    photoProofData?: SortOrderInput | SortOrder
+    idProofData?: SortOrderInput | SortOrder
+    idProofBackData?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    submission?: FormSubmissionOrderByWithRelationInput
+  }
+
+  export type LegacyBlobWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    submissionId?: string
+    AND?: LegacyBlobWhereInput | LegacyBlobWhereInput[]
+    OR?: LegacyBlobWhereInput[]
+    NOT?: LegacyBlobWhereInput | LegacyBlobWhereInput[]
+    photoProofData?: StringNullableFilter<"LegacyBlob"> | string | null
+    idProofData?: StringNullableFilter<"LegacyBlob"> | string | null
+    idProofBackData?: StringNullableFilter<"LegacyBlob"> | string | null
+    createdAt?: DateTimeFilter<"LegacyBlob"> | Date | string
+    updatedAt?: DateTimeFilter<"LegacyBlob"> | Date | string
+    submission?: XOR<FormSubmissionScalarRelationFilter, FormSubmissionWhereInput>
+  }, "id" | "submissionId">
+
+  export type LegacyBlobOrderByWithAggregationInput = {
+    id?: SortOrder
+    submissionId?: SortOrder
+    photoProofData?: SortOrderInput | SortOrder
+    idProofData?: SortOrderInput | SortOrder
+    idProofBackData?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: LegacyBlobCountOrderByAggregateInput
+    _max?: LegacyBlobMaxOrderByAggregateInput
+    _min?: LegacyBlobMinOrderByAggregateInput
+  }
+
+  export type LegacyBlobScalarWhereWithAggregatesInput = {
+    AND?: LegacyBlobScalarWhereWithAggregatesInput | LegacyBlobScalarWhereWithAggregatesInput[]
+    OR?: LegacyBlobScalarWhereWithAggregatesInput[]
+    NOT?: LegacyBlobScalarWhereWithAggregatesInput | LegacyBlobScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"LegacyBlob"> | string
+    submissionId?: StringWithAggregatesFilter<"LegacyBlob"> | string
+    photoProofData?: StringNullableWithAggregatesFilter<"LegacyBlob"> | string | null
+    idProofData?: StringNullableWithAggregatesFilter<"LegacyBlob"> | string | null
+    idProofBackData?: StringNullableWithAggregatesFilter<"LegacyBlob"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"LegacyBlob"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"LegacyBlob"> | Date | string
+  }
+
+  export type PassportCounterWhereInput = {
+    AND?: PassportCounterWhereInput | PassportCounterWhereInput[]
+    OR?: PassportCounterWhereInput[]
+    NOT?: PassportCounterWhereInput | PassportCounterWhereInput[]
+    key?: StringFilter<"PassportCounter"> | string
+    lastIssued?: BigIntFilter<"PassportCounter"> | bigint | number
+    updatedAt?: DateTimeFilter<"PassportCounter"> | Date | string
+  }
+
+  export type PassportCounterOrderByWithRelationInput = {
+    key?: SortOrder
+    lastIssued?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type PassportCounterWhereUniqueInput = Prisma.AtLeast<{
+    key?: string
+    AND?: PassportCounterWhereInput | PassportCounterWhereInput[]
+    OR?: PassportCounterWhereInput[]
+    NOT?: PassportCounterWhereInput | PassportCounterWhereInput[]
+    lastIssued?: BigIntFilter<"PassportCounter"> | bigint | number
+    updatedAt?: DateTimeFilter<"PassportCounter"> | Date | string
+  }, "key">
+
+  export type PassportCounterOrderByWithAggregationInput = {
+    key?: SortOrder
+    lastIssued?: SortOrder
+    updatedAt?: SortOrder
+    _count?: PassportCounterCountOrderByAggregateInput
+    _avg?: PassportCounterAvgOrderByAggregateInput
+    _max?: PassportCounterMaxOrderByAggregateInput
+    _min?: PassportCounterMinOrderByAggregateInput
+    _sum?: PassportCounterSumOrderByAggregateInput
+  }
+
+  export type PassportCounterScalarWhereWithAggregatesInput = {
+    AND?: PassportCounterScalarWhereWithAggregatesInput | PassportCounterScalarWhereWithAggregatesInput[]
+    OR?: PassportCounterScalarWhereWithAggregatesInput[]
+    NOT?: PassportCounterScalarWhereWithAggregatesInput | PassportCounterScalarWhereWithAggregatesInput[]
+    key?: StringWithAggregatesFilter<"PassportCounter"> | string
+    lastIssued?: BigIntWithAggregatesFilter<"PassportCounter"> | bigint | number
+    updatedAt?: DateTimeWithAggregatesFilter<"PassportCounter"> | Date | string
+  }
+
+  export type SalesOfficerWhereInput = {
+    AND?: SalesOfficerWhereInput | SalesOfficerWhereInput[]
+    OR?: SalesOfficerWhereInput[]
+    NOT?: SalesOfficerWhereInput | SalesOfficerWhereInput[]
+    id?: StringFilter<"SalesOfficer"> | string
+    name?: StringFilter<"SalesOfficer"> | string
+    nameNormalized?: StringFilter<"SalesOfficer"> | string
+    createdAt?: DateTimeFilter<"SalesOfficer"> | Date | string
+    updatedAt?: DateTimeFilter<"SalesOfficer"> | Date | string
+  }
+
+  export type SalesOfficerOrderByWithRelationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    nameNormalized?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type SalesOfficerWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    name?: string
+    nameNormalized?: string
+    AND?: SalesOfficerWhereInput | SalesOfficerWhereInput[]
+    OR?: SalesOfficerWhereInput[]
+    NOT?: SalesOfficerWhereInput | SalesOfficerWhereInput[]
+    createdAt?: DateTimeFilter<"SalesOfficer"> | Date | string
+    updatedAt?: DateTimeFilter<"SalesOfficer"> | Date | string
+  }, "id" | "name" | "nameNormalized">
+
+  export type SalesOfficerOrderByWithAggregationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    nameNormalized?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: SalesOfficerCountOrderByAggregateInput
+    _max?: SalesOfficerMaxOrderByAggregateInput
+    _min?: SalesOfficerMinOrderByAggregateInput
+  }
+
+  export type SalesOfficerScalarWhereWithAggregatesInput = {
+    AND?: SalesOfficerScalarWhereWithAggregatesInput | SalesOfficerScalarWhereWithAggregatesInput[]
+    OR?: SalesOfficerScalarWhereWithAggregatesInput[]
+    NOT?: SalesOfficerScalarWhereWithAggregatesInput | SalesOfficerScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"SalesOfficer"> | string
+    name?: StringWithAggregatesFilter<"SalesOfficer"> | string
+    nameNormalized?: StringWithAggregatesFilter<"SalesOfficer"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"SalesOfficer"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"SalesOfficer"> | Date | string
+  }
+
+  export type ReportingManagerWhereInput = {
+    AND?: ReportingManagerWhereInput | ReportingManagerWhereInput[]
+    OR?: ReportingManagerWhereInput[]
+    NOT?: ReportingManagerWhereInput | ReportingManagerWhereInput[]
+    id?: StringFilter<"ReportingManager"> | string
+    name?: StringFilter<"ReportingManager"> | string
+    nameNormalized?: StringFilter<"ReportingManager"> | string
+    createdAt?: DateTimeFilter<"ReportingManager"> | Date | string
+    updatedAt?: DateTimeFilter<"ReportingManager"> | Date | string
+  }
+
+  export type ReportingManagerOrderByWithRelationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    nameNormalized?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ReportingManagerWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    name?: string
+    nameNormalized?: string
+    AND?: ReportingManagerWhereInput | ReportingManagerWhereInput[]
+    OR?: ReportingManagerWhereInput[]
+    NOT?: ReportingManagerWhereInput | ReportingManagerWhereInput[]
+    createdAt?: DateTimeFilter<"ReportingManager"> | Date | string
+    updatedAt?: DateTimeFilter<"ReportingManager"> | Date | string
+  }, "id" | "name" | "nameNormalized">
+
+  export type ReportingManagerOrderByWithAggregationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    nameNormalized?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: ReportingManagerCountOrderByAggregateInput
+    _max?: ReportingManagerMaxOrderByAggregateInput
+    _min?: ReportingManagerMinOrderByAggregateInput
+  }
+
+  export type ReportingManagerScalarWhereWithAggregatesInput = {
+    AND?: ReportingManagerScalarWhereWithAggregatesInput | ReportingManagerScalarWhereWithAggregatesInput[]
+    OR?: ReportingManagerScalarWhereWithAggregatesInput[]
+    NOT?: ReportingManagerScalarWhereWithAggregatesInput | ReportingManagerScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"ReportingManager"> | string
+    name?: StringWithAggregatesFilter<"ReportingManager"> | string
+    nameNormalized?: StringWithAggregatesFilter<"ReportingManager"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"ReportingManager"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"ReportingManager"> | Date | string
   }
 
   export type AdminUserCreateInput = {
@@ -4144,7 +11412,13 @@ export namespace Prisma {
     legacyId?: number | null
     formType: string
     skPassportNo?: string | null
+    skPassportSeq?: bigint | number | null
     validationOtpGenerated?: string | null
+    title?: string | null
+    age?: string | null
+    sameAsAbove?: boolean | null
+    remarks?: string | null
+    validationCode?: string | null
     registeringDate?: Date | string | null
     pi_firstName?: string | null
     pi_lastName?: string | null
@@ -4164,6 +11438,7 @@ export namespace Prisma {
     pi_anniversaryDate?: string | null
     ref_nameOfTheperson?: string | null
     ref_place?: string | null
+    reporting_manager_name?: string | null
     sod_nameOfTheDealer?: string | null
     sod_place?: string | null
     photoProofPath?: string | null
@@ -4190,6 +11465,54 @@ export namespace Prisma {
     photoProofData?: string | null
     idProofData?: string | null
     idProofBackData?: string | null
+    panProofPath?: string | null
+    panProofData?: string | null
+    dealershipName?: string | null
+    contactPerson?: string | null
+    gstNumber?: string | null
+    panNumber?: string | null
+    ownerSameAsAbove?: boolean | null
+    ownerTitle?: string | null
+    ownerFirstName?: string | null
+    ownerLastName?: string | null
+    ownerOfficeAddressLine1?: string | null
+    ownerOfficeAddressLine2?: string | null
+    ownerCity?: string | null
+    ownerState?: string | null
+    ownerPostalCode?: string | null
+    ownerPlace?: string | null
+    ownerPhoneNumber?: string | null
+    ownerEmailId?: string | null
+    secondContactTitle?: string | null
+    secondContactFirstName?: string | null
+    secondContactLastName?: string | null
+    secondContactPhone?: string | null
+    secondContactEmail?: string | null
+    spouseName?: string | null
+    spouseDob?: string | null
+    weddingDay?: string | null
+    childName1?: string | null
+    childDob1?: string | null
+    childName2?: string | null
+    childDob2?: string | null
+    childName3?: string | null
+    childDob3?: string | null
+    godownSameAsCompany?: boolean | null
+    godownAddressLine1?: string | null
+    godownAddressLine2?: string | null
+    godownCity?: string | null
+    godownState?: string | null
+    godownPostalCode?: string | null
+    godownContactPerson?: string | null
+    godownContactMobile?: string | null
+    referenceName1?: string | null
+    referencePhone1?: string | null
+    referenceDetails1?: string | null
+    referenceName2?: string | null
+    referencePhone2?: string | null
+    referenceDetails2?: string | null
+    legacyRegistrations?: LegacyRegistrationCreateNestedManyWithoutSubmissionInput
+    legacyBlob?: LegacyBlobCreateNestedOneWithoutSubmissionInput
   }
 
   export type FormSubmissionUncheckedCreateInput = {
@@ -4197,7 +11520,13 @@ export namespace Prisma {
     legacyId?: number | null
     formType: string
     skPassportNo?: string | null
+    skPassportSeq?: bigint | number | null
     validationOtpGenerated?: string | null
+    title?: string | null
+    age?: string | null
+    sameAsAbove?: boolean | null
+    remarks?: string | null
+    validationCode?: string | null
     registeringDate?: Date | string | null
     pi_firstName?: string | null
     pi_lastName?: string | null
@@ -4217,6 +11546,7 @@ export namespace Prisma {
     pi_anniversaryDate?: string | null
     ref_nameOfTheperson?: string | null
     ref_place?: string | null
+    reporting_manager_name?: string | null
     sod_nameOfTheDealer?: string | null
     sod_place?: string | null
     photoProofPath?: string | null
@@ -4243,6 +11573,54 @@ export namespace Prisma {
     photoProofData?: string | null
     idProofData?: string | null
     idProofBackData?: string | null
+    panProofPath?: string | null
+    panProofData?: string | null
+    dealershipName?: string | null
+    contactPerson?: string | null
+    gstNumber?: string | null
+    panNumber?: string | null
+    ownerSameAsAbove?: boolean | null
+    ownerTitle?: string | null
+    ownerFirstName?: string | null
+    ownerLastName?: string | null
+    ownerOfficeAddressLine1?: string | null
+    ownerOfficeAddressLine2?: string | null
+    ownerCity?: string | null
+    ownerState?: string | null
+    ownerPostalCode?: string | null
+    ownerPlace?: string | null
+    ownerPhoneNumber?: string | null
+    ownerEmailId?: string | null
+    secondContactTitle?: string | null
+    secondContactFirstName?: string | null
+    secondContactLastName?: string | null
+    secondContactPhone?: string | null
+    secondContactEmail?: string | null
+    spouseName?: string | null
+    spouseDob?: string | null
+    weddingDay?: string | null
+    childName1?: string | null
+    childDob1?: string | null
+    childName2?: string | null
+    childDob2?: string | null
+    childName3?: string | null
+    childDob3?: string | null
+    godownSameAsCompany?: boolean | null
+    godownAddressLine1?: string | null
+    godownAddressLine2?: string | null
+    godownCity?: string | null
+    godownState?: string | null
+    godownPostalCode?: string | null
+    godownContactPerson?: string | null
+    godownContactMobile?: string | null
+    referenceName1?: string | null
+    referencePhone1?: string | null
+    referenceDetails1?: string | null
+    referenceName2?: string | null
+    referencePhone2?: string | null
+    referenceDetails2?: string | null
+    legacyRegistrations?: LegacyRegistrationUncheckedCreateNestedManyWithoutSubmissionInput
+    legacyBlob?: LegacyBlobUncheckedCreateNestedOneWithoutSubmissionInput
   }
 
   export type FormSubmissionUpdateInput = {
@@ -4250,7 +11628,13 @@ export namespace Prisma {
     legacyId?: NullableIntFieldUpdateOperationsInput | number | null
     formType?: StringFieldUpdateOperationsInput | string
     skPassportNo?: NullableStringFieldUpdateOperationsInput | string | null
+    skPassportSeq?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
     validationOtpGenerated?: NullableStringFieldUpdateOperationsInput | string | null
+    title?: NullableStringFieldUpdateOperationsInput | string | null
+    age?: NullableStringFieldUpdateOperationsInput | string | null
+    sameAsAbove?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    remarks?: NullableStringFieldUpdateOperationsInput | string | null
+    validationCode?: NullableStringFieldUpdateOperationsInput | string | null
     registeringDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     pi_firstName?: NullableStringFieldUpdateOperationsInput | string | null
     pi_lastName?: NullableStringFieldUpdateOperationsInput | string | null
@@ -4270,6 +11654,7 @@ export namespace Prisma {
     pi_anniversaryDate?: NullableStringFieldUpdateOperationsInput | string | null
     ref_nameOfTheperson?: NullableStringFieldUpdateOperationsInput | string | null
     ref_place?: NullableStringFieldUpdateOperationsInput | string | null
+    reporting_manager_name?: NullableStringFieldUpdateOperationsInput | string | null
     sod_nameOfTheDealer?: NullableStringFieldUpdateOperationsInput | string | null
     sod_place?: NullableStringFieldUpdateOperationsInput | string | null
     photoProofPath?: NullableStringFieldUpdateOperationsInput | string | null
@@ -4296,6 +11681,54 @@ export namespace Prisma {
     photoProofData?: NullableStringFieldUpdateOperationsInput | string | null
     idProofData?: NullableStringFieldUpdateOperationsInput | string | null
     idProofBackData?: NullableStringFieldUpdateOperationsInput | string | null
+    panProofPath?: NullableStringFieldUpdateOperationsInput | string | null
+    panProofData?: NullableStringFieldUpdateOperationsInput | string | null
+    dealershipName?: NullableStringFieldUpdateOperationsInput | string | null
+    contactPerson?: NullableStringFieldUpdateOperationsInput | string | null
+    gstNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    panNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    ownerSameAsAbove?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    ownerTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    ownerFirstName?: NullableStringFieldUpdateOperationsInput | string | null
+    ownerLastName?: NullableStringFieldUpdateOperationsInput | string | null
+    ownerOfficeAddressLine1?: NullableStringFieldUpdateOperationsInput | string | null
+    ownerOfficeAddressLine2?: NullableStringFieldUpdateOperationsInput | string | null
+    ownerCity?: NullableStringFieldUpdateOperationsInput | string | null
+    ownerState?: NullableStringFieldUpdateOperationsInput | string | null
+    ownerPostalCode?: NullableStringFieldUpdateOperationsInput | string | null
+    ownerPlace?: NullableStringFieldUpdateOperationsInput | string | null
+    ownerPhoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    ownerEmailId?: NullableStringFieldUpdateOperationsInput | string | null
+    secondContactTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    secondContactFirstName?: NullableStringFieldUpdateOperationsInput | string | null
+    secondContactLastName?: NullableStringFieldUpdateOperationsInput | string | null
+    secondContactPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    secondContactEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    spouseName?: NullableStringFieldUpdateOperationsInput | string | null
+    spouseDob?: NullableStringFieldUpdateOperationsInput | string | null
+    weddingDay?: NullableStringFieldUpdateOperationsInput | string | null
+    childName1?: NullableStringFieldUpdateOperationsInput | string | null
+    childDob1?: NullableStringFieldUpdateOperationsInput | string | null
+    childName2?: NullableStringFieldUpdateOperationsInput | string | null
+    childDob2?: NullableStringFieldUpdateOperationsInput | string | null
+    childName3?: NullableStringFieldUpdateOperationsInput | string | null
+    childDob3?: NullableStringFieldUpdateOperationsInput | string | null
+    godownSameAsCompany?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    godownAddressLine1?: NullableStringFieldUpdateOperationsInput | string | null
+    godownAddressLine2?: NullableStringFieldUpdateOperationsInput | string | null
+    godownCity?: NullableStringFieldUpdateOperationsInput | string | null
+    godownState?: NullableStringFieldUpdateOperationsInput | string | null
+    godownPostalCode?: NullableStringFieldUpdateOperationsInput | string | null
+    godownContactPerson?: NullableStringFieldUpdateOperationsInput | string | null
+    godownContactMobile?: NullableStringFieldUpdateOperationsInput | string | null
+    referenceName1?: NullableStringFieldUpdateOperationsInput | string | null
+    referencePhone1?: NullableStringFieldUpdateOperationsInput | string | null
+    referenceDetails1?: NullableStringFieldUpdateOperationsInput | string | null
+    referenceName2?: NullableStringFieldUpdateOperationsInput | string | null
+    referencePhone2?: NullableStringFieldUpdateOperationsInput | string | null
+    referenceDetails2?: NullableStringFieldUpdateOperationsInput | string | null
+    legacyRegistrations?: LegacyRegistrationUpdateManyWithoutSubmissionNestedInput
+    legacyBlob?: LegacyBlobUpdateOneWithoutSubmissionNestedInput
   }
 
   export type FormSubmissionUncheckedUpdateInput = {
@@ -4303,7 +11736,13 @@ export namespace Prisma {
     legacyId?: NullableIntFieldUpdateOperationsInput | number | null
     formType?: StringFieldUpdateOperationsInput | string
     skPassportNo?: NullableStringFieldUpdateOperationsInput | string | null
+    skPassportSeq?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
     validationOtpGenerated?: NullableStringFieldUpdateOperationsInput | string | null
+    title?: NullableStringFieldUpdateOperationsInput | string | null
+    age?: NullableStringFieldUpdateOperationsInput | string | null
+    sameAsAbove?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    remarks?: NullableStringFieldUpdateOperationsInput | string | null
+    validationCode?: NullableStringFieldUpdateOperationsInput | string | null
     registeringDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     pi_firstName?: NullableStringFieldUpdateOperationsInput | string | null
     pi_lastName?: NullableStringFieldUpdateOperationsInput | string | null
@@ -4323,6 +11762,7 @@ export namespace Prisma {
     pi_anniversaryDate?: NullableStringFieldUpdateOperationsInput | string | null
     ref_nameOfTheperson?: NullableStringFieldUpdateOperationsInput | string | null
     ref_place?: NullableStringFieldUpdateOperationsInput | string | null
+    reporting_manager_name?: NullableStringFieldUpdateOperationsInput | string | null
     sod_nameOfTheDealer?: NullableStringFieldUpdateOperationsInput | string | null
     sod_place?: NullableStringFieldUpdateOperationsInput | string | null
     photoProofPath?: NullableStringFieldUpdateOperationsInput | string | null
@@ -4349,6 +11789,54 @@ export namespace Prisma {
     photoProofData?: NullableStringFieldUpdateOperationsInput | string | null
     idProofData?: NullableStringFieldUpdateOperationsInput | string | null
     idProofBackData?: NullableStringFieldUpdateOperationsInput | string | null
+    panProofPath?: NullableStringFieldUpdateOperationsInput | string | null
+    panProofData?: NullableStringFieldUpdateOperationsInput | string | null
+    dealershipName?: NullableStringFieldUpdateOperationsInput | string | null
+    contactPerson?: NullableStringFieldUpdateOperationsInput | string | null
+    gstNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    panNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    ownerSameAsAbove?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    ownerTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    ownerFirstName?: NullableStringFieldUpdateOperationsInput | string | null
+    ownerLastName?: NullableStringFieldUpdateOperationsInput | string | null
+    ownerOfficeAddressLine1?: NullableStringFieldUpdateOperationsInput | string | null
+    ownerOfficeAddressLine2?: NullableStringFieldUpdateOperationsInput | string | null
+    ownerCity?: NullableStringFieldUpdateOperationsInput | string | null
+    ownerState?: NullableStringFieldUpdateOperationsInput | string | null
+    ownerPostalCode?: NullableStringFieldUpdateOperationsInput | string | null
+    ownerPlace?: NullableStringFieldUpdateOperationsInput | string | null
+    ownerPhoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    ownerEmailId?: NullableStringFieldUpdateOperationsInput | string | null
+    secondContactTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    secondContactFirstName?: NullableStringFieldUpdateOperationsInput | string | null
+    secondContactLastName?: NullableStringFieldUpdateOperationsInput | string | null
+    secondContactPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    secondContactEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    spouseName?: NullableStringFieldUpdateOperationsInput | string | null
+    spouseDob?: NullableStringFieldUpdateOperationsInput | string | null
+    weddingDay?: NullableStringFieldUpdateOperationsInput | string | null
+    childName1?: NullableStringFieldUpdateOperationsInput | string | null
+    childDob1?: NullableStringFieldUpdateOperationsInput | string | null
+    childName2?: NullableStringFieldUpdateOperationsInput | string | null
+    childDob2?: NullableStringFieldUpdateOperationsInput | string | null
+    childName3?: NullableStringFieldUpdateOperationsInput | string | null
+    childDob3?: NullableStringFieldUpdateOperationsInput | string | null
+    godownSameAsCompany?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    godownAddressLine1?: NullableStringFieldUpdateOperationsInput | string | null
+    godownAddressLine2?: NullableStringFieldUpdateOperationsInput | string | null
+    godownCity?: NullableStringFieldUpdateOperationsInput | string | null
+    godownState?: NullableStringFieldUpdateOperationsInput | string | null
+    godownPostalCode?: NullableStringFieldUpdateOperationsInput | string | null
+    godownContactPerson?: NullableStringFieldUpdateOperationsInput | string | null
+    godownContactMobile?: NullableStringFieldUpdateOperationsInput | string | null
+    referenceName1?: NullableStringFieldUpdateOperationsInput | string | null
+    referencePhone1?: NullableStringFieldUpdateOperationsInput | string | null
+    referenceDetails1?: NullableStringFieldUpdateOperationsInput | string | null
+    referenceName2?: NullableStringFieldUpdateOperationsInput | string | null
+    referencePhone2?: NullableStringFieldUpdateOperationsInput | string | null
+    referenceDetails2?: NullableStringFieldUpdateOperationsInput | string | null
+    legacyRegistrations?: LegacyRegistrationUncheckedUpdateManyWithoutSubmissionNestedInput
+    legacyBlob?: LegacyBlobUncheckedUpdateOneWithoutSubmissionNestedInput
   }
 
   export type FormSubmissionCreateManyInput = {
@@ -4356,7 +11844,13 @@ export namespace Prisma {
     legacyId?: number | null
     formType: string
     skPassportNo?: string | null
+    skPassportSeq?: bigint | number | null
     validationOtpGenerated?: string | null
+    title?: string | null
+    age?: string | null
+    sameAsAbove?: boolean | null
+    remarks?: string | null
+    validationCode?: string | null
     registeringDate?: Date | string | null
     pi_firstName?: string | null
     pi_lastName?: string | null
@@ -4376,6 +11870,7 @@ export namespace Prisma {
     pi_anniversaryDate?: string | null
     ref_nameOfTheperson?: string | null
     ref_place?: string | null
+    reporting_manager_name?: string | null
     sod_nameOfTheDealer?: string | null
     sod_place?: string | null
     photoProofPath?: string | null
@@ -4402,6 +11897,52 @@ export namespace Prisma {
     photoProofData?: string | null
     idProofData?: string | null
     idProofBackData?: string | null
+    panProofPath?: string | null
+    panProofData?: string | null
+    dealershipName?: string | null
+    contactPerson?: string | null
+    gstNumber?: string | null
+    panNumber?: string | null
+    ownerSameAsAbove?: boolean | null
+    ownerTitle?: string | null
+    ownerFirstName?: string | null
+    ownerLastName?: string | null
+    ownerOfficeAddressLine1?: string | null
+    ownerOfficeAddressLine2?: string | null
+    ownerCity?: string | null
+    ownerState?: string | null
+    ownerPostalCode?: string | null
+    ownerPlace?: string | null
+    ownerPhoneNumber?: string | null
+    ownerEmailId?: string | null
+    secondContactTitle?: string | null
+    secondContactFirstName?: string | null
+    secondContactLastName?: string | null
+    secondContactPhone?: string | null
+    secondContactEmail?: string | null
+    spouseName?: string | null
+    spouseDob?: string | null
+    weddingDay?: string | null
+    childName1?: string | null
+    childDob1?: string | null
+    childName2?: string | null
+    childDob2?: string | null
+    childName3?: string | null
+    childDob3?: string | null
+    godownSameAsCompany?: boolean | null
+    godownAddressLine1?: string | null
+    godownAddressLine2?: string | null
+    godownCity?: string | null
+    godownState?: string | null
+    godownPostalCode?: string | null
+    godownContactPerson?: string | null
+    godownContactMobile?: string | null
+    referenceName1?: string | null
+    referencePhone1?: string | null
+    referenceDetails1?: string | null
+    referenceName2?: string | null
+    referencePhone2?: string | null
+    referenceDetails2?: string | null
   }
 
   export type FormSubmissionUpdateManyMutationInput = {
@@ -4409,7 +11950,13 @@ export namespace Prisma {
     legacyId?: NullableIntFieldUpdateOperationsInput | number | null
     formType?: StringFieldUpdateOperationsInput | string
     skPassportNo?: NullableStringFieldUpdateOperationsInput | string | null
+    skPassportSeq?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
     validationOtpGenerated?: NullableStringFieldUpdateOperationsInput | string | null
+    title?: NullableStringFieldUpdateOperationsInput | string | null
+    age?: NullableStringFieldUpdateOperationsInput | string | null
+    sameAsAbove?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    remarks?: NullableStringFieldUpdateOperationsInput | string | null
+    validationCode?: NullableStringFieldUpdateOperationsInput | string | null
     registeringDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     pi_firstName?: NullableStringFieldUpdateOperationsInput | string | null
     pi_lastName?: NullableStringFieldUpdateOperationsInput | string | null
@@ -4429,6 +11976,7 @@ export namespace Prisma {
     pi_anniversaryDate?: NullableStringFieldUpdateOperationsInput | string | null
     ref_nameOfTheperson?: NullableStringFieldUpdateOperationsInput | string | null
     ref_place?: NullableStringFieldUpdateOperationsInput | string | null
+    reporting_manager_name?: NullableStringFieldUpdateOperationsInput | string | null
     sod_nameOfTheDealer?: NullableStringFieldUpdateOperationsInput | string | null
     sod_place?: NullableStringFieldUpdateOperationsInput | string | null
     photoProofPath?: NullableStringFieldUpdateOperationsInput | string | null
@@ -4455,6 +12003,52 @@ export namespace Prisma {
     photoProofData?: NullableStringFieldUpdateOperationsInput | string | null
     idProofData?: NullableStringFieldUpdateOperationsInput | string | null
     idProofBackData?: NullableStringFieldUpdateOperationsInput | string | null
+    panProofPath?: NullableStringFieldUpdateOperationsInput | string | null
+    panProofData?: NullableStringFieldUpdateOperationsInput | string | null
+    dealershipName?: NullableStringFieldUpdateOperationsInput | string | null
+    contactPerson?: NullableStringFieldUpdateOperationsInput | string | null
+    gstNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    panNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    ownerSameAsAbove?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    ownerTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    ownerFirstName?: NullableStringFieldUpdateOperationsInput | string | null
+    ownerLastName?: NullableStringFieldUpdateOperationsInput | string | null
+    ownerOfficeAddressLine1?: NullableStringFieldUpdateOperationsInput | string | null
+    ownerOfficeAddressLine2?: NullableStringFieldUpdateOperationsInput | string | null
+    ownerCity?: NullableStringFieldUpdateOperationsInput | string | null
+    ownerState?: NullableStringFieldUpdateOperationsInput | string | null
+    ownerPostalCode?: NullableStringFieldUpdateOperationsInput | string | null
+    ownerPlace?: NullableStringFieldUpdateOperationsInput | string | null
+    ownerPhoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    ownerEmailId?: NullableStringFieldUpdateOperationsInput | string | null
+    secondContactTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    secondContactFirstName?: NullableStringFieldUpdateOperationsInput | string | null
+    secondContactLastName?: NullableStringFieldUpdateOperationsInput | string | null
+    secondContactPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    secondContactEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    spouseName?: NullableStringFieldUpdateOperationsInput | string | null
+    spouseDob?: NullableStringFieldUpdateOperationsInput | string | null
+    weddingDay?: NullableStringFieldUpdateOperationsInput | string | null
+    childName1?: NullableStringFieldUpdateOperationsInput | string | null
+    childDob1?: NullableStringFieldUpdateOperationsInput | string | null
+    childName2?: NullableStringFieldUpdateOperationsInput | string | null
+    childDob2?: NullableStringFieldUpdateOperationsInput | string | null
+    childName3?: NullableStringFieldUpdateOperationsInput | string | null
+    childDob3?: NullableStringFieldUpdateOperationsInput | string | null
+    godownSameAsCompany?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    godownAddressLine1?: NullableStringFieldUpdateOperationsInput | string | null
+    godownAddressLine2?: NullableStringFieldUpdateOperationsInput | string | null
+    godownCity?: NullableStringFieldUpdateOperationsInput | string | null
+    godownState?: NullableStringFieldUpdateOperationsInput | string | null
+    godownPostalCode?: NullableStringFieldUpdateOperationsInput | string | null
+    godownContactPerson?: NullableStringFieldUpdateOperationsInput | string | null
+    godownContactMobile?: NullableStringFieldUpdateOperationsInput | string | null
+    referenceName1?: NullableStringFieldUpdateOperationsInput | string | null
+    referencePhone1?: NullableStringFieldUpdateOperationsInput | string | null
+    referenceDetails1?: NullableStringFieldUpdateOperationsInput | string | null
+    referenceName2?: NullableStringFieldUpdateOperationsInput | string | null
+    referencePhone2?: NullableStringFieldUpdateOperationsInput | string | null
+    referenceDetails2?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type FormSubmissionUncheckedUpdateManyInput = {
@@ -4462,7 +12056,13 @@ export namespace Prisma {
     legacyId?: NullableIntFieldUpdateOperationsInput | number | null
     formType?: StringFieldUpdateOperationsInput | string
     skPassportNo?: NullableStringFieldUpdateOperationsInput | string | null
+    skPassportSeq?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
     validationOtpGenerated?: NullableStringFieldUpdateOperationsInput | string | null
+    title?: NullableStringFieldUpdateOperationsInput | string | null
+    age?: NullableStringFieldUpdateOperationsInput | string | null
+    sameAsAbove?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    remarks?: NullableStringFieldUpdateOperationsInput | string | null
+    validationCode?: NullableStringFieldUpdateOperationsInput | string | null
     registeringDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     pi_firstName?: NullableStringFieldUpdateOperationsInput | string | null
     pi_lastName?: NullableStringFieldUpdateOperationsInput | string | null
@@ -4482,6 +12082,7 @@ export namespace Prisma {
     pi_anniversaryDate?: NullableStringFieldUpdateOperationsInput | string | null
     ref_nameOfTheperson?: NullableStringFieldUpdateOperationsInput | string | null
     ref_place?: NullableStringFieldUpdateOperationsInput | string | null
+    reporting_manager_name?: NullableStringFieldUpdateOperationsInput | string | null
     sod_nameOfTheDealer?: NullableStringFieldUpdateOperationsInput | string | null
     sod_place?: NullableStringFieldUpdateOperationsInput | string | null
     photoProofPath?: NullableStringFieldUpdateOperationsInput | string | null
@@ -4508,6 +12109,358 @@ export namespace Prisma {
     photoProofData?: NullableStringFieldUpdateOperationsInput | string | null
     idProofData?: NullableStringFieldUpdateOperationsInput | string | null
     idProofBackData?: NullableStringFieldUpdateOperationsInput | string | null
+    panProofPath?: NullableStringFieldUpdateOperationsInput | string | null
+    panProofData?: NullableStringFieldUpdateOperationsInput | string | null
+    dealershipName?: NullableStringFieldUpdateOperationsInput | string | null
+    contactPerson?: NullableStringFieldUpdateOperationsInput | string | null
+    gstNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    panNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    ownerSameAsAbove?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    ownerTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    ownerFirstName?: NullableStringFieldUpdateOperationsInput | string | null
+    ownerLastName?: NullableStringFieldUpdateOperationsInput | string | null
+    ownerOfficeAddressLine1?: NullableStringFieldUpdateOperationsInput | string | null
+    ownerOfficeAddressLine2?: NullableStringFieldUpdateOperationsInput | string | null
+    ownerCity?: NullableStringFieldUpdateOperationsInput | string | null
+    ownerState?: NullableStringFieldUpdateOperationsInput | string | null
+    ownerPostalCode?: NullableStringFieldUpdateOperationsInput | string | null
+    ownerPlace?: NullableStringFieldUpdateOperationsInput | string | null
+    ownerPhoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    ownerEmailId?: NullableStringFieldUpdateOperationsInput | string | null
+    secondContactTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    secondContactFirstName?: NullableStringFieldUpdateOperationsInput | string | null
+    secondContactLastName?: NullableStringFieldUpdateOperationsInput | string | null
+    secondContactPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    secondContactEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    spouseName?: NullableStringFieldUpdateOperationsInput | string | null
+    spouseDob?: NullableStringFieldUpdateOperationsInput | string | null
+    weddingDay?: NullableStringFieldUpdateOperationsInput | string | null
+    childName1?: NullableStringFieldUpdateOperationsInput | string | null
+    childDob1?: NullableStringFieldUpdateOperationsInput | string | null
+    childName2?: NullableStringFieldUpdateOperationsInput | string | null
+    childDob2?: NullableStringFieldUpdateOperationsInput | string | null
+    childName3?: NullableStringFieldUpdateOperationsInput | string | null
+    childDob3?: NullableStringFieldUpdateOperationsInput | string | null
+    godownSameAsCompany?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    godownAddressLine1?: NullableStringFieldUpdateOperationsInput | string | null
+    godownAddressLine2?: NullableStringFieldUpdateOperationsInput | string | null
+    godownCity?: NullableStringFieldUpdateOperationsInput | string | null
+    godownState?: NullableStringFieldUpdateOperationsInput | string | null
+    godownPostalCode?: NullableStringFieldUpdateOperationsInput | string | null
+    godownContactPerson?: NullableStringFieldUpdateOperationsInput | string | null
+    godownContactMobile?: NullableStringFieldUpdateOperationsInput | string | null
+    referenceName1?: NullableStringFieldUpdateOperationsInput | string | null
+    referencePhone1?: NullableStringFieldUpdateOperationsInput | string | null
+    referenceDetails1?: NullableStringFieldUpdateOperationsInput | string | null
+    referenceName2?: NullableStringFieldUpdateOperationsInput | string | null
+    referencePhone2?: NullableStringFieldUpdateOperationsInput | string | null
+    referenceDetails2?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type LegacyRegistrationCreateInput = {
+    id?: string
+    legacySource: string
+    legacyRowIndex: number
+    legacyId?: number | null
+    legacyPassportNo?: string | null
+    rawTableRecord?: NullableJsonNullValueInput | InputJsonValue
+    rawDetailRecord?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    submission?: FormSubmissionCreateNestedOneWithoutLegacyRegistrationsInput
+  }
+
+  export type LegacyRegistrationUncheckedCreateInput = {
+    id?: string
+    legacySource: string
+    legacyRowIndex: number
+    legacyId?: number | null
+    legacyPassportNo?: string | null
+    rawTableRecord?: NullableJsonNullValueInput | InputJsonValue
+    rawDetailRecord?: NullableJsonNullValueInput | InputJsonValue
+    submissionId?: string | null
+    createdAt?: Date | string
+  }
+
+  export type LegacyRegistrationUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    legacySource?: StringFieldUpdateOperationsInput | string
+    legacyRowIndex?: IntFieldUpdateOperationsInput | number
+    legacyId?: NullableIntFieldUpdateOperationsInput | number | null
+    legacyPassportNo?: NullableStringFieldUpdateOperationsInput | string | null
+    rawTableRecord?: NullableJsonNullValueInput | InputJsonValue
+    rawDetailRecord?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    submission?: FormSubmissionUpdateOneWithoutLegacyRegistrationsNestedInput
+  }
+
+  export type LegacyRegistrationUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    legacySource?: StringFieldUpdateOperationsInput | string
+    legacyRowIndex?: IntFieldUpdateOperationsInput | number
+    legacyId?: NullableIntFieldUpdateOperationsInput | number | null
+    legacyPassportNo?: NullableStringFieldUpdateOperationsInput | string | null
+    rawTableRecord?: NullableJsonNullValueInput | InputJsonValue
+    rawDetailRecord?: NullableJsonNullValueInput | InputJsonValue
+    submissionId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type LegacyRegistrationCreateManyInput = {
+    id?: string
+    legacySource: string
+    legacyRowIndex: number
+    legacyId?: number | null
+    legacyPassportNo?: string | null
+    rawTableRecord?: NullableJsonNullValueInput | InputJsonValue
+    rawDetailRecord?: NullableJsonNullValueInput | InputJsonValue
+    submissionId?: string | null
+    createdAt?: Date | string
+  }
+
+  export type LegacyRegistrationUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    legacySource?: StringFieldUpdateOperationsInput | string
+    legacyRowIndex?: IntFieldUpdateOperationsInput | number
+    legacyId?: NullableIntFieldUpdateOperationsInput | number | null
+    legacyPassportNo?: NullableStringFieldUpdateOperationsInput | string | null
+    rawTableRecord?: NullableJsonNullValueInput | InputJsonValue
+    rawDetailRecord?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type LegacyRegistrationUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    legacySource?: StringFieldUpdateOperationsInput | string
+    legacyRowIndex?: IntFieldUpdateOperationsInput | number
+    legacyId?: NullableIntFieldUpdateOperationsInput | number | null
+    legacyPassportNo?: NullableStringFieldUpdateOperationsInput | string | null
+    rawTableRecord?: NullableJsonNullValueInput | InputJsonValue
+    rawDetailRecord?: NullableJsonNullValueInput | InputJsonValue
+    submissionId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type LegacyBlobCreateInput = {
+    id?: string
+    photoProofData?: string | null
+    idProofData?: string | null
+    idProofBackData?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    submission: FormSubmissionCreateNestedOneWithoutLegacyBlobInput
+  }
+
+  export type LegacyBlobUncheckedCreateInput = {
+    id?: string
+    submissionId: string
+    photoProofData?: string | null
+    idProofData?: string | null
+    idProofBackData?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type LegacyBlobUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    photoProofData?: NullableStringFieldUpdateOperationsInput | string | null
+    idProofData?: NullableStringFieldUpdateOperationsInput | string | null
+    idProofBackData?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    submission?: FormSubmissionUpdateOneRequiredWithoutLegacyBlobNestedInput
+  }
+
+  export type LegacyBlobUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    submissionId?: StringFieldUpdateOperationsInput | string
+    photoProofData?: NullableStringFieldUpdateOperationsInput | string | null
+    idProofData?: NullableStringFieldUpdateOperationsInput | string | null
+    idProofBackData?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type LegacyBlobCreateManyInput = {
+    id?: string
+    submissionId: string
+    photoProofData?: string | null
+    idProofData?: string | null
+    idProofBackData?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type LegacyBlobUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    photoProofData?: NullableStringFieldUpdateOperationsInput | string | null
+    idProofData?: NullableStringFieldUpdateOperationsInput | string | null
+    idProofBackData?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type LegacyBlobUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    submissionId?: StringFieldUpdateOperationsInput | string
+    photoProofData?: NullableStringFieldUpdateOperationsInput | string | null
+    idProofData?: NullableStringFieldUpdateOperationsInput | string | null
+    idProofBackData?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PassportCounterCreateInput = {
+    key: string
+    lastIssued?: bigint | number
+    updatedAt?: Date | string
+  }
+
+  export type PassportCounterUncheckedCreateInput = {
+    key: string
+    lastIssued?: bigint | number
+    updatedAt?: Date | string
+  }
+
+  export type PassportCounterUpdateInput = {
+    key?: StringFieldUpdateOperationsInput | string
+    lastIssued?: BigIntFieldUpdateOperationsInput | bigint | number
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PassportCounterUncheckedUpdateInput = {
+    key?: StringFieldUpdateOperationsInput | string
+    lastIssued?: BigIntFieldUpdateOperationsInput | bigint | number
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PassportCounterCreateManyInput = {
+    key: string
+    lastIssued?: bigint | number
+    updatedAt?: Date | string
+  }
+
+  export type PassportCounterUpdateManyMutationInput = {
+    key?: StringFieldUpdateOperationsInput | string
+    lastIssued?: BigIntFieldUpdateOperationsInput | bigint | number
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PassportCounterUncheckedUpdateManyInput = {
+    key?: StringFieldUpdateOperationsInput | string
+    lastIssued?: BigIntFieldUpdateOperationsInput | bigint | number
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SalesOfficerCreateInput = {
+    id?: string
+    name: string
+    nameNormalized: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type SalesOfficerUncheckedCreateInput = {
+    id?: string
+    name: string
+    nameNormalized: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type SalesOfficerUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    nameNormalized?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SalesOfficerUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    nameNormalized?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SalesOfficerCreateManyInput = {
+    id?: string
+    name: string
+    nameNormalized: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type SalesOfficerUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    nameNormalized?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SalesOfficerUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    nameNormalized?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ReportingManagerCreateInput = {
+    id?: string
+    name: string
+    nameNormalized: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ReportingManagerUncheckedCreateInput = {
+    id?: string
+    name: string
+    nameNormalized: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ReportingManagerUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    nameNormalized?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ReportingManagerUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    nameNormalized?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ReportingManagerCreateManyInput = {
+    id?: string
+    name: string
+    nameNormalized: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ReportingManagerUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    nameNormalized?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ReportingManagerUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    nameNormalized?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type StringFilter<$PrismaModel = never> = {
@@ -4618,6 +12571,22 @@ export namespace Prisma {
     not?: NestedStringNullableFilter<$PrismaModel> | string | null
   }
 
+  export type BigIntNullableFilter<$PrismaModel = never> = {
+    equals?: bigint | number | BigIntFieldRefInput<$PrismaModel> | null
+    in?: bigint[] | number[] | ListBigIntFieldRefInput<$PrismaModel> | null
+    notIn?: bigint[] | number[] | ListBigIntFieldRefInput<$PrismaModel> | null
+    lt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    lte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    gt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    gte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    not?: NestedBigIntNullableFilter<$PrismaModel> | bigint | number | null
+  }
+
+  export type BoolNullableFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel> | null
+    not?: NestedBoolNullableFilter<$PrismaModel> | boolean | null
+  }
+
   export type DateTimeNullableFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
@@ -4629,9 +12598,15 @@ export namespace Prisma {
     not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
   }
 
-  export type BoolNullableFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel> | null
-    not?: NestedBoolNullableFilter<$PrismaModel> | boolean | null
+  export type LegacyRegistrationListRelationFilter = {
+    every?: LegacyRegistrationWhereInput
+    some?: LegacyRegistrationWhereInput
+    none?: LegacyRegistrationWhereInput
+  }
+
+  export type LegacyBlobNullableScalarRelationFilter = {
+    is?: LegacyBlobWhereInput | null
+    isNot?: LegacyBlobWhereInput | null
   }
 
   export type SortOrderInput = {
@@ -4639,12 +12614,22 @@ export namespace Prisma {
     nulls?: NullsOrder
   }
 
+  export type LegacyRegistrationOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
   export type FormSubmissionCountOrderByAggregateInput = {
     id?: SortOrder
     legacyId?: SortOrder
     formType?: SortOrder
     skPassportNo?: SortOrder
+    skPassportSeq?: SortOrder
     validationOtpGenerated?: SortOrder
+    title?: SortOrder
+    age?: SortOrder
+    sameAsAbove?: SortOrder
+    remarks?: SortOrder
+    validationCode?: SortOrder
     registeringDate?: SortOrder
     pi_firstName?: SortOrder
     pi_lastName?: SortOrder
@@ -4664,6 +12649,7 @@ export namespace Prisma {
     pi_anniversaryDate?: SortOrder
     ref_nameOfTheperson?: SortOrder
     ref_place?: SortOrder
+    reporting_manager_name?: SortOrder
     sod_nameOfTheDealer?: SortOrder
     sod_place?: SortOrder
     photoProofPath?: SortOrder
@@ -4690,10 +12676,57 @@ export namespace Prisma {
     photoProofData?: SortOrder
     idProofData?: SortOrder
     idProofBackData?: SortOrder
+    panProofPath?: SortOrder
+    panProofData?: SortOrder
+    dealershipName?: SortOrder
+    contactPerson?: SortOrder
+    gstNumber?: SortOrder
+    panNumber?: SortOrder
+    ownerSameAsAbove?: SortOrder
+    ownerTitle?: SortOrder
+    ownerFirstName?: SortOrder
+    ownerLastName?: SortOrder
+    ownerOfficeAddressLine1?: SortOrder
+    ownerOfficeAddressLine2?: SortOrder
+    ownerCity?: SortOrder
+    ownerState?: SortOrder
+    ownerPostalCode?: SortOrder
+    ownerPlace?: SortOrder
+    ownerPhoneNumber?: SortOrder
+    ownerEmailId?: SortOrder
+    secondContactTitle?: SortOrder
+    secondContactFirstName?: SortOrder
+    secondContactLastName?: SortOrder
+    secondContactPhone?: SortOrder
+    secondContactEmail?: SortOrder
+    spouseName?: SortOrder
+    spouseDob?: SortOrder
+    weddingDay?: SortOrder
+    childName1?: SortOrder
+    childDob1?: SortOrder
+    childName2?: SortOrder
+    childDob2?: SortOrder
+    childName3?: SortOrder
+    childDob3?: SortOrder
+    godownSameAsCompany?: SortOrder
+    godownAddressLine1?: SortOrder
+    godownAddressLine2?: SortOrder
+    godownCity?: SortOrder
+    godownState?: SortOrder
+    godownPostalCode?: SortOrder
+    godownContactPerson?: SortOrder
+    godownContactMobile?: SortOrder
+    referenceName1?: SortOrder
+    referencePhone1?: SortOrder
+    referenceDetails1?: SortOrder
+    referenceName2?: SortOrder
+    referencePhone2?: SortOrder
+    referenceDetails2?: SortOrder
   }
 
   export type FormSubmissionAvgOrderByAggregateInput = {
     legacyId?: SortOrder
+    skPassportSeq?: SortOrder
   }
 
   export type FormSubmissionMaxOrderByAggregateInput = {
@@ -4701,7 +12734,13 @@ export namespace Prisma {
     legacyId?: SortOrder
     formType?: SortOrder
     skPassportNo?: SortOrder
+    skPassportSeq?: SortOrder
     validationOtpGenerated?: SortOrder
+    title?: SortOrder
+    age?: SortOrder
+    sameAsAbove?: SortOrder
+    remarks?: SortOrder
+    validationCode?: SortOrder
     registeringDate?: SortOrder
     pi_firstName?: SortOrder
     pi_lastName?: SortOrder
@@ -4721,6 +12760,7 @@ export namespace Prisma {
     pi_anniversaryDate?: SortOrder
     ref_nameOfTheperson?: SortOrder
     ref_place?: SortOrder
+    reporting_manager_name?: SortOrder
     sod_nameOfTheDealer?: SortOrder
     sod_place?: SortOrder
     photoProofPath?: SortOrder
@@ -4747,6 +12787,52 @@ export namespace Prisma {
     photoProofData?: SortOrder
     idProofData?: SortOrder
     idProofBackData?: SortOrder
+    panProofPath?: SortOrder
+    panProofData?: SortOrder
+    dealershipName?: SortOrder
+    contactPerson?: SortOrder
+    gstNumber?: SortOrder
+    panNumber?: SortOrder
+    ownerSameAsAbove?: SortOrder
+    ownerTitle?: SortOrder
+    ownerFirstName?: SortOrder
+    ownerLastName?: SortOrder
+    ownerOfficeAddressLine1?: SortOrder
+    ownerOfficeAddressLine2?: SortOrder
+    ownerCity?: SortOrder
+    ownerState?: SortOrder
+    ownerPostalCode?: SortOrder
+    ownerPlace?: SortOrder
+    ownerPhoneNumber?: SortOrder
+    ownerEmailId?: SortOrder
+    secondContactTitle?: SortOrder
+    secondContactFirstName?: SortOrder
+    secondContactLastName?: SortOrder
+    secondContactPhone?: SortOrder
+    secondContactEmail?: SortOrder
+    spouseName?: SortOrder
+    spouseDob?: SortOrder
+    weddingDay?: SortOrder
+    childName1?: SortOrder
+    childDob1?: SortOrder
+    childName2?: SortOrder
+    childDob2?: SortOrder
+    childName3?: SortOrder
+    childDob3?: SortOrder
+    godownSameAsCompany?: SortOrder
+    godownAddressLine1?: SortOrder
+    godownAddressLine2?: SortOrder
+    godownCity?: SortOrder
+    godownState?: SortOrder
+    godownPostalCode?: SortOrder
+    godownContactPerson?: SortOrder
+    godownContactMobile?: SortOrder
+    referenceName1?: SortOrder
+    referencePhone1?: SortOrder
+    referenceDetails1?: SortOrder
+    referenceName2?: SortOrder
+    referencePhone2?: SortOrder
+    referenceDetails2?: SortOrder
   }
 
   export type FormSubmissionMinOrderByAggregateInput = {
@@ -4754,7 +12840,13 @@ export namespace Prisma {
     legacyId?: SortOrder
     formType?: SortOrder
     skPassportNo?: SortOrder
+    skPassportSeq?: SortOrder
     validationOtpGenerated?: SortOrder
+    title?: SortOrder
+    age?: SortOrder
+    sameAsAbove?: SortOrder
+    remarks?: SortOrder
+    validationCode?: SortOrder
     registeringDate?: SortOrder
     pi_firstName?: SortOrder
     pi_lastName?: SortOrder
@@ -4774,6 +12866,7 @@ export namespace Prisma {
     pi_anniversaryDate?: SortOrder
     ref_nameOfTheperson?: SortOrder
     ref_place?: SortOrder
+    reporting_manager_name?: SortOrder
     sod_nameOfTheDealer?: SortOrder
     sod_place?: SortOrder
     photoProofPath?: SortOrder
@@ -4800,10 +12893,57 @@ export namespace Prisma {
     photoProofData?: SortOrder
     idProofData?: SortOrder
     idProofBackData?: SortOrder
+    panProofPath?: SortOrder
+    panProofData?: SortOrder
+    dealershipName?: SortOrder
+    contactPerson?: SortOrder
+    gstNumber?: SortOrder
+    panNumber?: SortOrder
+    ownerSameAsAbove?: SortOrder
+    ownerTitle?: SortOrder
+    ownerFirstName?: SortOrder
+    ownerLastName?: SortOrder
+    ownerOfficeAddressLine1?: SortOrder
+    ownerOfficeAddressLine2?: SortOrder
+    ownerCity?: SortOrder
+    ownerState?: SortOrder
+    ownerPostalCode?: SortOrder
+    ownerPlace?: SortOrder
+    ownerPhoneNumber?: SortOrder
+    ownerEmailId?: SortOrder
+    secondContactTitle?: SortOrder
+    secondContactFirstName?: SortOrder
+    secondContactLastName?: SortOrder
+    secondContactPhone?: SortOrder
+    secondContactEmail?: SortOrder
+    spouseName?: SortOrder
+    spouseDob?: SortOrder
+    weddingDay?: SortOrder
+    childName1?: SortOrder
+    childDob1?: SortOrder
+    childName2?: SortOrder
+    childDob2?: SortOrder
+    childName3?: SortOrder
+    childDob3?: SortOrder
+    godownSameAsCompany?: SortOrder
+    godownAddressLine1?: SortOrder
+    godownAddressLine2?: SortOrder
+    godownCity?: SortOrder
+    godownState?: SortOrder
+    godownPostalCode?: SortOrder
+    godownContactPerson?: SortOrder
+    godownContactMobile?: SortOrder
+    referenceName1?: SortOrder
+    referencePhone1?: SortOrder
+    referenceDetails1?: SortOrder
+    referenceName2?: SortOrder
+    referencePhone2?: SortOrder
+    referenceDetails2?: SortOrder
   }
 
   export type FormSubmissionSumOrderByAggregateInput = {
     legacyId?: SortOrder
+    skPassportSeq?: SortOrder
   }
 
   export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -4840,6 +12980,30 @@ export namespace Prisma {
     _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
+  export type BigIntNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: bigint | number | BigIntFieldRefInput<$PrismaModel> | null
+    in?: bigint[] | number[] | ListBigIntFieldRefInput<$PrismaModel> | null
+    notIn?: bigint[] | number[] | ListBigIntFieldRefInput<$PrismaModel> | null
+    lt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    lte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    gt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    gte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    not?: NestedBigIntNullableWithAggregatesFilter<$PrismaModel> | bigint | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedBigIntNullableFilter<$PrismaModel>
+    _min?: NestedBigIntNullableFilter<$PrismaModel>
+    _max?: NestedBigIntNullableFilter<$PrismaModel>
+  }
+
+  export type BoolNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel> | null
+    not?: NestedBoolNullableWithAggregatesFilter<$PrismaModel> | boolean | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedBoolNullableFilter<$PrismaModel>
+    _max?: NestedBoolNullableFilter<$PrismaModel>
+  }
+
   export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
@@ -4854,12 +13018,268 @@ export namespace Prisma {
     _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
-  export type BoolNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel> | null
-    not?: NestedBoolNullableWithAggregatesFilter<$PrismaModel> | boolean | null
+  export type IntFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntFilter<$PrismaModel> | number
+  }
+  export type JsonNullableFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<JsonNullableFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonNullableFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonNullableFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonNullableFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonNullableFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+  }
+
+  export type FormSubmissionNullableScalarRelationFilter = {
+    is?: FormSubmissionWhereInput | null
+    isNot?: FormSubmissionWhereInput | null
+  }
+
+  export type LegacyRegistrationLegacySourceLegacyRowIndexCompoundUniqueInput = {
+    legacySource: string
+    legacyRowIndex: number
+  }
+
+  export type LegacyRegistrationCountOrderByAggregateInput = {
+    id?: SortOrder
+    legacySource?: SortOrder
+    legacyRowIndex?: SortOrder
+    legacyId?: SortOrder
+    legacyPassportNo?: SortOrder
+    rawTableRecord?: SortOrder
+    rawDetailRecord?: SortOrder
+    submissionId?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type LegacyRegistrationAvgOrderByAggregateInput = {
+    legacyRowIndex?: SortOrder
+    legacyId?: SortOrder
+  }
+
+  export type LegacyRegistrationMaxOrderByAggregateInput = {
+    id?: SortOrder
+    legacySource?: SortOrder
+    legacyRowIndex?: SortOrder
+    legacyId?: SortOrder
+    legacyPassportNo?: SortOrder
+    submissionId?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type LegacyRegistrationMinOrderByAggregateInput = {
+    id?: SortOrder
+    legacySource?: SortOrder
+    legacyRowIndex?: SortOrder
+    legacyId?: SortOrder
+    legacyPassportNo?: SortOrder
+    submissionId?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type LegacyRegistrationSumOrderByAggregateInput = {
+    legacyRowIndex?: SortOrder
+    legacyId?: SortOrder
+  }
+
+  export type IntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
+  }
+  export type JsonNullableWithAggregatesFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonNullableWithAggregatesFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
     _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedBoolNullableFilter<$PrismaModel>
-    _max?: NestedBoolNullableFilter<$PrismaModel>
+    _min?: NestedJsonNullableFilter<$PrismaModel>
+    _max?: NestedJsonNullableFilter<$PrismaModel>
+  }
+
+  export type FormSubmissionScalarRelationFilter = {
+    is?: FormSubmissionWhereInput
+    isNot?: FormSubmissionWhereInput
+  }
+
+  export type LegacyBlobCountOrderByAggregateInput = {
+    id?: SortOrder
+    submissionId?: SortOrder
+    photoProofData?: SortOrder
+    idProofData?: SortOrder
+    idProofBackData?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type LegacyBlobMaxOrderByAggregateInput = {
+    id?: SortOrder
+    submissionId?: SortOrder
+    photoProofData?: SortOrder
+    idProofData?: SortOrder
+    idProofBackData?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type LegacyBlobMinOrderByAggregateInput = {
+    id?: SortOrder
+    submissionId?: SortOrder
+    photoProofData?: SortOrder
+    idProofData?: SortOrder
+    idProofBackData?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type BigIntFilter<$PrismaModel = never> = {
+    equals?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    in?: bigint[] | number[] | ListBigIntFieldRefInput<$PrismaModel>
+    notIn?: bigint[] | number[] | ListBigIntFieldRefInput<$PrismaModel>
+    lt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    lte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    gt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    gte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    not?: NestedBigIntFilter<$PrismaModel> | bigint | number
+  }
+
+  export type PassportCounterCountOrderByAggregateInput = {
+    key?: SortOrder
+    lastIssued?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type PassportCounterAvgOrderByAggregateInput = {
+    lastIssued?: SortOrder
+  }
+
+  export type PassportCounterMaxOrderByAggregateInput = {
+    key?: SortOrder
+    lastIssued?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type PassportCounterMinOrderByAggregateInput = {
+    key?: SortOrder
+    lastIssued?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type PassportCounterSumOrderByAggregateInput = {
+    lastIssued?: SortOrder
+  }
+
+  export type BigIntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    in?: bigint[] | number[] | ListBigIntFieldRefInput<$PrismaModel>
+    notIn?: bigint[] | number[] | ListBigIntFieldRefInput<$PrismaModel>
+    lt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    lte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    gt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    gte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    not?: NestedBigIntWithAggregatesFilter<$PrismaModel> | bigint | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedBigIntFilter<$PrismaModel>
+    _min?: NestedBigIntFilter<$PrismaModel>
+    _max?: NestedBigIntFilter<$PrismaModel>
+  }
+
+  export type SalesOfficerCountOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    nameNormalized?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type SalesOfficerMaxOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    nameNormalized?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type SalesOfficerMinOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    nameNormalized?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ReportingManagerCountOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    nameNormalized?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ReportingManagerMaxOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    nameNormalized?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ReportingManagerMinOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    nameNormalized?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -4868,6 +13288,32 @@ export namespace Prisma {
 
   export type DateTimeFieldUpdateOperationsInput = {
     set?: Date | string
+  }
+
+  export type LegacyRegistrationCreateNestedManyWithoutSubmissionInput = {
+    create?: XOR<LegacyRegistrationCreateWithoutSubmissionInput, LegacyRegistrationUncheckedCreateWithoutSubmissionInput> | LegacyRegistrationCreateWithoutSubmissionInput[] | LegacyRegistrationUncheckedCreateWithoutSubmissionInput[]
+    connectOrCreate?: LegacyRegistrationCreateOrConnectWithoutSubmissionInput | LegacyRegistrationCreateOrConnectWithoutSubmissionInput[]
+    createMany?: LegacyRegistrationCreateManySubmissionInputEnvelope
+    connect?: LegacyRegistrationWhereUniqueInput | LegacyRegistrationWhereUniqueInput[]
+  }
+
+  export type LegacyBlobCreateNestedOneWithoutSubmissionInput = {
+    create?: XOR<LegacyBlobCreateWithoutSubmissionInput, LegacyBlobUncheckedCreateWithoutSubmissionInput>
+    connectOrCreate?: LegacyBlobCreateOrConnectWithoutSubmissionInput
+    connect?: LegacyBlobWhereUniqueInput
+  }
+
+  export type LegacyRegistrationUncheckedCreateNestedManyWithoutSubmissionInput = {
+    create?: XOR<LegacyRegistrationCreateWithoutSubmissionInput, LegacyRegistrationUncheckedCreateWithoutSubmissionInput> | LegacyRegistrationCreateWithoutSubmissionInput[] | LegacyRegistrationUncheckedCreateWithoutSubmissionInput[]
+    connectOrCreate?: LegacyRegistrationCreateOrConnectWithoutSubmissionInput | LegacyRegistrationCreateOrConnectWithoutSubmissionInput[]
+    createMany?: LegacyRegistrationCreateManySubmissionInputEnvelope
+    connect?: LegacyRegistrationWhereUniqueInput | LegacyRegistrationWhereUniqueInput[]
+  }
+
+  export type LegacyBlobUncheckedCreateNestedOneWithoutSubmissionInput = {
+    create?: XOR<LegacyBlobCreateWithoutSubmissionInput, LegacyBlobUncheckedCreateWithoutSubmissionInput>
+    connectOrCreate?: LegacyBlobCreateOrConnectWithoutSubmissionInput
+    connect?: LegacyBlobWhereUniqueInput
   }
 
   export type NullableIntFieldUpdateOperationsInput = {
@@ -4882,12 +13328,114 @@ export namespace Prisma {
     set?: string | null
   }
 
-  export type NullableDateTimeFieldUpdateOperationsInput = {
-    set?: Date | string | null
+  export type NullableBigIntFieldUpdateOperationsInput = {
+    set?: bigint | number | null
+    increment?: bigint | number
+    decrement?: bigint | number
+    multiply?: bigint | number
+    divide?: bigint | number
   }
 
   export type NullableBoolFieldUpdateOperationsInput = {
     set?: boolean | null
+  }
+
+  export type NullableDateTimeFieldUpdateOperationsInput = {
+    set?: Date | string | null
+  }
+
+  export type LegacyRegistrationUpdateManyWithoutSubmissionNestedInput = {
+    create?: XOR<LegacyRegistrationCreateWithoutSubmissionInput, LegacyRegistrationUncheckedCreateWithoutSubmissionInput> | LegacyRegistrationCreateWithoutSubmissionInput[] | LegacyRegistrationUncheckedCreateWithoutSubmissionInput[]
+    connectOrCreate?: LegacyRegistrationCreateOrConnectWithoutSubmissionInput | LegacyRegistrationCreateOrConnectWithoutSubmissionInput[]
+    upsert?: LegacyRegistrationUpsertWithWhereUniqueWithoutSubmissionInput | LegacyRegistrationUpsertWithWhereUniqueWithoutSubmissionInput[]
+    createMany?: LegacyRegistrationCreateManySubmissionInputEnvelope
+    set?: LegacyRegistrationWhereUniqueInput | LegacyRegistrationWhereUniqueInput[]
+    disconnect?: LegacyRegistrationWhereUniqueInput | LegacyRegistrationWhereUniqueInput[]
+    delete?: LegacyRegistrationWhereUniqueInput | LegacyRegistrationWhereUniqueInput[]
+    connect?: LegacyRegistrationWhereUniqueInput | LegacyRegistrationWhereUniqueInput[]
+    update?: LegacyRegistrationUpdateWithWhereUniqueWithoutSubmissionInput | LegacyRegistrationUpdateWithWhereUniqueWithoutSubmissionInput[]
+    updateMany?: LegacyRegistrationUpdateManyWithWhereWithoutSubmissionInput | LegacyRegistrationUpdateManyWithWhereWithoutSubmissionInput[]
+    deleteMany?: LegacyRegistrationScalarWhereInput | LegacyRegistrationScalarWhereInput[]
+  }
+
+  export type LegacyBlobUpdateOneWithoutSubmissionNestedInput = {
+    create?: XOR<LegacyBlobCreateWithoutSubmissionInput, LegacyBlobUncheckedCreateWithoutSubmissionInput>
+    connectOrCreate?: LegacyBlobCreateOrConnectWithoutSubmissionInput
+    upsert?: LegacyBlobUpsertWithoutSubmissionInput
+    disconnect?: LegacyBlobWhereInput | boolean
+    delete?: LegacyBlobWhereInput | boolean
+    connect?: LegacyBlobWhereUniqueInput
+    update?: XOR<XOR<LegacyBlobUpdateToOneWithWhereWithoutSubmissionInput, LegacyBlobUpdateWithoutSubmissionInput>, LegacyBlobUncheckedUpdateWithoutSubmissionInput>
+  }
+
+  export type LegacyRegistrationUncheckedUpdateManyWithoutSubmissionNestedInput = {
+    create?: XOR<LegacyRegistrationCreateWithoutSubmissionInput, LegacyRegistrationUncheckedCreateWithoutSubmissionInput> | LegacyRegistrationCreateWithoutSubmissionInput[] | LegacyRegistrationUncheckedCreateWithoutSubmissionInput[]
+    connectOrCreate?: LegacyRegistrationCreateOrConnectWithoutSubmissionInput | LegacyRegistrationCreateOrConnectWithoutSubmissionInput[]
+    upsert?: LegacyRegistrationUpsertWithWhereUniqueWithoutSubmissionInput | LegacyRegistrationUpsertWithWhereUniqueWithoutSubmissionInput[]
+    createMany?: LegacyRegistrationCreateManySubmissionInputEnvelope
+    set?: LegacyRegistrationWhereUniqueInput | LegacyRegistrationWhereUniqueInput[]
+    disconnect?: LegacyRegistrationWhereUniqueInput | LegacyRegistrationWhereUniqueInput[]
+    delete?: LegacyRegistrationWhereUniqueInput | LegacyRegistrationWhereUniqueInput[]
+    connect?: LegacyRegistrationWhereUniqueInput | LegacyRegistrationWhereUniqueInput[]
+    update?: LegacyRegistrationUpdateWithWhereUniqueWithoutSubmissionInput | LegacyRegistrationUpdateWithWhereUniqueWithoutSubmissionInput[]
+    updateMany?: LegacyRegistrationUpdateManyWithWhereWithoutSubmissionInput | LegacyRegistrationUpdateManyWithWhereWithoutSubmissionInput[]
+    deleteMany?: LegacyRegistrationScalarWhereInput | LegacyRegistrationScalarWhereInput[]
+  }
+
+  export type LegacyBlobUncheckedUpdateOneWithoutSubmissionNestedInput = {
+    create?: XOR<LegacyBlobCreateWithoutSubmissionInput, LegacyBlobUncheckedCreateWithoutSubmissionInput>
+    connectOrCreate?: LegacyBlobCreateOrConnectWithoutSubmissionInput
+    upsert?: LegacyBlobUpsertWithoutSubmissionInput
+    disconnect?: LegacyBlobWhereInput | boolean
+    delete?: LegacyBlobWhereInput | boolean
+    connect?: LegacyBlobWhereUniqueInput
+    update?: XOR<XOR<LegacyBlobUpdateToOneWithWhereWithoutSubmissionInput, LegacyBlobUpdateWithoutSubmissionInput>, LegacyBlobUncheckedUpdateWithoutSubmissionInput>
+  }
+
+  export type FormSubmissionCreateNestedOneWithoutLegacyRegistrationsInput = {
+    create?: XOR<FormSubmissionCreateWithoutLegacyRegistrationsInput, FormSubmissionUncheckedCreateWithoutLegacyRegistrationsInput>
+    connectOrCreate?: FormSubmissionCreateOrConnectWithoutLegacyRegistrationsInput
+    connect?: FormSubmissionWhereUniqueInput
+  }
+
+  export type IntFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
+  export type FormSubmissionUpdateOneWithoutLegacyRegistrationsNestedInput = {
+    create?: XOR<FormSubmissionCreateWithoutLegacyRegistrationsInput, FormSubmissionUncheckedCreateWithoutLegacyRegistrationsInput>
+    connectOrCreate?: FormSubmissionCreateOrConnectWithoutLegacyRegistrationsInput
+    upsert?: FormSubmissionUpsertWithoutLegacyRegistrationsInput
+    disconnect?: FormSubmissionWhereInput | boolean
+    delete?: FormSubmissionWhereInput | boolean
+    connect?: FormSubmissionWhereUniqueInput
+    update?: XOR<XOR<FormSubmissionUpdateToOneWithWhereWithoutLegacyRegistrationsInput, FormSubmissionUpdateWithoutLegacyRegistrationsInput>, FormSubmissionUncheckedUpdateWithoutLegacyRegistrationsInput>
+  }
+
+  export type FormSubmissionCreateNestedOneWithoutLegacyBlobInput = {
+    create?: XOR<FormSubmissionCreateWithoutLegacyBlobInput, FormSubmissionUncheckedCreateWithoutLegacyBlobInput>
+    connectOrCreate?: FormSubmissionCreateOrConnectWithoutLegacyBlobInput
+    connect?: FormSubmissionWhereUniqueInput
+  }
+
+  export type FormSubmissionUpdateOneRequiredWithoutLegacyBlobNestedInput = {
+    create?: XOR<FormSubmissionCreateWithoutLegacyBlobInput, FormSubmissionUncheckedCreateWithoutLegacyBlobInput>
+    connectOrCreate?: FormSubmissionCreateOrConnectWithoutLegacyBlobInput
+    upsert?: FormSubmissionUpsertWithoutLegacyBlobInput
+    connect?: FormSubmissionWhereUniqueInput
+    update?: XOR<XOR<FormSubmissionUpdateToOneWithWhereWithoutLegacyBlobInput, FormSubmissionUpdateWithoutLegacyBlobInput>, FormSubmissionUncheckedUpdateWithoutLegacyBlobInput>
+  }
+
+  export type BigIntFieldUpdateOperationsInput = {
+    set?: bigint | number
+    increment?: bigint | number
+    decrement?: bigint | number
+    multiply?: bigint | number
+    divide?: bigint | number
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -4982,6 +13530,22 @@ export namespace Prisma {
     not?: NestedStringNullableFilter<$PrismaModel> | string | null
   }
 
+  export type NestedBigIntNullableFilter<$PrismaModel = never> = {
+    equals?: bigint | number | BigIntFieldRefInput<$PrismaModel> | null
+    in?: bigint[] | number[] | ListBigIntFieldRefInput<$PrismaModel> | null
+    notIn?: bigint[] | number[] | ListBigIntFieldRefInput<$PrismaModel> | null
+    lt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    lte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    gt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    gte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    not?: NestedBigIntNullableFilter<$PrismaModel> | bigint | number | null
+  }
+
+  export type NestedBoolNullableFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel> | null
+    not?: NestedBoolNullableFilter<$PrismaModel> | boolean | null
+  }
+
   export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
@@ -4991,11 +13555,6 @@ export namespace Prisma {
     gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
-  }
-
-  export type NestedBoolNullableFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel> | null
-    not?: NestedBoolNullableFilter<$PrismaModel> | boolean | null
   }
 
   export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -5042,6 +13601,30 @@ export namespace Prisma {
     _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
+  export type NestedBigIntNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: bigint | number | BigIntFieldRefInput<$PrismaModel> | null
+    in?: bigint[] | number[] | ListBigIntFieldRefInput<$PrismaModel> | null
+    notIn?: bigint[] | number[] | ListBigIntFieldRefInput<$PrismaModel> | null
+    lt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    lte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    gt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    gte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    not?: NestedBigIntNullableWithAggregatesFilter<$PrismaModel> | bigint | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedBigIntNullableFilter<$PrismaModel>
+    _min?: NestedBigIntNullableFilter<$PrismaModel>
+    _max?: NestedBigIntNullableFilter<$PrismaModel>
+  }
+
+  export type NestedBoolNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel> | null
+    not?: NestedBoolNullableWithAggregatesFilter<$PrismaModel> | boolean | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedBoolNullableFilter<$PrismaModel>
+    _max?: NestedBoolNullableFilter<$PrismaModel>
+  }
+
   export type NestedDateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
@@ -5056,12 +13639,1128 @@ export namespace Prisma {
     _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
-  export type NestedBoolNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel> | null
-    not?: NestedBoolNullableWithAggregatesFilter<$PrismaModel> | boolean | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedBoolNullableFilter<$PrismaModel>
-    _max?: NestedBoolNullableFilter<$PrismaModel>
+  export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
+  }
+
+  export type NestedFloatFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatFilter<$PrismaModel> | number
+  }
+  export type NestedJsonNullableFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<NestedJsonNullableFilterBase<$PrismaModel>>, Exclude<keyof Required<NestedJsonNullableFilterBase<$PrismaModel>>, 'path'>>,
+        Required<NestedJsonNullableFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<NestedJsonNullableFilterBase<$PrismaModel>>, 'path'>>
+
+  export type NestedJsonNullableFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+  }
+
+  export type NestedBigIntFilter<$PrismaModel = never> = {
+    equals?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    in?: bigint[] | number[] | ListBigIntFieldRefInput<$PrismaModel>
+    notIn?: bigint[] | number[] | ListBigIntFieldRefInput<$PrismaModel>
+    lt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    lte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    gt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    gte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    not?: NestedBigIntFilter<$PrismaModel> | bigint | number
+  }
+
+  export type NestedBigIntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    in?: bigint[] | number[] | ListBigIntFieldRefInput<$PrismaModel>
+    notIn?: bigint[] | number[] | ListBigIntFieldRefInput<$PrismaModel>
+    lt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    lte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    gt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    gte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    not?: NestedBigIntWithAggregatesFilter<$PrismaModel> | bigint | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedBigIntFilter<$PrismaModel>
+    _min?: NestedBigIntFilter<$PrismaModel>
+    _max?: NestedBigIntFilter<$PrismaModel>
+  }
+
+  export type LegacyRegistrationCreateWithoutSubmissionInput = {
+    id?: string
+    legacySource: string
+    legacyRowIndex: number
+    legacyId?: number | null
+    legacyPassportNo?: string | null
+    rawTableRecord?: NullableJsonNullValueInput | InputJsonValue
+    rawDetailRecord?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+  }
+
+  export type LegacyRegistrationUncheckedCreateWithoutSubmissionInput = {
+    id?: string
+    legacySource: string
+    legacyRowIndex: number
+    legacyId?: number | null
+    legacyPassportNo?: string | null
+    rawTableRecord?: NullableJsonNullValueInput | InputJsonValue
+    rawDetailRecord?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+  }
+
+  export type LegacyRegistrationCreateOrConnectWithoutSubmissionInput = {
+    where: LegacyRegistrationWhereUniqueInput
+    create: XOR<LegacyRegistrationCreateWithoutSubmissionInput, LegacyRegistrationUncheckedCreateWithoutSubmissionInput>
+  }
+
+  export type LegacyRegistrationCreateManySubmissionInputEnvelope = {
+    data: LegacyRegistrationCreateManySubmissionInput | LegacyRegistrationCreateManySubmissionInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type LegacyBlobCreateWithoutSubmissionInput = {
+    id?: string
+    photoProofData?: string | null
+    idProofData?: string | null
+    idProofBackData?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type LegacyBlobUncheckedCreateWithoutSubmissionInput = {
+    id?: string
+    photoProofData?: string | null
+    idProofData?: string | null
+    idProofBackData?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type LegacyBlobCreateOrConnectWithoutSubmissionInput = {
+    where: LegacyBlobWhereUniqueInput
+    create: XOR<LegacyBlobCreateWithoutSubmissionInput, LegacyBlobUncheckedCreateWithoutSubmissionInput>
+  }
+
+  export type LegacyRegistrationUpsertWithWhereUniqueWithoutSubmissionInput = {
+    where: LegacyRegistrationWhereUniqueInput
+    update: XOR<LegacyRegistrationUpdateWithoutSubmissionInput, LegacyRegistrationUncheckedUpdateWithoutSubmissionInput>
+    create: XOR<LegacyRegistrationCreateWithoutSubmissionInput, LegacyRegistrationUncheckedCreateWithoutSubmissionInput>
+  }
+
+  export type LegacyRegistrationUpdateWithWhereUniqueWithoutSubmissionInput = {
+    where: LegacyRegistrationWhereUniqueInput
+    data: XOR<LegacyRegistrationUpdateWithoutSubmissionInput, LegacyRegistrationUncheckedUpdateWithoutSubmissionInput>
+  }
+
+  export type LegacyRegistrationUpdateManyWithWhereWithoutSubmissionInput = {
+    where: LegacyRegistrationScalarWhereInput
+    data: XOR<LegacyRegistrationUpdateManyMutationInput, LegacyRegistrationUncheckedUpdateManyWithoutSubmissionInput>
+  }
+
+  export type LegacyRegistrationScalarWhereInput = {
+    AND?: LegacyRegistrationScalarWhereInput | LegacyRegistrationScalarWhereInput[]
+    OR?: LegacyRegistrationScalarWhereInput[]
+    NOT?: LegacyRegistrationScalarWhereInput | LegacyRegistrationScalarWhereInput[]
+    id?: StringFilter<"LegacyRegistration"> | string
+    legacySource?: StringFilter<"LegacyRegistration"> | string
+    legacyRowIndex?: IntFilter<"LegacyRegistration"> | number
+    legacyId?: IntNullableFilter<"LegacyRegistration"> | number | null
+    legacyPassportNo?: StringNullableFilter<"LegacyRegistration"> | string | null
+    rawTableRecord?: JsonNullableFilter<"LegacyRegistration">
+    rawDetailRecord?: JsonNullableFilter<"LegacyRegistration">
+    submissionId?: StringNullableFilter<"LegacyRegistration"> | string | null
+    createdAt?: DateTimeFilter<"LegacyRegistration"> | Date | string
+  }
+
+  export type LegacyBlobUpsertWithoutSubmissionInput = {
+    update: XOR<LegacyBlobUpdateWithoutSubmissionInput, LegacyBlobUncheckedUpdateWithoutSubmissionInput>
+    create: XOR<LegacyBlobCreateWithoutSubmissionInput, LegacyBlobUncheckedCreateWithoutSubmissionInput>
+    where?: LegacyBlobWhereInput
+  }
+
+  export type LegacyBlobUpdateToOneWithWhereWithoutSubmissionInput = {
+    where?: LegacyBlobWhereInput
+    data: XOR<LegacyBlobUpdateWithoutSubmissionInput, LegacyBlobUncheckedUpdateWithoutSubmissionInput>
+  }
+
+  export type LegacyBlobUpdateWithoutSubmissionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    photoProofData?: NullableStringFieldUpdateOperationsInput | string | null
+    idProofData?: NullableStringFieldUpdateOperationsInput | string | null
+    idProofBackData?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type LegacyBlobUncheckedUpdateWithoutSubmissionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    photoProofData?: NullableStringFieldUpdateOperationsInput | string | null
+    idProofData?: NullableStringFieldUpdateOperationsInput | string | null
+    idProofBackData?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type FormSubmissionCreateWithoutLegacyRegistrationsInput = {
+    id?: string
+    legacyId?: number | null
+    formType: string
+    skPassportNo?: string | null
+    skPassportSeq?: bigint | number | null
+    validationOtpGenerated?: string | null
+    title?: string | null
+    age?: string | null
+    sameAsAbove?: boolean | null
+    remarks?: string | null
+    validationCode?: string | null
+    registeringDate?: Date | string | null
+    pi_firstName?: string | null
+    pi_lastName?: string | null
+    pi_profession?: string | null
+    pi_dob?: string | null
+    pi_phone?: string | null
+    pi_whatsAppNumber?: string | null
+    pi_emailId?: string | null
+    pi_addressLane1?: string | null
+    pi_addressLane2?: string | null
+    pi_taluk?: string | null
+    pi_district?: string | null
+    pi_city?: string | null
+    pi_state?: string | null
+    pi_pincode?: string | null
+    pi_landmark?: string | null
+    pi_anniversaryDate?: string | null
+    ref_nameOfTheperson?: string | null
+    ref_place?: string | null
+    reporting_manager_name?: string | null
+    sod_nameOfTheDealer?: string | null
+    sod_place?: string | null
+    photoProofPath?: string | null
+    idProofPath?: string | null
+    idProofBackPath?: string | null
+    isContacted?: boolean | null
+    isApproved?: boolean | null
+    isDeleted?: boolean | null
+    isActive?: boolean | null
+    isPending?: boolean | null
+    isRejected?: boolean | null
+    shop_location?: string | null
+    shop_Address1?: string | null
+    shop_Address2?: string | null
+    shop_District?: string | null
+    shop_Taluk?: string | null
+    shop_City?: string | null
+    shop_Pincode?: string | null
+    shop_Landmark?: string | null
+    enteredBy?: string | null
+    enteredDate?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    photoProofData?: string | null
+    idProofData?: string | null
+    idProofBackData?: string | null
+    panProofPath?: string | null
+    panProofData?: string | null
+    dealershipName?: string | null
+    contactPerson?: string | null
+    gstNumber?: string | null
+    panNumber?: string | null
+    ownerSameAsAbove?: boolean | null
+    ownerTitle?: string | null
+    ownerFirstName?: string | null
+    ownerLastName?: string | null
+    ownerOfficeAddressLine1?: string | null
+    ownerOfficeAddressLine2?: string | null
+    ownerCity?: string | null
+    ownerState?: string | null
+    ownerPostalCode?: string | null
+    ownerPlace?: string | null
+    ownerPhoneNumber?: string | null
+    ownerEmailId?: string | null
+    secondContactTitle?: string | null
+    secondContactFirstName?: string | null
+    secondContactLastName?: string | null
+    secondContactPhone?: string | null
+    secondContactEmail?: string | null
+    spouseName?: string | null
+    spouseDob?: string | null
+    weddingDay?: string | null
+    childName1?: string | null
+    childDob1?: string | null
+    childName2?: string | null
+    childDob2?: string | null
+    childName3?: string | null
+    childDob3?: string | null
+    godownSameAsCompany?: boolean | null
+    godownAddressLine1?: string | null
+    godownAddressLine2?: string | null
+    godownCity?: string | null
+    godownState?: string | null
+    godownPostalCode?: string | null
+    godownContactPerson?: string | null
+    godownContactMobile?: string | null
+    referenceName1?: string | null
+    referencePhone1?: string | null
+    referenceDetails1?: string | null
+    referenceName2?: string | null
+    referencePhone2?: string | null
+    referenceDetails2?: string | null
+    legacyBlob?: LegacyBlobCreateNestedOneWithoutSubmissionInput
+  }
+
+  export type FormSubmissionUncheckedCreateWithoutLegacyRegistrationsInput = {
+    id?: string
+    legacyId?: number | null
+    formType: string
+    skPassportNo?: string | null
+    skPassportSeq?: bigint | number | null
+    validationOtpGenerated?: string | null
+    title?: string | null
+    age?: string | null
+    sameAsAbove?: boolean | null
+    remarks?: string | null
+    validationCode?: string | null
+    registeringDate?: Date | string | null
+    pi_firstName?: string | null
+    pi_lastName?: string | null
+    pi_profession?: string | null
+    pi_dob?: string | null
+    pi_phone?: string | null
+    pi_whatsAppNumber?: string | null
+    pi_emailId?: string | null
+    pi_addressLane1?: string | null
+    pi_addressLane2?: string | null
+    pi_taluk?: string | null
+    pi_district?: string | null
+    pi_city?: string | null
+    pi_state?: string | null
+    pi_pincode?: string | null
+    pi_landmark?: string | null
+    pi_anniversaryDate?: string | null
+    ref_nameOfTheperson?: string | null
+    ref_place?: string | null
+    reporting_manager_name?: string | null
+    sod_nameOfTheDealer?: string | null
+    sod_place?: string | null
+    photoProofPath?: string | null
+    idProofPath?: string | null
+    idProofBackPath?: string | null
+    isContacted?: boolean | null
+    isApproved?: boolean | null
+    isDeleted?: boolean | null
+    isActive?: boolean | null
+    isPending?: boolean | null
+    isRejected?: boolean | null
+    shop_location?: string | null
+    shop_Address1?: string | null
+    shop_Address2?: string | null
+    shop_District?: string | null
+    shop_Taluk?: string | null
+    shop_City?: string | null
+    shop_Pincode?: string | null
+    shop_Landmark?: string | null
+    enteredBy?: string | null
+    enteredDate?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    photoProofData?: string | null
+    idProofData?: string | null
+    idProofBackData?: string | null
+    panProofPath?: string | null
+    panProofData?: string | null
+    dealershipName?: string | null
+    contactPerson?: string | null
+    gstNumber?: string | null
+    panNumber?: string | null
+    ownerSameAsAbove?: boolean | null
+    ownerTitle?: string | null
+    ownerFirstName?: string | null
+    ownerLastName?: string | null
+    ownerOfficeAddressLine1?: string | null
+    ownerOfficeAddressLine2?: string | null
+    ownerCity?: string | null
+    ownerState?: string | null
+    ownerPostalCode?: string | null
+    ownerPlace?: string | null
+    ownerPhoneNumber?: string | null
+    ownerEmailId?: string | null
+    secondContactTitle?: string | null
+    secondContactFirstName?: string | null
+    secondContactLastName?: string | null
+    secondContactPhone?: string | null
+    secondContactEmail?: string | null
+    spouseName?: string | null
+    spouseDob?: string | null
+    weddingDay?: string | null
+    childName1?: string | null
+    childDob1?: string | null
+    childName2?: string | null
+    childDob2?: string | null
+    childName3?: string | null
+    childDob3?: string | null
+    godownSameAsCompany?: boolean | null
+    godownAddressLine1?: string | null
+    godownAddressLine2?: string | null
+    godownCity?: string | null
+    godownState?: string | null
+    godownPostalCode?: string | null
+    godownContactPerson?: string | null
+    godownContactMobile?: string | null
+    referenceName1?: string | null
+    referencePhone1?: string | null
+    referenceDetails1?: string | null
+    referenceName2?: string | null
+    referencePhone2?: string | null
+    referenceDetails2?: string | null
+    legacyBlob?: LegacyBlobUncheckedCreateNestedOneWithoutSubmissionInput
+  }
+
+  export type FormSubmissionCreateOrConnectWithoutLegacyRegistrationsInput = {
+    where: FormSubmissionWhereUniqueInput
+    create: XOR<FormSubmissionCreateWithoutLegacyRegistrationsInput, FormSubmissionUncheckedCreateWithoutLegacyRegistrationsInput>
+  }
+
+  export type FormSubmissionUpsertWithoutLegacyRegistrationsInput = {
+    update: XOR<FormSubmissionUpdateWithoutLegacyRegistrationsInput, FormSubmissionUncheckedUpdateWithoutLegacyRegistrationsInput>
+    create: XOR<FormSubmissionCreateWithoutLegacyRegistrationsInput, FormSubmissionUncheckedCreateWithoutLegacyRegistrationsInput>
+    where?: FormSubmissionWhereInput
+  }
+
+  export type FormSubmissionUpdateToOneWithWhereWithoutLegacyRegistrationsInput = {
+    where?: FormSubmissionWhereInput
+    data: XOR<FormSubmissionUpdateWithoutLegacyRegistrationsInput, FormSubmissionUncheckedUpdateWithoutLegacyRegistrationsInput>
+  }
+
+  export type FormSubmissionUpdateWithoutLegacyRegistrationsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    legacyId?: NullableIntFieldUpdateOperationsInput | number | null
+    formType?: StringFieldUpdateOperationsInput | string
+    skPassportNo?: NullableStringFieldUpdateOperationsInput | string | null
+    skPassportSeq?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    validationOtpGenerated?: NullableStringFieldUpdateOperationsInput | string | null
+    title?: NullableStringFieldUpdateOperationsInput | string | null
+    age?: NullableStringFieldUpdateOperationsInput | string | null
+    sameAsAbove?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    remarks?: NullableStringFieldUpdateOperationsInput | string | null
+    validationCode?: NullableStringFieldUpdateOperationsInput | string | null
+    registeringDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    pi_firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    pi_lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    pi_profession?: NullableStringFieldUpdateOperationsInput | string | null
+    pi_dob?: NullableStringFieldUpdateOperationsInput | string | null
+    pi_phone?: NullableStringFieldUpdateOperationsInput | string | null
+    pi_whatsAppNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    pi_emailId?: NullableStringFieldUpdateOperationsInput | string | null
+    pi_addressLane1?: NullableStringFieldUpdateOperationsInput | string | null
+    pi_addressLane2?: NullableStringFieldUpdateOperationsInput | string | null
+    pi_taluk?: NullableStringFieldUpdateOperationsInput | string | null
+    pi_district?: NullableStringFieldUpdateOperationsInput | string | null
+    pi_city?: NullableStringFieldUpdateOperationsInput | string | null
+    pi_state?: NullableStringFieldUpdateOperationsInput | string | null
+    pi_pincode?: NullableStringFieldUpdateOperationsInput | string | null
+    pi_landmark?: NullableStringFieldUpdateOperationsInput | string | null
+    pi_anniversaryDate?: NullableStringFieldUpdateOperationsInput | string | null
+    ref_nameOfTheperson?: NullableStringFieldUpdateOperationsInput | string | null
+    ref_place?: NullableStringFieldUpdateOperationsInput | string | null
+    reporting_manager_name?: NullableStringFieldUpdateOperationsInput | string | null
+    sod_nameOfTheDealer?: NullableStringFieldUpdateOperationsInput | string | null
+    sod_place?: NullableStringFieldUpdateOperationsInput | string | null
+    photoProofPath?: NullableStringFieldUpdateOperationsInput | string | null
+    idProofPath?: NullableStringFieldUpdateOperationsInput | string | null
+    idProofBackPath?: NullableStringFieldUpdateOperationsInput | string | null
+    isContacted?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    isApproved?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    isDeleted?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    isActive?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    isPending?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    isRejected?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    shop_location?: NullableStringFieldUpdateOperationsInput | string | null
+    shop_Address1?: NullableStringFieldUpdateOperationsInput | string | null
+    shop_Address2?: NullableStringFieldUpdateOperationsInput | string | null
+    shop_District?: NullableStringFieldUpdateOperationsInput | string | null
+    shop_Taluk?: NullableStringFieldUpdateOperationsInput | string | null
+    shop_City?: NullableStringFieldUpdateOperationsInput | string | null
+    shop_Pincode?: NullableStringFieldUpdateOperationsInput | string | null
+    shop_Landmark?: NullableStringFieldUpdateOperationsInput | string | null
+    enteredBy?: NullableStringFieldUpdateOperationsInput | string | null
+    enteredDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    photoProofData?: NullableStringFieldUpdateOperationsInput | string | null
+    idProofData?: NullableStringFieldUpdateOperationsInput | string | null
+    idProofBackData?: NullableStringFieldUpdateOperationsInput | string | null
+    panProofPath?: NullableStringFieldUpdateOperationsInput | string | null
+    panProofData?: NullableStringFieldUpdateOperationsInput | string | null
+    dealershipName?: NullableStringFieldUpdateOperationsInput | string | null
+    contactPerson?: NullableStringFieldUpdateOperationsInput | string | null
+    gstNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    panNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    ownerSameAsAbove?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    ownerTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    ownerFirstName?: NullableStringFieldUpdateOperationsInput | string | null
+    ownerLastName?: NullableStringFieldUpdateOperationsInput | string | null
+    ownerOfficeAddressLine1?: NullableStringFieldUpdateOperationsInput | string | null
+    ownerOfficeAddressLine2?: NullableStringFieldUpdateOperationsInput | string | null
+    ownerCity?: NullableStringFieldUpdateOperationsInput | string | null
+    ownerState?: NullableStringFieldUpdateOperationsInput | string | null
+    ownerPostalCode?: NullableStringFieldUpdateOperationsInput | string | null
+    ownerPlace?: NullableStringFieldUpdateOperationsInput | string | null
+    ownerPhoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    ownerEmailId?: NullableStringFieldUpdateOperationsInput | string | null
+    secondContactTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    secondContactFirstName?: NullableStringFieldUpdateOperationsInput | string | null
+    secondContactLastName?: NullableStringFieldUpdateOperationsInput | string | null
+    secondContactPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    secondContactEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    spouseName?: NullableStringFieldUpdateOperationsInput | string | null
+    spouseDob?: NullableStringFieldUpdateOperationsInput | string | null
+    weddingDay?: NullableStringFieldUpdateOperationsInput | string | null
+    childName1?: NullableStringFieldUpdateOperationsInput | string | null
+    childDob1?: NullableStringFieldUpdateOperationsInput | string | null
+    childName2?: NullableStringFieldUpdateOperationsInput | string | null
+    childDob2?: NullableStringFieldUpdateOperationsInput | string | null
+    childName3?: NullableStringFieldUpdateOperationsInput | string | null
+    childDob3?: NullableStringFieldUpdateOperationsInput | string | null
+    godownSameAsCompany?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    godownAddressLine1?: NullableStringFieldUpdateOperationsInput | string | null
+    godownAddressLine2?: NullableStringFieldUpdateOperationsInput | string | null
+    godownCity?: NullableStringFieldUpdateOperationsInput | string | null
+    godownState?: NullableStringFieldUpdateOperationsInput | string | null
+    godownPostalCode?: NullableStringFieldUpdateOperationsInput | string | null
+    godownContactPerson?: NullableStringFieldUpdateOperationsInput | string | null
+    godownContactMobile?: NullableStringFieldUpdateOperationsInput | string | null
+    referenceName1?: NullableStringFieldUpdateOperationsInput | string | null
+    referencePhone1?: NullableStringFieldUpdateOperationsInput | string | null
+    referenceDetails1?: NullableStringFieldUpdateOperationsInput | string | null
+    referenceName2?: NullableStringFieldUpdateOperationsInput | string | null
+    referencePhone2?: NullableStringFieldUpdateOperationsInput | string | null
+    referenceDetails2?: NullableStringFieldUpdateOperationsInput | string | null
+    legacyBlob?: LegacyBlobUpdateOneWithoutSubmissionNestedInput
+  }
+
+  export type FormSubmissionUncheckedUpdateWithoutLegacyRegistrationsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    legacyId?: NullableIntFieldUpdateOperationsInput | number | null
+    formType?: StringFieldUpdateOperationsInput | string
+    skPassportNo?: NullableStringFieldUpdateOperationsInput | string | null
+    skPassportSeq?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    validationOtpGenerated?: NullableStringFieldUpdateOperationsInput | string | null
+    title?: NullableStringFieldUpdateOperationsInput | string | null
+    age?: NullableStringFieldUpdateOperationsInput | string | null
+    sameAsAbove?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    remarks?: NullableStringFieldUpdateOperationsInput | string | null
+    validationCode?: NullableStringFieldUpdateOperationsInput | string | null
+    registeringDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    pi_firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    pi_lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    pi_profession?: NullableStringFieldUpdateOperationsInput | string | null
+    pi_dob?: NullableStringFieldUpdateOperationsInput | string | null
+    pi_phone?: NullableStringFieldUpdateOperationsInput | string | null
+    pi_whatsAppNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    pi_emailId?: NullableStringFieldUpdateOperationsInput | string | null
+    pi_addressLane1?: NullableStringFieldUpdateOperationsInput | string | null
+    pi_addressLane2?: NullableStringFieldUpdateOperationsInput | string | null
+    pi_taluk?: NullableStringFieldUpdateOperationsInput | string | null
+    pi_district?: NullableStringFieldUpdateOperationsInput | string | null
+    pi_city?: NullableStringFieldUpdateOperationsInput | string | null
+    pi_state?: NullableStringFieldUpdateOperationsInput | string | null
+    pi_pincode?: NullableStringFieldUpdateOperationsInput | string | null
+    pi_landmark?: NullableStringFieldUpdateOperationsInput | string | null
+    pi_anniversaryDate?: NullableStringFieldUpdateOperationsInput | string | null
+    ref_nameOfTheperson?: NullableStringFieldUpdateOperationsInput | string | null
+    ref_place?: NullableStringFieldUpdateOperationsInput | string | null
+    reporting_manager_name?: NullableStringFieldUpdateOperationsInput | string | null
+    sod_nameOfTheDealer?: NullableStringFieldUpdateOperationsInput | string | null
+    sod_place?: NullableStringFieldUpdateOperationsInput | string | null
+    photoProofPath?: NullableStringFieldUpdateOperationsInput | string | null
+    idProofPath?: NullableStringFieldUpdateOperationsInput | string | null
+    idProofBackPath?: NullableStringFieldUpdateOperationsInput | string | null
+    isContacted?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    isApproved?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    isDeleted?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    isActive?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    isPending?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    isRejected?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    shop_location?: NullableStringFieldUpdateOperationsInput | string | null
+    shop_Address1?: NullableStringFieldUpdateOperationsInput | string | null
+    shop_Address2?: NullableStringFieldUpdateOperationsInput | string | null
+    shop_District?: NullableStringFieldUpdateOperationsInput | string | null
+    shop_Taluk?: NullableStringFieldUpdateOperationsInput | string | null
+    shop_City?: NullableStringFieldUpdateOperationsInput | string | null
+    shop_Pincode?: NullableStringFieldUpdateOperationsInput | string | null
+    shop_Landmark?: NullableStringFieldUpdateOperationsInput | string | null
+    enteredBy?: NullableStringFieldUpdateOperationsInput | string | null
+    enteredDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    photoProofData?: NullableStringFieldUpdateOperationsInput | string | null
+    idProofData?: NullableStringFieldUpdateOperationsInput | string | null
+    idProofBackData?: NullableStringFieldUpdateOperationsInput | string | null
+    panProofPath?: NullableStringFieldUpdateOperationsInput | string | null
+    panProofData?: NullableStringFieldUpdateOperationsInput | string | null
+    dealershipName?: NullableStringFieldUpdateOperationsInput | string | null
+    contactPerson?: NullableStringFieldUpdateOperationsInput | string | null
+    gstNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    panNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    ownerSameAsAbove?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    ownerTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    ownerFirstName?: NullableStringFieldUpdateOperationsInput | string | null
+    ownerLastName?: NullableStringFieldUpdateOperationsInput | string | null
+    ownerOfficeAddressLine1?: NullableStringFieldUpdateOperationsInput | string | null
+    ownerOfficeAddressLine2?: NullableStringFieldUpdateOperationsInput | string | null
+    ownerCity?: NullableStringFieldUpdateOperationsInput | string | null
+    ownerState?: NullableStringFieldUpdateOperationsInput | string | null
+    ownerPostalCode?: NullableStringFieldUpdateOperationsInput | string | null
+    ownerPlace?: NullableStringFieldUpdateOperationsInput | string | null
+    ownerPhoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    ownerEmailId?: NullableStringFieldUpdateOperationsInput | string | null
+    secondContactTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    secondContactFirstName?: NullableStringFieldUpdateOperationsInput | string | null
+    secondContactLastName?: NullableStringFieldUpdateOperationsInput | string | null
+    secondContactPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    secondContactEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    spouseName?: NullableStringFieldUpdateOperationsInput | string | null
+    spouseDob?: NullableStringFieldUpdateOperationsInput | string | null
+    weddingDay?: NullableStringFieldUpdateOperationsInput | string | null
+    childName1?: NullableStringFieldUpdateOperationsInput | string | null
+    childDob1?: NullableStringFieldUpdateOperationsInput | string | null
+    childName2?: NullableStringFieldUpdateOperationsInput | string | null
+    childDob2?: NullableStringFieldUpdateOperationsInput | string | null
+    childName3?: NullableStringFieldUpdateOperationsInput | string | null
+    childDob3?: NullableStringFieldUpdateOperationsInput | string | null
+    godownSameAsCompany?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    godownAddressLine1?: NullableStringFieldUpdateOperationsInput | string | null
+    godownAddressLine2?: NullableStringFieldUpdateOperationsInput | string | null
+    godownCity?: NullableStringFieldUpdateOperationsInput | string | null
+    godownState?: NullableStringFieldUpdateOperationsInput | string | null
+    godownPostalCode?: NullableStringFieldUpdateOperationsInput | string | null
+    godownContactPerson?: NullableStringFieldUpdateOperationsInput | string | null
+    godownContactMobile?: NullableStringFieldUpdateOperationsInput | string | null
+    referenceName1?: NullableStringFieldUpdateOperationsInput | string | null
+    referencePhone1?: NullableStringFieldUpdateOperationsInput | string | null
+    referenceDetails1?: NullableStringFieldUpdateOperationsInput | string | null
+    referenceName2?: NullableStringFieldUpdateOperationsInput | string | null
+    referencePhone2?: NullableStringFieldUpdateOperationsInput | string | null
+    referenceDetails2?: NullableStringFieldUpdateOperationsInput | string | null
+    legacyBlob?: LegacyBlobUncheckedUpdateOneWithoutSubmissionNestedInput
+  }
+
+  export type FormSubmissionCreateWithoutLegacyBlobInput = {
+    id?: string
+    legacyId?: number | null
+    formType: string
+    skPassportNo?: string | null
+    skPassportSeq?: bigint | number | null
+    validationOtpGenerated?: string | null
+    title?: string | null
+    age?: string | null
+    sameAsAbove?: boolean | null
+    remarks?: string | null
+    validationCode?: string | null
+    registeringDate?: Date | string | null
+    pi_firstName?: string | null
+    pi_lastName?: string | null
+    pi_profession?: string | null
+    pi_dob?: string | null
+    pi_phone?: string | null
+    pi_whatsAppNumber?: string | null
+    pi_emailId?: string | null
+    pi_addressLane1?: string | null
+    pi_addressLane2?: string | null
+    pi_taluk?: string | null
+    pi_district?: string | null
+    pi_city?: string | null
+    pi_state?: string | null
+    pi_pincode?: string | null
+    pi_landmark?: string | null
+    pi_anniversaryDate?: string | null
+    ref_nameOfTheperson?: string | null
+    ref_place?: string | null
+    reporting_manager_name?: string | null
+    sod_nameOfTheDealer?: string | null
+    sod_place?: string | null
+    photoProofPath?: string | null
+    idProofPath?: string | null
+    idProofBackPath?: string | null
+    isContacted?: boolean | null
+    isApproved?: boolean | null
+    isDeleted?: boolean | null
+    isActive?: boolean | null
+    isPending?: boolean | null
+    isRejected?: boolean | null
+    shop_location?: string | null
+    shop_Address1?: string | null
+    shop_Address2?: string | null
+    shop_District?: string | null
+    shop_Taluk?: string | null
+    shop_City?: string | null
+    shop_Pincode?: string | null
+    shop_Landmark?: string | null
+    enteredBy?: string | null
+    enteredDate?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    photoProofData?: string | null
+    idProofData?: string | null
+    idProofBackData?: string | null
+    panProofPath?: string | null
+    panProofData?: string | null
+    dealershipName?: string | null
+    contactPerson?: string | null
+    gstNumber?: string | null
+    panNumber?: string | null
+    ownerSameAsAbove?: boolean | null
+    ownerTitle?: string | null
+    ownerFirstName?: string | null
+    ownerLastName?: string | null
+    ownerOfficeAddressLine1?: string | null
+    ownerOfficeAddressLine2?: string | null
+    ownerCity?: string | null
+    ownerState?: string | null
+    ownerPostalCode?: string | null
+    ownerPlace?: string | null
+    ownerPhoneNumber?: string | null
+    ownerEmailId?: string | null
+    secondContactTitle?: string | null
+    secondContactFirstName?: string | null
+    secondContactLastName?: string | null
+    secondContactPhone?: string | null
+    secondContactEmail?: string | null
+    spouseName?: string | null
+    spouseDob?: string | null
+    weddingDay?: string | null
+    childName1?: string | null
+    childDob1?: string | null
+    childName2?: string | null
+    childDob2?: string | null
+    childName3?: string | null
+    childDob3?: string | null
+    godownSameAsCompany?: boolean | null
+    godownAddressLine1?: string | null
+    godownAddressLine2?: string | null
+    godownCity?: string | null
+    godownState?: string | null
+    godownPostalCode?: string | null
+    godownContactPerson?: string | null
+    godownContactMobile?: string | null
+    referenceName1?: string | null
+    referencePhone1?: string | null
+    referenceDetails1?: string | null
+    referenceName2?: string | null
+    referencePhone2?: string | null
+    referenceDetails2?: string | null
+    legacyRegistrations?: LegacyRegistrationCreateNestedManyWithoutSubmissionInput
+  }
+
+  export type FormSubmissionUncheckedCreateWithoutLegacyBlobInput = {
+    id?: string
+    legacyId?: number | null
+    formType: string
+    skPassportNo?: string | null
+    skPassportSeq?: bigint | number | null
+    validationOtpGenerated?: string | null
+    title?: string | null
+    age?: string | null
+    sameAsAbove?: boolean | null
+    remarks?: string | null
+    validationCode?: string | null
+    registeringDate?: Date | string | null
+    pi_firstName?: string | null
+    pi_lastName?: string | null
+    pi_profession?: string | null
+    pi_dob?: string | null
+    pi_phone?: string | null
+    pi_whatsAppNumber?: string | null
+    pi_emailId?: string | null
+    pi_addressLane1?: string | null
+    pi_addressLane2?: string | null
+    pi_taluk?: string | null
+    pi_district?: string | null
+    pi_city?: string | null
+    pi_state?: string | null
+    pi_pincode?: string | null
+    pi_landmark?: string | null
+    pi_anniversaryDate?: string | null
+    ref_nameOfTheperson?: string | null
+    ref_place?: string | null
+    reporting_manager_name?: string | null
+    sod_nameOfTheDealer?: string | null
+    sod_place?: string | null
+    photoProofPath?: string | null
+    idProofPath?: string | null
+    idProofBackPath?: string | null
+    isContacted?: boolean | null
+    isApproved?: boolean | null
+    isDeleted?: boolean | null
+    isActive?: boolean | null
+    isPending?: boolean | null
+    isRejected?: boolean | null
+    shop_location?: string | null
+    shop_Address1?: string | null
+    shop_Address2?: string | null
+    shop_District?: string | null
+    shop_Taluk?: string | null
+    shop_City?: string | null
+    shop_Pincode?: string | null
+    shop_Landmark?: string | null
+    enteredBy?: string | null
+    enteredDate?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    photoProofData?: string | null
+    idProofData?: string | null
+    idProofBackData?: string | null
+    panProofPath?: string | null
+    panProofData?: string | null
+    dealershipName?: string | null
+    contactPerson?: string | null
+    gstNumber?: string | null
+    panNumber?: string | null
+    ownerSameAsAbove?: boolean | null
+    ownerTitle?: string | null
+    ownerFirstName?: string | null
+    ownerLastName?: string | null
+    ownerOfficeAddressLine1?: string | null
+    ownerOfficeAddressLine2?: string | null
+    ownerCity?: string | null
+    ownerState?: string | null
+    ownerPostalCode?: string | null
+    ownerPlace?: string | null
+    ownerPhoneNumber?: string | null
+    ownerEmailId?: string | null
+    secondContactTitle?: string | null
+    secondContactFirstName?: string | null
+    secondContactLastName?: string | null
+    secondContactPhone?: string | null
+    secondContactEmail?: string | null
+    spouseName?: string | null
+    spouseDob?: string | null
+    weddingDay?: string | null
+    childName1?: string | null
+    childDob1?: string | null
+    childName2?: string | null
+    childDob2?: string | null
+    childName3?: string | null
+    childDob3?: string | null
+    godownSameAsCompany?: boolean | null
+    godownAddressLine1?: string | null
+    godownAddressLine2?: string | null
+    godownCity?: string | null
+    godownState?: string | null
+    godownPostalCode?: string | null
+    godownContactPerson?: string | null
+    godownContactMobile?: string | null
+    referenceName1?: string | null
+    referencePhone1?: string | null
+    referenceDetails1?: string | null
+    referenceName2?: string | null
+    referencePhone2?: string | null
+    referenceDetails2?: string | null
+    legacyRegistrations?: LegacyRegistrationUncheckedCreateNestedManyWithoutSubmissionInput
+  }
+
+  export type FormSubmissionCreateOrConnectWithoutLegacyBlobInput = {
+    where: FormSubmissionWhereUniqueInput
+    create: XOR<FormSubmissionCreateWithoutLegacyBlobInput, FormSubmissionUncheckedCreateWithoutLegacyBlobInput>
+  }
+
+  export type FormSubmissionUpsertWithoutLegacyBlobInput = {
+    update: XOR<FormSubmissionUpdateWithoutLegacyBlobInput, FormSubmissionUncheckedUpdateWithoutLegacyBlobInput>
+    create: XOR<FormSubmissionCreateWithoutLegacyBlobInput, FormSubmissionUncheckedCreateWithoutLegacyBlobInput>
+    where?: FormSubmissionWhereInput
+  }
+
+  export type FormSubmissionUpdateToOneWithWhereWithoutLegacyBlobInput = {
+    where?: FormSubmissionWhereInput
+    data: XOR<FormSubmissionUpdateWithoutLegacyBlobInput, FormSubmissionUncheckedUpdateWithoutLegacyBlobInput>
+  }
+
+  export type FormSubmissionUpdateWithoutLegacyBlobInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    legacyId?: NullableIntFieldUpdateOperationsInput | number | null
+    formType?: StringFieldUpdateOperationsInput | string
+    skPassportNo?: NullableStringFieldUpdateOperationsInput | string | null
+    skPassportSeq?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    validationOtpGenerated?: NullableStringFieldUpdateOperationsInput | string | null
+    title?: NullableStringFieldUpdateOperationsInput | string | null
+    age?: NullableStringFieldUpdateOperationsInput | string | null
+    sameAsAbove?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    remarks?: NullableStringFieldUpdateOperationsInput | string | null
+    validationCode?: NullableStringFieldUpdateOperationsInput | string | null
+    registeringDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    pi_firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    pi_lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    pi_profession?: NullableStringFieldUpdateOperationsInput | string | null
+    pi_dob?: NullableStringFieldUpdateOperationsInput | string | null
+    pi_phone?: NullableStringFieldUpdateOperationsInput | string | null
+    pi_whatsAppNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    pi_emailId?: NullableStringFieldUpdateOperationsInput | string | null
+    pi_addressLane1?: NullableStringFieldUpdateOperationsInput | string | null
+    pi_addressLane2?: NullableStringFieldUpdateOperationsInput | string | null
+    pi_taluk?: NullableStringFieldUpdateOperationsInput | string | null
+    pi_district?: NullableStringFieldUpdateOperationsInput | string | null
+    pi_city?: NullableStringFieldUpdateOperationsInput | string | null
+    pi_state?: NullableStringFieldUpdateOperationsInput | string | null
+    pi_pincode?: NullableStringFieldUpdateOperationsInput | string | null
+    pi_landmark?: NullableStringFieldUpdateOperationsInput | string | null
+    pi_anniversaryDate?: NullableStringFieldUpdateOperationsInput | string | null
+    ref_nameOfTheperson?: NullableStringFieldUpdateOperationsInput | string | null
+    ref_place?: NullableStringFieldUpdateOperationsInput | string | null
+    reporting_manager_name?: NullableStringFieldUpdateOperationsInput | string | null
+    sod_nameOfTheDealer?: NullableStringFieldUpdateOperationsInput | string | null
+    sod_place?: NullableStringFieldUpdateOperationsInput | string | null
+    photoProofPath?: NullableStringFieldUpdateOperationsInput | string | null
+    idProofPath?: NullableStringFieldUpdateOperationsInput | string | null
+    idProofBackPath?: NullableStringFieldUpdateOperationsInput | string | null
+    isContacted?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    isApproved?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    isDeleted?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    isActive?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    isPending?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    isRejected?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    shop_location?: NullableStringFieldUpdateOperationsInput | string | null
+    shop_Address1?: NullableStringFieldUpdateOperationsInput | string | null
+    shop_Address2?: NullableStringFieldUpdateOperationsInput | string | null
+    shop_District?: NullableStringFieldUpdateOperationsInput | string | null
+    shop_Taluk?: NullableStringFieldUpdateOperationsInput | string | null
+    shop_City?: NullableStringFieldUpdateOperationsInput | string | null
+    shop_Pincode?: NullableStringFieldUpdateOperationsInput | string | null
+    shop_Landmark?: NullableStringFieldUpdateOperationsInput | string | null
+    enteredBy?: NullableStringFieldUpdateOperationsInput | string | null
+    enteredDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    photoProofData?: NullableStringFieldUpdateOperationsInput | string | null
+    idProofData?: NullableStringFieldUpdateOperationsInput | string | null
+    idProofBackData?: NullableStringFieldUpdateOperationsInput | string | null
+    panProofPath?: NullableStringFieldUpdateOperationsInput | string | null
+    panProofData?: NullableStringFieldUpdateOperationsInput | string | null
+    dealershipName?: NullableStringFieldUpdateOperationsInput | string | null
+    contactPerson?: NullableStringFieldUpdateOperationsInput | string | null
+    gstNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    panNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    ownerSameAsAbove?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    ownerTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    ownerFirstName?: NullableStringFieldUpdateOperationsInput | string | null
+    ownerLastName?: NullableStringFieldUpdateOperationsInput | string | null
+    ownerOfficeAddressLine1?: NullableStringFieldUpdateOperationsInput | string | null
+    ownerOfficeAddressLine2?: NullableStringFieldUpdateOperationsInput | string | null
+    ownerCity?: NullableStringFieldUpdateOperationsInput | string | null
+    ownerState?: NullableStringFieldUpdateOperationsInput | string | null
+    ownerPostalCode?: NullableStringFieldUpdateOperationsInput | string | null
+    ownerPlace?: NullableStringFieldUpdateOperationsInput | string | null
+    ownerPhoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    ownerEmailId?: NullableStringFieldUpdateOperationsInput | string | null
+    secondContactTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    secondContactFirstName?: NullableStringFieldUpdateOperationsInput | string | null
+    secondContactLastName?: NullableStringFieldUpdateOperationsInput | string | null
+    secondContactPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    secondContactEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    spouseName?: NullableStringFieldUpdateOperationsInput | string | null
+    spouseDob?: NullableStringFieldUpdateOperationsInput | string | null
+    weddingDay?: NullableStringFieldUpdateOperationsInput | string | null
+    childName1?: NullableStringFieldUpdateOperationsInput | string | null
+    childDob1?: NullableStringFieldUpdateOperationsInput | string | null
+    childName2?: NullableStringFieldUpdateOperationsInput | string | null
+    childDob2?: NullableStringFieldUpdateOperationsInput | string | null
+    childName3?: NullableStringFieldUpdateOperationsInput | string | null
+    childDob3?: NullableStringFieldUpdateOperationsInput | string | null
+    godownSameAsCompany?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    godownAddressLine1?: NullableStringFieldUpdateOperationsInput | string | null
+    godownAddressLine2?: NullableStringFieldUpdateOperationsInput | string | null
+    godownCity?: NullableStringFieldUpdateOperationsInput | string | null
+    godownState?: NullableStringFieldUpdateOperationsInput | string | null
+    godownPostalCode?: NullableStringFieldUpdateOperationsInput | string | null
+    godownContactPerson?: NullableStringFieldUpdateOperationsInput | string | null
+    godownContactMobile?: NullableStringFieldUpdateOperationsInput | string | null
+    referenceName1?: NullableStringFieldUpdateOperationsInput | string | null
+    referencePhone1?: NullableStringFieldUpdateOperationsInput | string | null
+    referenceDetails1?: NullableStringFieldUpdateOperationsInput | string | null
+    referenceName2?: NullableStringFieldUpdateOperationsInput | string | null
+    referencePhone2?: NullableStringFieldUpdateOperationsInput | string | null
+    referenceDetails2?: NullableStringFieldUpdateOperationsInput | string | null
+    legacyRegistrations?: LegacyRegistrationUpdateManyWithoutSubmissionNestedInput
+  }
+
+  export type FormSubmissionUncheckedUpdateWithoutLegacyBlobInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    legacyId?: NullableIntFieldUpdateOperationsInput | number | null
+    formType?: StringFieldUpdateOperationsInput | string
+    skPassportNo?: NullableStringFieldUpdateOperationsInput | string | null
+    skPassportSeq?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    validationOtpGenerated?: NullableStringFieldUpdateOperationsInput | string | null
+    title?: NullableStringFieldUpdateOperationsInput | string | null
+    age?: NullableStringFieldUpdateOperationsInput | string | null
+    sameAsAbove?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    remarks?: NullableStringFieldUpdateOperationsInput | string | null
+    validationCode?: NullableStringFieldUpdateOperationsInput | string | null
+    registeringDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    pi_firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    pi_lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    pi_profession?: NullableStringFieldUpdateOperationsInput | string | null
+    pi_dob?: NullableStringFieldUpdateOperationsInput | string | null
+    pi_phone?: NullableStringFieldUpdateOperationsInput | string | null
+    pi_whatsAppNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    pi_emailId?: NullableStringFieldUpdateOperationsInput | string | null
+    pi_addressLane1?: NullableStringFieldUpdateOperationsInput | string | null
+    pi_addressLane2?: NullableStringFieldUpdateOperationsInput | string | null
+    pi_taluk?: NullableStringFieldUpdateOperationsInput | string | null
+    pi_district?: NullableStringFieldUpdateOperationsInput | string | null
+    pi_city?: NullableStringFieldUpdateOperationsInput | string | null
+    pi_state?: NullableStringFieldUpdateOperationsInput | string | null
+    pi_pincode?: NullableStringFieldUpdateOperationsInput | string | null
+    pi_landmark?: NullableStringFieldUpdateOperationsInput | string | null
+    pi_anniversaryDate?: NullableStringFieldUpdateOperationsInput | string | null
+    ref_nameOfTheperson?: NullableStringFieldUpdateOperationsInput | string | null
+    ref_place?: NullableStringFieldUpdateOperationsInput | string | null
+    reporting_manager_name?: NullableStringFieldUpdateOperationsInput | string | null
+    sod_nameOfTheDealer?: NullableStringFieldUpdateOperationsInput | string | null
+    sod_place?: NullableStringFieldUpdateOperationsInput | string | null
+    photoProofPath?: NullableStringFieldUpdateOperationsInput | string | null
+    idProofPath?: NullableStringFieldUpdateOperationsInput | string | null
+    idProofBackPath?: NullableStringFieldUpdateOperationsInput | string | null
+    isContacted?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    isApproved?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    isDeleted?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    isActive?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    isPending?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    isRejected?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    shop_location?: NullableStringFieldUpdateOperationsInput | string | null
+    shop_Address1?: NullableStringFieldUpdateOperationsInput | string | null
+    shop_Address2?: NullableStringFieldUpdateOperationsInput | string | null
+    shop_District?: NullableStringFieldUpdateOperationsInput | string | null
+    shop_Taluk?: NullableStringFieldUpdateOperationsInput | string | null
+    shop_City?: NullableStringFieldUpdateOperationsInput | string | null
+    shop_Pincode?: NullableStringFieldUpdateOperationsInput | string | null
+    shop_Landmark?: NullableStringFieldUpdateOperationsInput | string | null
+    enteredBy?: NullableStringFieldUpdateOperationsInput | string | null
+    enteredDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    photoProofData?: NullableStringFieldUpdateOperationsInput | string | null
+    idProofData?: NullableStringFieldUpdateOperationsInput | string | null
+    idProofBackData?: NullableStringFieldUpdateOperationsInput | string | null
+    panProofPath?: NullableStringFieldUpdateOperationsInput | string | null
+    panProofData?: NullableStringFieldUpdateOperationsInput | string | null
+    dealershipName?: NullableStringFieldUpdateOperationsInput | string | null
+    contactPerson?: NullableStringFieldUpdateOperationsInput | string | null
+    gstNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    panNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    ownerSameAsAbove?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    ownerTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    ownerFirstName?: NullableStringFieldUpdateOperationsInput | string | null
+    ownerLastName?: NullableStringFieldUpdateOperationsInput | string | null
+    ownerOfficeAddressLine1?: NullableStringFieldUpdateOperationsInput | string | null
+    ownerOfficeAddressLine2?: NullableStringFieldUpdateOperationsInput | string | null
+    ownerCity?: NullableStringFieldUpdateOperationsInput | string | null
+    ownerState?: NullableStringFieldUpdateOperationsInput | string | null
+    ownerPostalCode?: NullableStringFieldUpdateOperationsInput | string | null
+    ownerPlace?: NullableStringFieldUpdateOperationsInput | string | null
+    ownerPhoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    ownerEmailId?: NullableStringFieldUpdateOperationsInput | string | null
+    secondContactTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    secondContactFirstName?: NullableStringFieldUpdateOperationsInput | string | null
+    secondContactLastName?: NullableStringFieldUpdateOperationsInput | string | null
+    secondContactPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    secondContactEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    spouseName?: NullableStringFieldUpdateOperationsInput | string | null
+    spouseDob?: NullableStringFieldUpdateOperationsInput | string | null
+    weddingDay?: NullableStringFieldUpdateOperationsInput | string | null
+    childName1?: NullableStringFieldUpdateOperationsInput | string | null
+    childDob1?: NullableStringFieldUpdateOperationsInput | string | null
+    childName2?: NullableStringFieldUpdateOperationsInput | string | null
+    childDob2?: NullableStringFieldUpdateOperationsInput | string | null
+    childName3?: NullableStringFieldUpdateOperationsInput | string | null
+    childDob3?: NullableStringFieldUpdateOperationsInput | string | null
+    godownSameAsCompany?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    godownAddressLine1?: NullableStringFieldUpdateOperationsInput | string | null
+    godownAddressLine2?: NullableStringFieldUpdateOperationsInput | string | null
+    godownCity?: NullableStringFieldUpdateOperationsInput | string | null
+    godownState?: NullableStringFieldUpdateOperationsInput | string | null
+    godownPostalCode?: NullableStringFieldUpdateOperationsInput | string | null
+    godownContactPerson?: NullableStringFieldUpdateOperationsInput | string | null
+    godownContactMobile?: NullableStringFieldUpdateOperationsInput | string | null
+    referenceName1?: NullableStringFieldUpdateOperationsInput | string | null
+    referencePhone1?: NullableStringFieldUpdateOperationsInput | string | null
+    referenceDetails1?: NullableStringFieldUpdateOperationsInput | string | null
+    referenceName2?: NullableStringFieldUpdateOperationsInput | string | null
+    referencePhone2?: NullableStringFieldUpdateOperationsInput | string | null
+    referenceDetails2?: NullableStringFieldUpdateOperationsInput | string | null
+    legacyRegistrations?: LegacyRegistrationUncheckedUpdateManyWithoutSubmissionNestedInput
+  }
+
+  export type LegacyRegistrationCreateManySubmissionInput = {
+    id?: string
+    legacySource: string
+    legacyRowIndex: number
+    legacyId?: number | null
+    legacyPassportNo?: string | null
+    rawTableRecord?: NullableJsonNullValueInput | InputJsonValue
+    rawDetailRecord?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+  }
+
+  export type LegacyRegistrationUpdateWithoutSubmissionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    legacySource?: StringFieldUpdateOperationsInput | string
+    legacyRowIndex?: IntFieldUpdateOperationsInput | number
+    legacyId?: NullableIntFieldUpdateOperationsInput | number | null
+    legacyPassportNo?: NullableStringFieldUpdateOperationsInput | string | null
+    rawTableRecord?: NullableJsonNullValueInput | InputJsonValue
+    rawDetailRecord?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type LegacyRegistrationUncheckedUpdateWithoutSubmissionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    legacySource?: StringFieldUpdateOperationsInput | string
+    legacyRowIndex?: IntFieldUpdateOperationsInput | number
+    legacyId?: NullableIntFieldUpdateOperationsInput | number | null
+    legacyPassportNo?: NullableStringFieldUpdateOperationsInput | string | null
+    rawTableRecord?: NullableJsonNullValueInput | InputJsonValue
+    rawDetailRecord?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type LegacyRegistrationUncheckedUpdateManyWithoutSubmissionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    legacySource?: StringFieldUpdateOperationsInput | string
+    legacyRowIndex?: IntFieldUpdateOperationsInput | number
+    legacyId?: NullableIntFieldUpdateOperationsInput | number | null
+    legacyPassportNo?: NullableStringFieldUpdateOperationsInput | string | null
+    rawTableRecord?: NullableJsonNullValueInput | InputJsonValue
+    rawDetailRecord?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
 
