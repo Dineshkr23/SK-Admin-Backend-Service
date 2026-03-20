@@ -8,6 +8,7 @@ import { AuthModule } from './auth/auth.module';
 import { FormSubmissionsModule } from './form-submissions/form-submissions.module';
 import { OtpModule } from './otp/otp.module';
 import { AdminModule } from './admin/admin.module';
+import { PriceModule } from './price/price.module';
 import { HealthModule } from './health/health.module';
 import { JwtAuthGuard } from './auth/guards/jwt-auth.guard';
 import { ThrottlerModule } from '@nestjs/throttler';
@@ -30,6 +31,7 @@ import { ThrottlerModule } from '@nestjs/throttler';
     FormSubmissionsModule,
     OtpModule,
     AdminModule,
+    PriceModule,
     HealthModule,
   ],
   providers: [

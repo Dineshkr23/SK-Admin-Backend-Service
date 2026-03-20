@@ -124,6 +124,7 @@ exports.Prisma.AdminUserScalarFieldEnum = {
   id: 'id',
   email: 'email',
   password: 'password',
+  role: 'role',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -278,6 +279,13 @@ exports.Prisma.ReportingManagerScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.GlobalPriceScalarFieldEnum = {
+  key: 'key',
+  price: 'price',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -312,7 +320,8 @@ exports.Prisma.ModelName = {
   LegacyBlob: 'LegacyBlob',
   PassportCounter: 'PassportCounter',
   SalesOfficer: 'SalesOfficer',
-  ReportingManager: 'ReportingManager'
+  ReportingManager: 'ReportingManager',
+  GlobalPrice: 'GlobalPrice'
 };
 
 /**

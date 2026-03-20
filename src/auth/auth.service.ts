@@ -15,7 +15,7 @@ export class AuthService {
     if (!user) return null;
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) return null;
-    return { id: user.id, email: user.email };
+    return { id: user.id, email: user.email, role: user.role };
   }
 
   async login(email: string, password: string) {
@@ -23,7 +23,7 @@ export class AuthService {
     if (!user) {
       throw new UnauthorizedException('Invalid email or password');
     }
-    const payload = { sub: user.id, email: user.email };
+    const payload = { sub: user.id, email: user.email, role: user.role };
     const access_token = this.jwtService.sign(payload);
     return {
       access_token,

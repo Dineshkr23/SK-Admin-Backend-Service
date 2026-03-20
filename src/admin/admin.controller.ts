@@ -16,7 +16,9 @@ import { AdminService } from './admin.service';
 import { ListSubmissionsQueryDto } from './dto/list-submissions.dto';
 import { UpdateSubmissionDto } from './dto/update-submission.dto';
 import { BulkUpdateSubmissionsDto } from './dto/bulk-update-submissions.dto';
+import { Roles } from '../auth/decorators/roles.decorator';
 
+@Roles('ADMIN', 'DOC_MANAGER')
 @Controller('admin/submissions')
 export class AdminController {
   constructor(private readonly adminService: AdminService) {}
@@ -27,6 +29,7 @@ export class AdminController {
   }
 
   @Post('export')
+  @Roles('ADMIN')
   async exportToExcel(
     @Body() dto: ListSubmissionsQueryDto,
     @Res() res: Response,
@@ -83,7 +86,7 @@ export class AdminController {
   ) {
     const dto: UpdateSubmissionDto =
       typeof (body as { data?: string }).data === 'string'
-        ? JSON.parse((body as { data: string }).data) as UpdateSubmissionDto
+        ? (JSON.parse((body as { data: string }).data) as UpdateSubmissionDto)
         : (body as UpdateSubmissionDto);
     return this.adminService.update(id, dto, files);
   }

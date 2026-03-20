@@ -12,6 +12,7 @@ model AdminUser {
   id        String   @id @default(uuid())
   email     String   @unique
   password  String
+  role      String   @default("ADMIN")
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
@@ -213,4 +214,15 @@ model ReportingManager {
   nameNormalized String   @unique
   createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt
+}
+
+/**
+ * Stores a single global price configuration value.
+ * We keep it independent from submissions and related tables.
+ */
+model GlobalPrice {
+  key       String   @id
+  price     Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
