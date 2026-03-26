@@ -2579,6 +2579,7 @@ export namespace Prisma {
 
   export type FormSubmissionMinAggregateOutputType = {
     id: string | null
+    idempotencyKey: string | null
     legacyId: number | null
     formType: string | null
     skPassportNo: string | null
@@ -2685,6 +2686,7 @@ export namespace Prisma {
 
   export type FormSubmissionMaxAggregateOutputType = {
     id: string | null
+    idempotencyKey: string | null
     legacyId: number | null
     formType: string | null
     skPassportNo: string | null
@@ -2791,6 +2793,7 @@ export namespace Prisma {
 
   export type FormSubmissionCountAggregateOutputType = {
     id: number
+    idempotencyKey: number
     legacyId: number
     formType: number
     skPassportNo: number
@@ -2909,6 +2912,7 @@ export namespace Prisma {
 
   export type FormSubmissionMinAggregateInputType = {
     id?: true
+    idempotencyKey?: true
     legacyId?: true
     formType?: true
     skPassportNo?: true
@@ -3015,6 +3019,7 @@ export namespace Prisma {
 
   export type FormSubmissionMaxAggregateInputType = {
     id?: true
+    idempotencyKey?: true
     legacyId?: true
     formType?: true
     skPassportNo?: true
@@ -3121,6 +3126,7 @@ export namespace Prisma {
 
   export type FormSubmissionCountAggregateInputType = {
     id?: true
+    idempotencyKey?: true
     legacyId?: true
     formType?: true
     skPassportNo?: true
@@ -3314,6 +3320,7 @@ export namespace Prisma {
 
   export type FormSubmissionGroupByOutputType = {
     id: string
+    idempotencyKey: string | null
     legacyId: number | null
     formType: string
     skPassportNo: string | null
@@ -3439,6 +3446,7 @@ export namespace Prisma {
 
   export type FormSubmissionSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
+    idempotencyKey?: boolean
     legacyId?: boolean
     formType?: boolean
     skPassportNo?: boolean
@@ -3548,6 +3556,7 @@ export namespace Prisma {
 
   export type FormSubmissionSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
+    idempotencyKey?: boolean
     legacyId?: boolean
     formType?: boolean
     skPassportNo?: boolean
@@ -3654,6 +3663,7 @@ export namespace Prisma {
 
   export type FormSubmissionSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
+    idempotencyKey?: boolean
     legacyId?: boolean
     formType?: boolean
     skPassportNo?: boolean
@@ -3760,6 +3770,7 @@ export namespace Prisma {
 
   export type FormSubmissionSelectScalar = {
     id?: boolean
+    idempotencyKey?: boolean
     legacyId?: boolean
     formType?: boolean
     skPassportNo?: boolean
@@ -3864,7 +3875,7 @@ export namespace Prisma {
     referenceDetails2?: boolean
   }
 
-  export type FormSubmissionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "legacyId" | "formType" | "skPassportNo" | "skPassportSeq" | "validationOtpGenerated" | "title" | "age" | "sameAsAbove" | "remarks" | "validationCode" | "registeringDate" | "pi_firstName" | "pi_lastName" | "pi_profession" | "pi_dob" | "pi_phone" | "pi_whatsAppNumber" | "pi_emailId" | "pi_addressLane1" | "pi_addressLane2" | "pi_taluk" | "pi_district" | "pi_city" | "pi_state" | "pi_pincode" | "pi_landmark" | "pi_anniversaryDate" | "ref_nameOfTheperson" | "ref_place" | "reporting_manager_name" | "sod_nameOfTheDealer" | "sod_place" | "photoProofPath" | "idProofPath" | "idProofBackPath" | "isContacted" | "isApproved" | "isDeleted" | "isActive" | "isPending" | "isRejected" | "shop_location" | "shop_Address1" | "shop_Address2" | "shop_District" | "shop_Taluk" | "shop_City" | "shop_Pincode" | "shop_Landmark" | "enteredBy" | "enteredDate" | "createdAt" | "updatedAt" | "photoProofData" | "idProofData" | "idProofBackData" | "panProofPath" | "panProofData" | "dealershipName" | "contactPerson" | "gstNumber" | "panNumber" | "ownerSameAsAbove" | "ownerTitle" | "ownerFirstName" | "ownerLastName" | "ownerOfficeAddressLine1" | "ownerOfficeAddressLine2" | "ownerCity" | "ownerState" | "ownerPostalCode" | "ownerPlace" | "ownerPhoneNumber" | "ownerEmailId" | "secondContactTitle" | "secondContactFirstName" | "secondContactLastName" | "secondContactPhone" | "secondContactEmail" | "spouseName" | "spouseDob" | "weddingDay" | "childName1" | "childDob1" | "childName2" | "childDob2" | "childName3" | "childDob3" | "godownSameAsCompany" | "godownAddressLine1" | "godownAddressLine2" | "godownCity" | "godownState" | "godownPostalCode" | "godownContactPerson" | "godownContactMobile" | "referenceName1" | "referencePhone1" | "referenceDetails1" | "referenceName2" | "referencePhone2" | "referenceDetails2", ExtArgs["result"]["formSubmission"]>
+  export type FormSubmissionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "idempotencyKey" | "legacyId" | "formType" | "skPassportNo" | "skPassportSeq" | "validationOtpGenerated" | "title" | "age" | "sameAsAbove" | "remarks" | "validationCode" | "registeringDate" | "pi_firstName" | "pi_lastName" | "pi_profession" | "pi_dob" | "pi_phone" | "pi_whatsAppNumber" | "pi_emailId" | "pi_addressLane1" | "pi_addressLane2" | "pi_taluk" | "pi_district" | "pi_city" | "pi_state" | "pi_pincode" | "pi_landmark" | "pi_anniversaryDate" | "ref_nameOfTheperson" | "ref_place" | "reporting_manager_name" | "sod_nameOfTheDealer" | "sod_place" | "photoProofPath" | "idProofPath" | "idProofBackPath" | "isContacted" | "isApproved" | "isDeleted" | "isActive" | "isPending" | "isRejected" | "shop_location" | "shop_Address1" | "shop_Address2" | "shop_District" | "shop_Taluk" | "shop_City" | "shop_Pincode" | "shop_Landmark" | "enteredBy" | "enteredDate" | "createdAt" | "updatedAt" | "photoProofData" | "idProofData" | "idProofBackData" | "panProofPath" | "panProofData" | "dealershipName" | "contactPerson" | "gstNumber" | "panNumber" | "ownerSameAsAbove" | "ownerTitle" | "ownerFirstName" | "ownerLastName" | "ownerOfficeAddressLine1" | "ownerOfficeAddressLine2" | "ownerCity" | "ownerState" | "ownerPostalCode" | "ownerPlace" | "ownerPhoneNumber" | "ownerEmailId" | "secondContactTitle" | "secondContactFirstName" | "secondContactLastName" | "secondContactPhone" | "secondContactEmail" | "spouseName" | "spouseDob" | "weddingDay" | "childName1" | "childDob1" | "childName2" | "childDob2" | "childName3" | "childDob3" | "godownSameAsCompany" | "godownAddressLine1" | "godownAddressLine2" | "godownCity" | "godownState" | "godownPostalCode" | "godownContactPerson" | "godownContactMobile" | "referenceName1" | "referencePhone1" | "referenceDetails1" | "referenceName2" | "referencePhone2" | "referenceDetails2", ExtArgs["result"]["formSubmission"]>
   export type FormSubmissionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     legacyRegistrations?: boolean | FormSubmission$legacyRegistrationsArgs<ExtArgs>
     legacyBlob?: boolean | FormSubmission$legacyBlobArgs<ExtArgs>
@@ -3881,6 +3892,7 @@ export namespace Prisma {
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
+      idempotencyKey: string | null
       legacyId: number | null
       formType: string
       skPassportNo: string | null
@@ -4414,6 +4426,7 @@ export namespace Prisma {
    */
   interface FormSubmissionFieldRefs {
     readonly id: FieldRef<"FormSubmission", 'String'>
+    readonly idempotencyKey: FieldRef<"FormSubmission", 'String'>
     readonly legacyId: FieldRef<"FormSubmission", 'Int'>
     readonly formType: FieldRef<"FormSubmission", 'String'>
     readonly skPassportNo: FieldRef<"FormSubmission", 'String'>
@@ -11280,6 +11293,7 @@ export namespace Prisma {
 
   export const FormSubmissionScalarFieldEnum: {
     id: 'id',
+    idempotencyKey: 'idempotencyKey',
     legacyId: 'legacyId',
     formType: 'formType',
     skPassportNo: 'skPassportNo',
@@ -11658,6 +11672,7 @@ export namespace Prisma {
     OR?: FormSubmissionWhereInput[]
     NOT?: FormSubmissionWhereInput | FormSubmissionWhereInput[]
     id?: StringFilter<"FormSubmission"> | string
+    idempotencyKey?: StringNullableFilter<"FormSubmission"> | string | null
     legacyId?: IntNullableFilter<"FormSubmission"> | number | null
     formType?: StringFilter<"FormSubmission"> | string
     skPassportNo?: StringNullableFilter<"FormSubmission"> | string | null
@@ -11766,6 +11781,7 @@ export namespace Prisma {
 
   export type FormSubmissionOrderByWithRelationInput = {
     id?: SortOrder
+    idempotencyKey?: SortOrderInput | SortOrder
     legacyId?: SortOrderInput | SortOrder
     formType?: SortOrder
     skPassportNo?: SortOrderInput | SortOrder
@@ -11874,6 +11890,7 @@ export namespace Prisma {
 
   export type FormSubmissionWhereUniqueInput = Prisma.AtLeast<{
     id?: string
+    idempotencyKey?: string
     skPassportSeq?: bigint | number
     AND?: FormSubmissionWhereInput | FormSubmissionWhereInput[]
     OR?: FormSubmissionWhereInput[]
@@ -11981,10 +11998,11 @@ export namespace Prisma {
     referenceDetails2?: StringNullableFilter<"FormSubmission"> | string | null
     legacyRegistrations?: LegacyRegistrationListRelationFilter
     legacyBlob?: XOR<LegacyBlobNullableScalarRelationFilter, LegacyBlobWhereInput> | null
-  }, "id" | "skPassportSeq">
+  }, "id" | "idempotencyKey" | "skPassportSeq">
 
   export type FormSubmissionOrderByWithAggregationInput = {
     id?: SortOrder
+    idempotencyKey?: SortOrderInput | SortOrder
     legacyId?: SortOrderInput | SortOrder
     formType?: SortOrder
     skPassportNo?: SortOrderInput | SortOrder
@@ -12099,6 +12117,7 @@ export namespace Prisma {
     OR?: FormSubmissionScalarWhereWithAggregatesInput[]
     NOT?: FormSubmissionScalarWhereWithAggregatesInput | FormSubmissionScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"FormSubmission"> | string
+    idempotencyKey?: StringNullableWithAggregatesFilter<"FormSubmission"> | string | null
     legacyId?: IntNullableWithAggregatesFilter<"FormSubmission"> | number | null
     formType?: StringWithAggregatesFilter<"FormSubmission"> | string
     skPassportNo?: StringNullableWithAggregatesFilter<"FormSubmission"> | string | null
@@ -12608,6 +12627,7 @@ export namespace Prisma {
 
   export type FormSubmissionCreateInput = {
     id?: string
+    idempotencyKey?: string | null
     legacyId?: number | null
     formType: string
     skPassportNo?: string | null
@@ -12716,6 +12736,7 @@ export namespace Prisma {
 
   export type FormSubmissionUncheckedCreateInput = {
     id?: string
+    idempotencyKey?: string | null
     legacyId?: number | null
     formType: string
     skPassportNo?: string | null
@@ -12824,6 +12845,7 @@ export namespace Prisma {
 
   export type FormSubmissionUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
+    idempotencyKey?: NullableStringFieldUpdateOperationsInput | string | null
     legacyId?: NullableIntFieldUpdateOperationsInput | number | null
     formType?: StringFieldUpdateOperationsInput | string
     skPassportNo?: NullableStringFieldUpdateOperationsInput | string | null
@@ -12932,6 +12954,7 @@ export namespace Prisma {
 
   export type FormSubmissionUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
+    idempotencyKey?: NullableStringFieldUpdateOperationsInput | string | null
     legacyId?: NullableIntFieldUpdateOperationsInput | number | null
     formType?: StringFieldUpdateOperationsInput | string
     skPassportNo?: NullableStringFieldUpdateOperationsInput | string | null
@@ -13040,6 +13063,7 @@ export namespace Prisma {
 
   export type FormSubmissionCreateManyInput = {
     id?: string
+    idempotencyKey?: string | null
     legacyId?: number | null
     formType: string
     skPassportNo?: string | null
@@ -13146,6 +13170,7 @@ export namespace Prisma {
 
   export type FormSubmissionUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
+    idempotencyKey?: NullableStringFieldUpdateOperationsInput | string | null
     legacyId?: NullableIntFieldUpdateOperationsInput | number | null
     formType?: StringFieldUpdateOperationsInput | string
     skPassportNo?: NullableStringFieldUpdateOperationsInput | string | null
@@ -13252,6 +13277,7 @@ export namespace Prisma {
 
   export type FormSubmissionUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
+    idempotencyKey?: NullableStringFieldUpdateOperationsInput | string | null
     legacyId?: NullableIntFieldUpdateOperationsInput | number | null
     formType?: StringFieldUpdateOperationsInput | string
     skPassportNo?: NullableStringFieldUpdateOperationsInput | string | null
@@ -13796,17 +13822,6 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
-  export type IntNullableFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntNullableFilter<$PrismaModel> | number | null
-  }
-
   export type StringNullableFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel> | null
     in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
@@ -13820,6 +13835,17 @@ export namespace Prisma {
     endsWith?: string | StringFieldRefInput<$PrismaModel>
     mode?: QueryMode
     not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
+  export type IntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
   }
 
   export type BigIntNullableFilter<$PrismaModel = never> = {
@@ -13871,6 +13897,7 @@ export namespace Prisma {
 
   export type FormSubmissionCountOrderByAggregateInput = {
     id?: SortOrder
+    idempotencyKey?: SortOrder
     legacyId?: SortOrder
     formType?: SortOrder
     skPassportNo?: SortOrder
@@ -13982,6 +14009,7 @@ export namespace Prisma {
 
   export type FormSubmissionMaxOrderByAggregateInput = {
     id?: SortOrder
+    idempotencyKey?: SortOrder
     legacyId?: SortOrder
     formType?: SortOrder
     skPassportNo?: SortOrder
@@ -14088,6 +14116,7 @@ export namespace Prisma {
 
   export type FormSubmissionMinOrderByAggregateInput = {
     id?: SortOrder
+    idempotencyKey?: SortOrder
     legacyId?: SortOrder
     formType?: SortOrder
     skPassportNo?: SortOrder
@@ -14197,22 +14226,6 @@ export namespace Prisma {
     skPassportSeq?: SortOrder
   }
 
-  export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _avg?: NestedFloatNullableFilter<$PrismaModel>
-    _sum?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedIntNullableFilter<$PrismaModel>
-    _max?: NestedIntNullableFilter<$PrismaModel>
-  }
-
   export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel> | null
     in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
@@ -14229,6 +14242,22 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedStringNullableFilter<$PrismaModel>
     _max?: NestedStringNullableFilter<$PrismaModel>
+  }
+
+  export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedIntNullableFilter<$PrismaModel>
+    _max?: NestedIntNullableFilter<$PrismaModel>
   }
 
   export type BigIntNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -14596,16 +14625,16 @@ export namespace Prisma {
     connect?: LegacyBlobWhereUniqueInput
   }
 
+  export type NullableStringFieldUpdateOperationsInput = {
+    set?: string | null
+  }
+
   export type NullableIntFieldUpdateOperationsInput = {
     set?: number | null
     increment?: number
     decrement?: number
     multiply?: number
     divide?: number
-  }
-
-  export type NullableStringFieldUpdateOperationsInput = {
-    set?: string | null
   }
 
   export type NullableBigIntFieldUpdateOperationsInput = {
@@ -14785,17 +14814,6 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
-  export type NestedIntNullableFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntNullableFilter<$PrismaModel> | number | null
-  }
-
   export type NestedStringNullableFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel> | null
     in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
@@ -14808,6 +14826,17 @@ export namespace Prisma {
     startsWith?: string | StringFieldRefInput<$PrismaModel>
     endsWith?: string | StringFieldRefInput<$PrismaModel>
     not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
+  export type NestedIntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
   }
 
   export type NestedBigIntNullableFilter<$PrismaModel = never> = {
@@ -14837,6 +14866,23 @@ export namespace Prisma {
     not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
   }
 
+  export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
+  }
+
   export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel> | null
     in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
@@ -14862,23 +14908,6 @@ export namespace Prisma {
     gt?: number | FloatFieldRefInput<$PrismaModel>
     gte?: number | FloatFieldRefInput<$PrismaModel>
     not?: NestedFloatNullableFilter<$PrismaModel> | number | null
-  }
-
-  export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedStringNullableFilter<$PrismaModel>
-    _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
   export type NestedBigIntNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -15113,6 +15142,7 @@ export namespace Prisma {
 
   export type FormSubmissionCreateWithoutLegacyRegistrationsInput = {
     id?: string
+    idempotencyKey?: string | null
     legacyId?: number | null
     formType: string
     skPassportNo?: string | null
@@ -15220,6 +15250,7 @@ export namespace Prisma {
 
   export type FormSubmissionUncheckedCreateWithoutLegacyRegistrationsInput = {
     id?: string
+    idempotencyKey?: string | null
     legacyId?: number | null
     formType: string
     skPassportNo?: string | null
@@ -15343,6 +15374,7 @@ export namespace Prisma {
 
   export type FormSubmissionUpdateWithoutLegacyRegistrationsInput = {
     id?: StringFieldUpdateOperationsInput | string
+    idempotencyKey?: NullableStringFieldUpdateOperationsInput | string | null
     legacyId?: NullableIntFieldUpdateOperationsInput | number | null
     formType?: StringFieldUpdateOperationsInput | string
     skPassportNo?: NullableStringFieldUpdateOperationsInput | string | null
@@ -15450,6 +15482,7 @@ export namespace Prisma {
 
   export type FormSubmissionUncheckedUpdateWithoutLegacyRegistrationsInput = {
     id?: StringFieldUpdateOperationsInput | string
+    idempotencyKey?: NullableStringFieldUpdateOperationsInput | string | null
     legacyId?: NullableIntFieldUpdateOperationsInput | number | null
     formType?: StringFieldUpdateOperationsInput | string
     skPassportNo?: NullableStringFieldUpdateOperationsInput | string | null
@@ -15557,6 +15590,7 @@ export namespace Prisma {
 
   export type FormSubmissionCreateWithoutLegacyBlobInput = {
     id?: string
+    idempotencyKey?: string | null
     legacyId?: number | null
     formType: string
     skPassportNo?: string | null
@@ -15664,6 +15698,7 @@ export namespace Prisma {
 
   export type FormSubmissionUncheckedCreateWithoutLegacyBlobInput = {
     id?: string
+    idempotencyKey?: string | null
     legacyId?: number | null
     formType: string
     skPassportNo?: string | null
@@ -15787,6 +15822,7 @@ export namespace Prisma {
 
   export type FormSubmissionUpdateWithoutLegacyBlobInput = {
     id?: StringFieldUpdateOperationsInput | string
+    idempotencyKey?: NullableStringFieldUpdateOperationsInput | string | null
     legacyId?: NullableIntFieldUpdateOperationsInput | number | null
     formType?: StringFieldUpdateOperationsInput | string
     skPassportNo?: NullableStringFieldUpdateOperationsInput | string | null
@@ -15894,6 +15930,7 @@ export namespace Prisma {
 
   export type FormSubmissionUncheckedUpdateWithoutLegacyBlobInput = {
     id?: StringFieldUpdateOperationsInput | string
+    idempotencyKey?: NullableStringFieldUpdateOperationsInput | string | null
     legacyId?: NullableIntFieldUpdateOperationsInput | number | null
     formType?: StringFieldUpdateOperationsInput | string
     skPassportNo?: NullableStringFieldUpdateOperationsInput | string | null

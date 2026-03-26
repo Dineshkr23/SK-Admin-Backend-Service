@@ -131,6 +131,7 @@ exports.Prisma.AdminUserScalarFieldEnum = {
 
 exports.Prisma.FormSubmissionScalarFieldEnum = {
   id: 'id',
+  idempotencyKey: 'idempotencyKey',
   legacyId: 'legacyId',
   formType: 'formType',
   skPassportNo: 'skPassportNo',

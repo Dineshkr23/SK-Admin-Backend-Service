@@ -1,7 +1,10 @@
 import {
   Body,
   Controller,
+  Get,
+  Headers,
   Post,
+  Query,
   UseInterceptors,
   UploadedFiles,
 } from '@nestjs/common';
@@ -12,7 +15,7 @@ import { CreateFormSubmissionDto } from './dto/create-form-submission.dto';
 
 @Controller('form-submissions')
 export class FormSubmissionsController {
-  constructor(private readonly service: FormSubmissionsService) {}
+  constructor(private readonly service: FormSubmissionsService) { }
 
   @Public()
   @Post()
@@ -29,6 +32,7 @@ export class FormSubmissionsController {
   )
   async create(
     @Body() body: CreateFormSubmissionDto & { data?: string },
+    @Headers('idempotency-key') idempotencyKey?: string,
     @UploadedFiles()
     files?: {
       photoProof?: Express.Multer.File[];
@@ -39,12 +43,22 @@ export class FormSubmissionsController {
   ) {
     const dto: CreateFormSubmissionDto =
       typeof body?.data === 'string' ? JSON.parse(body.data) : body;
-    const result = await this.service.create(dto, {
-      photoProof: files?.photoProof,
-      idProof: files?.idProof,
-      idProofBack: files?.idProofBack,
-      panProof: files?.panProof,
-    });
+    const result = await this.service.create(
+      dto,
+      idempotencyKey,
+      {
+        photoProof: files?.photoProof,
+        idProof: files?.idProof,
+        idProofBack: files?.idProofBack,
+        panProof: files?.panProof,
+      },
+    );
     return { id: result.id, skPassportNo: result.skPassportNo };
+  }
+
+  @Public()
+  @Get('phone-status')
+  async phoneStatus(@Query('phone') phone = '') {
+    return this.service.getPhoneStatus(phone);
   }
 }

@@ -19,6 +19,7 @@ model AdminUser {
 
 model FormSubmission {
   id                    String    @id @default(uuid())
+  idempotencyKey        String?   @unique
   legacyId              Int?
   formType              String    // enum: FORM_A, FORM_B, etc. or registration, etc.
   skPassportNo          String?
