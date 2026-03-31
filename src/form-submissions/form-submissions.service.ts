@@ -47,6 +47,44 @@ function isUniqueConstraintError(error: unknown, fieldName: string): boolean {
   return target.some((entry) => String(entry).includes(fieldName));
 }
 
+/** P2002 on skPassportSeq (Prisma meta shape varies with driver adapters). */
+function isSkPassportSeqConstraintError(error: unknown): boolean {
+  if (!error || typeof error !== 'object') {
+    return false;
+  }
+  const code =
+    'code' in error && typeof (error as { code?: unknown }).code === 'string'
+      ? (error as { code: string }).code
+      : '';
+  if (code !== 'P2002') {
+    return false;
+  }
+  const meta =
+    'meta' in error && typeof (error as { meta?: unknown }).meta === 'object'
+      ? ((error as { meta?: Record<string, unknown> }).meta ?? {})
+      : {};
+  const target = Array.isArray(meta.target)
+    ? meta.target
+    : typeof meta.target === 'string'
+      ? [meta.target]
+      : [];
+  if (target.some((entry) => String(entry).includes('skPassportSeq'))) {
+    return true;
+  }
+  const driverAdapterError = meta.driverAdapterError as
+    | { cause?: { constraint?: { fields?: string[] } } }
+    | undefined;
+  const fields = driverAdapterError?.cause?.constraint?.fields;
+  if (Array.isArray(fields)) {
+    return fields.some((f) => String(f).includes('skPassportSeq'));
+  }
+  const msg = String((error as Error).message ?? '');
+  return (
+    msg.includes('skPassportSeq') ||
+    msg.includes('FormSubmission_skPassportSeq_key')
+  );
+}
+
 @Injectable()
 export class FormSubmissionsService {
   constructor(
@@ -58,16 +96,33 @@ export class FormSubmissionsService {
     return `SK${seq.toString().padStart(6, '0')}`;
   }
 
+  /**
+   * Atomically allocate the next passport sequence in one UPDATE (row-locked),
+   * reconciling with `MAX(FormSubmission.skPassportSeq)` so counters never
+   * reuse a seq already present in the table (legacy imports / drift).
+   */
   private async allocateNextSkPassport(
     tx: Prisma.TransactionClient,
   ): Promise<{ seq: bigint; passportNo: string }> {
-    const counter = await tx.passportCounter.upsert({
-      where: { key: 'SK' },
-      create: { key: 'SK', lastIssued: 1n },
-      update: { lastIssued: { increment: 1 } },
-      select: { lastIssued: true },
-    });
-    const seq = counter.lastIssued;
+    const rows = await tx.$queryRawUnsafe<{ lastIssued: bigint }[]>(
+      `UPDATE "PassportCounter"
+       SET "lastIssued" = GREATEST(
+         "PassportCounter"."lastIssued",
+         COALESCE(
+           (SELECT MAX("skPassportSeq") FROM "FormSubmission" WHERE "skPassportSeq" IS NOT NULL),
+           0
+         )
+       ) + 1,
+       "updatedAt" = CURRENT_TIMESTAMP
+       WHERE "key" = 'SK'
+       RETURNING "lastIssued"`,
+    );
+    if (!rows.length) {
+      throw new Error(
+        'Passport counter row missing (key=SK). Run migrations that seed PassportCounter.',
+      );
+    }
+    const seq = BigInt(rows[0].lastIssued);
     return { seq, passportNo: this.formatSkPassportNo(seq) };
   }
 
@@ -136,13 +191,73 @@ export class FormSubmissionsService {
       dto.reporting_manager_name,
     );
 
-    try {
-      return await this.prisma.$transaction(async (tx) => {
-        const passport = generatePassport
-          ? await this.allocateNextSkPassport(tx)
-          : null;
+    const tryCreateOnce = async () => {
+      try {
+        return await this.runCreateSubmissionTransaction(
+          submissionId,
+          dto,
+          idempotencyKey,
+          generatePassport,
+          photoProofPath,
+          idProofPath,
+          idProofBackPath,
+          panProofPath,
+          salesOfficerName,
+          reportingManagerName,
+        );
+      } catch (error) {
+        if (idempotencyKey && isUniqueConstraintError(error, 'idempotencyKey')) {
+          const existingByKey = await this.prisma.formSubmission.findUnique({
+            where: { idempotencyKey },
+          });
+          if (existingByKey) {
+            return existingByKey;
+          }
+        }
+        if (isUniqueConstraintError(error, 'pi_phone')) {
+          throw new ConflictException('Phone number already registered.');
+        }
+        throw error;
+      }
+    };
 
-        const data = {
+    if (generatePassport) {
+      let lastError: unknown;
+      for (let attempt = 0; attempt < 12; attempt++) {
+        try {
+          return await tryCreateOnce();
+        } catch (error) {
+          lastError = error;
+          if (isSkPassportSeqConstraintError(error) && attempt < 11) {
+            continue;
+          }
+          throw error;
+        }
+      }
+      throw lastError;
+    }
+
+    return await tryCreateOnce();
+  }
+
+  private async runCreateSubmissionTransaction(
+    submissionId: string,
+    dto: CreateFormSubmissionDto,
+    idempotencyKey: string | undefined,
+    generatePassport: boolean,
+    photoProofPath: string | null,
+    idProofPath: string | null,
+    idProofBackPath: string | null,
+    panProofPath: string | null,
+    salesOfficerName: string | null | undefined,
+    reportingManagerName: string | null | undefined,
+  ) {
+    return this.prisma.$transaction(async (tx) => {
+      const passport = generatePassport
+        ? await this.allocateNextSkPassport(tx)
+        : null;
+
+      const data = {
           id: submissionId,
           idempotencyKey: idempotencyKey ?? null,
           formType: dto.formType,
@@ -240,21 +355,7 @@ export class FormSubmissionsService {
         };
 
         return tx.formSubmission.create({ data });
-      });
-    } catch (error) {
-      if (idempotencyKey && isUniqueConstraintError(error, 'idempotencyKey')) {
-        const existingByKey = await this.prisma.formSubmission.findUnique({
-          where: { idempotencyKey },
-        });
-        if (existingByKey) {
-          return existingByKey;
-        }
-      }
-      if (isUniqueConstraintError(error, 'pi_phone')) {
-        throw new ConflictException('Phone number already registered.');
-      }
-      throw error;
-    }
+    });
   }
 
   async getPhoneStatus(phone: string): Promise<{ exists: boolean }> {
