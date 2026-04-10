@@ -29,7 +29,7 @@ export class AdminController {
   }
 
   @Post('export')
-  @Roles('ADMIN')
+  @Roles('ADMIN', 'DOC_MANAGER')
   async exportToExcel(
     @Body() dto: ListSubmissionsQueryDto,
     @Res() res: Response,

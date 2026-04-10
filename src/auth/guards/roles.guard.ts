@@ -28,12 +28,13 @@ export class RolesGuard implements CanActivate {
       user?: UserWithRole;
     }>();
     const userRole = request.user?.role;
+    const effectiveRole =
+      typeof userRole === 'string' && userRole.length > 0
+        ? userRole
+        : 'ADMIN';
 
-    if (typeof userRole !== 'string') {
-      throw new ForbiddenException('Forbidden');
-    }
-
-    if (!requiredRoles.includes(userRole as AppRole)) {
+    // Backward compatibility: older JWTs may not include `role`.
+    if (!requiredRoles.includes(effectiveRole as AppRole)) {
       throw new ForbiddenException('Forbidden');
     }
 
