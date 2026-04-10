@@ -1,57 +1,80 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import Redis from 'ioredis';
+import { createHash } from 'crypto';
 
-const OTP_PREFIX = 'otp:';
-const DIGITS = 6;
+const XECURIFY_CHALLENGE_URL =
+  'https://login.xecurify.com/moas/api/auth/challenge';
+const XECURIFY_VALIDATE_URL =
+  'https://login.xecurify.com/moas/api/auth/validate';
 
 @Injectable()
 export class OtpService {
-  private readonly redis: Redis;
-  private readonly ttlSeconds: number;
-  private readonly whatsappApiUrl: string;
+  private readonly logger = new Logger(OtpService.name);
+  private readonly customerKey: string;
+  private readonly apiKey: string;
 
   constructor(private readonly config: ConfigService) {
-    const url = this.config.get<string>('redis.url') ?? 'redis://localhost:6379';
-    this.redis = new Redis(url);
-    this.ttlSeconds = this.config.get<number>('otp.ttlSeconds') ?? 600;
-    this.whatsappApiUrl =
-      this.config.get<string>('otp.whatsappApiUrl') ??
-      'https://adminapis.backendprod.com/lms_campaign/api/whatsapp/template/g1b95xhmc7/process';
+    this.customerKey = this.config.get<string>('otp.xecurifyCustomerKey') ?? '';
+    this.apiKey = this.config.get<string>('otp.xecurifyApiKey') ?? '';
   }
 
-  generateCode(): string {
-    let code = '';
-    for (let i = 0; i < DIGITS; i++) {
-      code += Math.floor(Math.random() * 10).toString();
-    }
-    return code;
+  private buildAuthHeaders(): Record<string, string> {
+    const timestamp = Date.now().toString();
+    const authorization = createHash('sha512')
+      .update(this.customerKey + timestamp + this.apiKey)
+      .digest('hex')
+      .toLowerCase();
+
+    return {
+      'Content-Type': 'application/json',
+      'Customer-Key': this.customerKey,
+      Timestamp: timestamp,
+      Authorization: authorization,
+    };
   }
 
-  private key(receiver: string): string {
-    return `${OTP_PREFIX}${receiver}`;
-  }
-
-  async sendOtp(receiver: string): Promise<{ success: boolean; message?: string }> {
-    const code = this.generateCode();
-    const k = this.key(receiver);
-    await this.redis.setex(k, this.ttlSeconds, code);
+  async sendOtp(
+    receiver: string,
+  ): Promise<{ success: boolean; txId?: string; message?: string }> {
+    const phone = `91${receiver.replace(/\D/g, '').slice(-10)}`;
+    const headers = this.buildAuthHeaders();
+    const payload = {
+      customerKey: this.customerKey,
+      phone,
+      authType: 'SMS',
+      transactionName: 'CUSTOM-OTP-VERIFICATION',
+    };
 
     try {
-      const res = await fetch(this.whatsappApiUrl, {
+      const res = await fetch(XECURIFY_CHALLENGE_URL, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          receiver: receiver,
-          values: { '1': code },
-        }),
+        headers,
+        body: JSON.stringify(payload),
       });
-      if (!res.ok) {
-        const text = await res.text();
-        return { success: false, message: `OTP send failed: ${res.status} ${text}` };
+
+      const body = await res.json().catch(() => null);
+
+      if (!res.ok || !body) {
+        this.logger.error(
+          `Xecurify challenge failed: ${res.status} ${JSON.stringify(body)}`,
+        );
+        return {
+          success: false,
+          message: 'Unable to send OTP. Please try again.',
+        };
       }
-      return { success: true };
+
+      if (body.status === 'SUCCESS' && body.txId) {
+        return { success: true, txId: body.txId };
+      }
+
+      this.logger.warn(`Xecurify challenge unexpected response: ${JSON.stringify(body)}`);
+      return {
+        success: false,
+        message: body.message || 'Unable to send OTP. Please try again.',
+      };
     } catch (e) {
+      this.logger.error('Xecurify challenge error', e);
       return {
         success: false,
         message: e instanceof Error ? e.message : 'OTP send failed',
@@ -59,15 +82,43 @@ export class OtpService {
     }
   }
 
-  async validateOtp(receiver: string, code: string): Promise<boolean> {
-    const k = this.key(receiver);
-    const stored = await this.redis.get(k);
-    if (!stored || stored !== code) return false;
-    await this.redis.del(k);
-    return true;
-  }
+  async validateOtp(
+    txId: string,
+    token: string,
+  ): Promise<{ valid: boolean; message?: string }> {
+    const headers = this.buildAuthHeaders();
+    const payload = { txId, token };
 
-  async onModuleDestroy() {
-    await this.redis.quit();
+    try {
+      const res = await fetch(XECURIFY_VALIDATE_URL, {
+        method: 'POST',
+        headers,
+        body: JSON.stringify(payload),
+      });
+
+      const body = await res.json().catch(() => null);
+
+      if (!res.ok || !body) {
+        this.logger.error(
+          `Xecurify validate failed: ${res.status} ${JSON.stringify(body)}`,
+        );
+        return { valid: false, message: 'OTP validation failed.' };
+      }
+
+      if (body.status === 'SUCCESS') {
+        return { valid: true };
+      }
+
+      return {
+        valid: false,
+        message: body.message || 'Invalid OTP. Please try again.',
+      };
+    } catch (e) {
+      this.logger.error('Xecurify validate error', e);
+      return {
+        valid: false,
+        message: e instanceof Error ? e.message : 'OTP validation failed',
+      };
+    }
   }
 }

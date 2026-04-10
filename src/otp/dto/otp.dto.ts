@@ -1,18 +1,17 @@
-import { IsNotEmpty, IsString, Matches } from 'class-validator';
+import { IsNotEmpty, IsString } from 'class-validator';
 
 export class SendOtpDto {
   @IsString()
   @IsNotEmpty()
-  receiver: string; // customer mobile number
+  receiver: string;
 }
 
 export class ValidateOtpDto {
   @IsString()
   @IsNotEmpty()
-  receiver: string;
+  txId: string;
 
   @IsString()
   @IsNotEmpty()
-  @Matches(/^\d{6}$/, { message: 'OTP must be 6 digits' })
-  code: string;
+  token: string;
 }

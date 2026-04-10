@@ -11,10 +11,8 @@ export default () => ({
     expiresIn: process.env.JWT_EXPIRES_IN ?? '7d',
   },
   otp: {
-    whatsappApiUrl:
-      process.env.OTP_WHATSAPP_API_URL ??
-      'https://adminapis.backendprod.com/lms_campaign/api/whatsapp/template/g1b95xhmc7/process',
-    ttlSeconds: parseInt(process.env.OTP_TTL_SECONDS ?? '600', 10),
+    xecurifyCustomerKey: process.env.XECURIFY_CUSTOMER_KEY ?? '',
+    xecurifyApiKey: process.env.XECURIFY_API_KEY ?? '',
   },
   // MinIO (S3-compatible) – use S3_ENDPOINT; for AWS leave S3_ENDPOINT unset
   s3: {

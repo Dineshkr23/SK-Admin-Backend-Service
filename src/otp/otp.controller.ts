@@ -16,7 +16,6 @@ export class OtpController {
   @Public()
   @Post('validate')
   async validate(@Body() dto: ValidateOtpDto) {
-    const valid = await this.otpService.validateOtp(dto.receiver, dto.code);
-    return { valid };
+    return this.otpService.validateOtp(dto.txId, dto.token);
   }
 }
